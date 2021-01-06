@@ -9,13 +9,13 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>bada_proi</groupId>
-	<artifactId>DomKultury</artifactId>
+	<artifactId>CulturalCenter</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>DomKultury</name>
+	<name>CulturalCenter</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>8</java.version>
 	</properties>
 
 	<dependencies>
