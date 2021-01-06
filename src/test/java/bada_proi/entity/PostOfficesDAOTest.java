@@ -4,6 +4,7 @@ import bada_proi.ProjectConstants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import java.util.List;
@@ -26,7 +27,8 @@ class PostOfficesDAOTest {
     @Test
     void list() {
         List<PostOffice> postOfficeList = dao.list();
-        assertTrue(postOfficeList.isEmpty());
+        System.out.println(postOfficeList);
+        assertFalse(postOfficeList.isEmpty());
     }
 
     @Test

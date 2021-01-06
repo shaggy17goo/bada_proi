@@ -1,25 +1,25 @@
 package bada_proi.entity;
 
 public class PostOffice {
-    private int id;
+    private int postOfficeId;
     private String code;
     private String city;
 
     public PostOffice() {
     }
 
-    public PostOffice(int id, String code, String city) {
-        this.id = id;
+    public PostOffice(int postOfficeId, String code, String city) {
+        this.postOfficeId = postOfficeId;
         this.code = code;
         this.city = city;
     }
 
-    public int getId() {
-        return id;
+    public int getPostOfficeId() {
+        return postOfficeId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPostOfficeId(int postOfficeId) {
+        this.postOfficeId = postOfficeId;
     }
 
     public String getCode() {
@@ -41,9 +41,9 @@ public class PostOffice {
     @Override
     public String toString() {
         return "PostOffice{" +
-                "id=" + id +
+                "id=" + postOfficeId +
                 ", code='" + code + '\'' +
                 ", city='" + city + '\'' +
-                '}';
+                '}'+ '\n';
     }
 }

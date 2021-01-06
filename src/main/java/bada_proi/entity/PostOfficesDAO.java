@@ -8,10 +8,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class PostOfficesDAO {
+public class PostOfficesDAO {//[DAO] Data Access Object – komponent dostarczający jednolity interfejs do komunikacji między aplikacją a źródłem danych
 
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     public PostOfficesDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -21,8 +21,7 @@ public class PostOfficesDAO {
      * @return list of post offices got from database
      */
     public List<PostOffice> list() {
-        String sql = "SELECT * FROM POCZTY";
-        //List<PostOffice> postOfficeList = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(PostOffice.class));
+        String sql = "SELECT * FROM POSTOFFICES";
         return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(PostOffice.class));
     }
 
