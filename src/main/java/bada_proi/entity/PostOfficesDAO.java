@@ -3,6 +3,8 @@ package bada_proi.entity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -28,7 +30,10 @@ public class PostOfficesDAO {//[DAO] Data Access Object – komponent dostarczaj
     // CRUD methods
     /** Insert */
     public void save(PostOffice postOffice){
-
+        SimpleJdbcInsert insertActor = new SimpleJdbcInsert(jdbcTemplate);
+        insertActor.withTableName("postOffices").usingColumns("postOfficeId","code","city");
+        BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(postOffice);
+        insertActor.execute(param);
     }
     /** Read */
     public PostOffice get(int id){

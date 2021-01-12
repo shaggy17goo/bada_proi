@@ -33,6 +33,9 @@ class PostOfficesDAOTest {
 
     @Test
     void save() {
+        PostOffice postOffice = new PostOffice(0,"00-000", "Test");
+        dao.save(postOffice);
+
     }
 
     @Test
