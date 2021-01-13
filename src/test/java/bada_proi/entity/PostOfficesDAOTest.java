@@ -40,10 +40,19 @@ class PostOfficesDAOTest {
 
     @Test
     void get() {
+        int id = 42;
+        PostOffice postOffice = dao.get(id);
+        System.out.println(postOffice);
+        assertNotNull(postOffice);
     }
 
     @Test
     void update() {
+        PostOffice postOffice = new PostOffice();
+        postOffice.setPostOfficeId(42);
+        postOffice.setCity("Test update");
+        postOffice.setCode("00-004");
+        dao.update(postOffice);
     }
 
     @Test

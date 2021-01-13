@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -21,16 +23,30 @@ public class AppController {
         model.addAttribute("postOfficeList",postOfficeList);
         return "index";
     }
-    @RequestMapping("/new")
-    public String showNewOfficeForm(Model model){
+    @RequestMapping("/newPostOffice")
+    public String showNewPostOfficeForm(Model model){
         PostOffice postOffice = new PostOffice();
         model.addAttribute("postOffice",postOffice);
 
-        return "newOfficeForm";
+        return "newPostOfficeForm";
     }
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(@ModelAttribute("postOffice") PostOffice postOffice){
+    @RequestMapping(value = "/savePostOffice", method = RequestMethod.POST)
+    public String savePostOffice(@ModelAttribute("postOffice") PostOffice postOffice){
         postOfficesDAO.save(postOffice);
+
+        return "redirect:/";
+    }
+    @RequestMapping("/editPostOfficeForm/{postOfficeId}")
+    public ModelAndView showPostOfficeEditForm(@PathVariable(name = "postOfficeId") int id){
+        ModelAndView mav = new ModelAndView("editPostOfficeForm");
+        PostOffice postOffice = postOfficesDAO.get(id);
+        mav.addObject("postOffice",postOffice);
+
+        return mav;
+    }
+    @RequestMapping(value = "/updatePostOffice", method = RequestMethod.POST)
+    public String updatePostOffice(@ModelAttribute(name = "postOffice") PostOffice postOffice){
+        postOfficesDAO.update(postOffice);
 
         return "redirect:/";
     }

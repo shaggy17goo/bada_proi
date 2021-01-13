@@ -44,6 +44,6 @@ public class PostOffice {
                 "id=" + postOfficeId +
                 ", code='" + code + '\'' +
                 ", city='" + city + '\'' +
-                '}'+ '\n';
+                '}' + '\n';
     }
 }

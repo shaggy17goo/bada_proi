@@ -11,8 +11,8 @@
         <h1>Post Offices Records</h1>
 
     <!-- New Page -->
-    <a href="/new">Enter new post office</a>
-
+    <a href="/newPostOffice">Enter new post office</a>
+    <br/><br/>
     <!-- Table -->
     <table border="1" cellpadding="10" align="center">
         <thead>
@@ -28,6 +28,9 @@
                 <td th:text = "${postOffice.postOfficeId}">Post office ID</td>
                 <td th:text = "${postOffice.code}">Code</td>
                 <td th:text = "${postOffice.city}">City</td>
+                <td>
+                    <a th:href="@{'/editPostOfficeForm/' + ${postOffice.postOfficeId}}">Edit</a>
+                </td>
             </tr>
         </tbody>
     </table>

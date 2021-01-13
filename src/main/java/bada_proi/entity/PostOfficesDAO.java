@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
@@ -37,11 +38,16 @@ public class PostOfficesDAO {//[DAO] Data Access Object – komponent dostarczaj
     }
     /** Read */
     public PostOffice get(int id){
-        return null;
+        Object[] args = {id};
+        String sql = "SELECT * FROM POSTOFFICES WHERE postOfficeId = " + args[0];
+        return jdbcTemplate.queryForObject(sql,BeanPropertyRowMapper.newInstance(PostOffice.class));
     }
     /** Update */
     public void update(PostOffice postOffice){
-
+        String sql = "UPDATE POSTOFFICES SET code=:code, city=:city WHERE postOfficeId=:postOfficeId";
+        BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(postOffice);
+        NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(jdbcTemplate);
+        template.update(sql,param);
     }
     /** Delete */
     public void delete(int id){
