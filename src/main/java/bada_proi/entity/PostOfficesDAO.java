@@ -51,6 +51,7 @@ public class PostOfficesDAO {//[DAO] Data Access Object – komponent dostarczaj
     }
     /** Delete */
     public void delete(int id){
-
+        String sql = "DELETE FROM POSTOFFICES WHERE postOfficeId = ?";
+        jdbcTemplate.update(sql,id);
     }
 }

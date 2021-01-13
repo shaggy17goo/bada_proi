@@ -50,4 +50,10 @@ public class AppController {
 
         return "redirect:/";
     }
+    @RequestMapping("/deletePostOffice/{postOfficeId}")
+    public String deletePostOffice(@ModelAttribute(name = "postOfficeId") int id){
+        postOfficesDAO.delete(id);
+
+        return "redirect:/";
+    }
 }

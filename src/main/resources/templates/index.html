@@ -20,7 +20,7 @@
             <th>Post office ID</th>
             <th>Code</th>
             <th>City</th>
-            <th>Action</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -30,6 +30,8 @@
                 <td th:text = "${postOffice.city}">City</td>
                 <td>
                     <a th:href="@{'/editPostOfficeForm/' + ${postOffice.postOfficeId}}">Edit</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <a th:href="@{'/deletePostOffice/' + ${postOffice.postOfficeId}}">Delete</a>
                 </td>
             </tr>
         </tbody>

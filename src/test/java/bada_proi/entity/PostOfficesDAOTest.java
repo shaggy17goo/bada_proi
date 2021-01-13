@@ -57,5 +57,7 @@ class PostOfficesDAOTest {
 
     @Test
     void delete() {
+        int id = 102;
+        dao.delete(id);
     }
 }
