@@ -25,7 +25,7 @@ public class ParticipantDAO {
     }
 
     /**
-     * @return list of post offices got from database
+     * @return list of participants got from database
      */
     public List<Participant> list() {
         String sql = "SELECT * FROM PARTICIPANTS";
@@ -55,7 +55,7 @@ public class ParticipantDAO {
     }
     /** Delete */
     public void delete(int id){
-        String sql = "DELETE FROM POSTOFFICES WHERE postOfficeId = ?";
+        String sql = "DELETE FROM PARTICIPANTS WHERE participantId = ?";
         jdbcTemplate.update(sql,id);
     }
 }
