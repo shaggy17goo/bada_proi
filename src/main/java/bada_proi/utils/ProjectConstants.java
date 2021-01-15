@@ -1,4 +1,4 @@
-package bada_proi;
+package bada_proi.utils;
 
 public class ProjectConstants {
 

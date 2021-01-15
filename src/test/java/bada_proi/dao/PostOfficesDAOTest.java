@@ -1,10 +1,10 @@
-package bada_proi.entity;
+package bada_proi.dao;
 
-import bada_proi.ProjectConstants;
+import bada_proi.utils.ProjectConstants;
+import bada_proi.entity.PostOffice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import java.util.List;
