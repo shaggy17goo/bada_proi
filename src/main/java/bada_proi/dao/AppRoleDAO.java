@@ -28,7 +28,7 @@ public class AppRoleDAO {
         String sql = "SELECT approles.roleid,approles.rolename\n" +
                 "FROM (( approles_appusers\n" +
                 "INNER JOIN approles ON  approles_appusers.roleid = approles.roleid)\n" +
-                "INNER JOIN appusers ON  approles_appusers.roleid = appusers.userid)\n" +
+                "INNER JOIN appusers ON  approles_appusers.userid = appusers.userid)\n" +
                 "WHERE appusers.userid = " + args[0];
         return jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(AppRole.class));
     }
@@ -38,7 +38,7 @@ public class AppRoleDAO {
         String sql = "SELECT approles.roleid,approles.rolename\n" +
                 "FROM (( approles_appusers\n" +
                 "INNER JOIN approles ON  approles_appusers.roleid = approles.roleid)\n" +
-                "INNER JOIN appusers ON  approles_appusers.roleid = appusers.userid)\n" +
+                "INNER JOIN appusers ON  approles_appusers.userid = appusers.userid)\n" +
                 "WHERE appusers.userid = " + args[0];
         return jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(AppRole.class));
     }

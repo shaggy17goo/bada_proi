@@ -81,7 +81,6 @@ public class AppController {
 
         String userInfo = WebUtils.toString(loginedUser);
         model.addAttribute("userInfo", userInfo);
-
         return "adminPage";
     }
 
@@ -97,13 +96,25 @@ public class AppController {
         return "logoutSuccessfulPage";
     }
 
-    @RequestMapping(value = "/userAccountInfo", method = RequestMethod.GET)
+    @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
     public String userInfo(Model model, Principal principal) {
 
         // After user login successfully.
         String userName = principal.getName();
 
-        System.out.println("User Name: " + userName);
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+
+        String userInfo = WebUtils.toString(loginedUser);
+        model.addAttribute("userInfo", userInfo);
+
+        return "userInfoPage";
+    }
+
+    @RequestMapping(value = "/userAccountInfo", method = RequestMethod.GET)
+    public String userAccountInfo(Model model, Principal principal) {
+
+        // After user login successfully.
+        String userName = principal.getName();
 
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
 
