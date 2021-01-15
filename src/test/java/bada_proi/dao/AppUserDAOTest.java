@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 class AppUserDAOTest {
 
@@ -25,17 +27,20 @@ class AppUserDAOTest {
 
     @Test
     void list() {
+        List<AppUser> appUserList = dao.list();
+        System.out.println(appUserList);
+        assertFalse(appUserList.isEmpty());
     }
 
     @Test
     void save() {
-        //AppUser appUser = new AppUser(4,"user2","$2a$10$8HS4jDGmmkBiO9m9Vck0xOFxwlVQHKtcsAa.L5RUo5jI2bBrvPwde",0,null,null,null);
-        //dao.save(appUser);
+        AppUser appUser = new AppUser(5,"test2","$2a$10$8HS4jDGmmkBiO9m9Vck0xOFxwlVQHKtcsAa.L5RUo5jI2bBrvPwde",0,null,null,null);
+        dao.save(appUser);
     }
 
     @Test
     void get() {
-        int id = 1;
+        int id = 6;
         //String username = "user1";
         AppUser appUser = dao.get(id);
         System.out.println(appUser);

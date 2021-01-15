@@ -1,5 +1,6 @@
 package bada_proi;
 
+import bada_proi.dao.AppUserDAO;
 import bada_proi.dao.PostOfficesDAO;
 import bada_proi.entity.*;
 import bada_proi.utils.WebUtils;
@@ -21,6 +22,8 @@ import java.util.List;
 public class AppController{
     @Autowired
     private PostOfficesDAO postOfficesDAO;
+    @Autowired
+    private AppUserDAO appUserDAO;
 
     /*@RequestMapping("/")
     public String viewHomePage(Model model){
@@ -88,6 +91,18 @@ public class AppController{
     public String loginPage(Model model) {
 
         return "loginPage";
+    }
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String registerPage(Model model) {
+        AppUser appUser = new AppUser();
+        model.addAttribute("appUser",appUser);
+        return "newUserFormPage";
+    }
+    @RequestMapping(value = "/saveNewUser", method = RequestMethod.POST)
+    public String saveNewUser(@ModelAttribute("appUser") AppUser appUser){
+        appUserDAO.save(appUser);
+
+        return "redirect:/";
     }
     @RequestMapping(value = "/menu", method = RequestMethod.GET)
     public String menuBar(Model model) {

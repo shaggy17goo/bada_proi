@@ -1,5 +1,6 @@
 package bada_proi.entity;
 
+import bada_proi.utils.EncryptedPassword;
 import org.springframework.lang.Nullable;
 
 public class AppUser {
@@ -13,6 +14,7 @@ public class AppUser {
     private Integer guardianId;
     @Nullable
     private Integer employeeId;
+    private String password;
 
     public AppUser() {
     }
@@ -25,6 +27,16 @@ public class AppUser {
         this.participantId = participantId;
         this.guardianId = guardianId;
         this.employeeId = employeeId;
+    }
+
+    public AppUser(String username, String password) {
+        this.userId = 1;
+        this.username = username;
+        this.encryptedPassword = EncryptedPassword.encryptPassword(password);
+        this.enabled = 0;
+        this.participantId = null;
+        this.guardianId = null;
+        this.employeeId = null;
     }
 
     public int getUserId() {
@@ -61,6 +73,14 @@ public class AppUser {
 
     public Integer getParticipantId() {
         return participantId;
+    }
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+        this.encryptedPassword = EncryptedPassword.encryptPassword(password);
     }
 
     public void setParticipantId(Integer participantId) {
