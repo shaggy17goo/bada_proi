@@ -47,9 +47,9 @@ public class CulturalCenterDAO {//[DAO] Data Access Object – komponent dostarc
     }
     /** Update */
     public void update(CulturalCenter culturalCenter){
-        String sql = "UPDATE CULTURALCENTERS SET name=:name, establishDate=:establishDate" +
-                "phoneNumber:=phoneNumber, description:=description, accountNumber:=accountNumber," +
-                "addressId:=addressId WHERE culturalCenterId=:culturalCenterId";
+        String sql = "UPDATE CULTURALCENTERS SET name=:name, establishDate=:establishDate," +
+                "phoneNumber=:phoneNumber, description=:description, accountNumber=:accountNumber," +
+                "addressId=:addressId WHERE culturalCenterId=:culturalCenterId";
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(culturalCenter);
         NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(jdbcTemplate);
         template.update(sql,param);
