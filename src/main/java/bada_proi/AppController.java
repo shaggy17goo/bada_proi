@@ -18,7 +18,7 @@ import java.security.Principal;
 import java.util.List;
 
 @Controller
-public class AppController {
+public class AppController{
     @Autowired
     private PostOfficesDAO postOfficesDAO;
 
@@ -67,7 +67,7 @@ public class AppController {
      * Copied from website
      */
 
-    @RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/", "/welcome","/CulturalCenter-0.0.1-SNAPSHOT" }, method = RequestMethod.GET)
     public String welcomePage(Model model) {
         model.addAttribute("title", "Welcome");
         model.addAttribute("message", "This is welcome page!");
@@ -88,6 +88,17 @@ public class AppController {
     public String loginPage(Model model) {
 
         return "loginPage";
+    }
+    @RequestMapping(value = "/menu", method = RequestMethod.GET)
+    public String menuBar(Model model) {
+
+        return "menu";
+    }
+
+    @RequestMapping(value = "/error", method = RequestMethod.GET)
+    public String errorPage(Model model) {
+
+        return "welcomePage";
     }
 
     @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)

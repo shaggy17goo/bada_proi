@@ -13,8 +13,8 @@
 	</parent>
 	<!--<groupId>bada_proi</groupId>-->
 	<!--<artifactId>CulturalCenter</artifactId>-->
-	<groupId>org.o7planning</groupId>
-	<artifactId>SbSecurityJdbcThymeleaf</artifactId>
+	<groupId>CulturalCenter</groupId>
+	<artifactId>CulturalCenter</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>CulturalCenter</name>
@@ -66,16 +66,16 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency> <!-- OK -->
-			<groupId>com.oracle</groupId>
+		<dependency>
+			<groupId>com.oracle.database.jdbc</groupId>
 			<artifactId>ojdbc8</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>C:/Users/Pawelek/OneDrive - Politechnika Warszawska/Studia/Semestr 3/BADA/Projekt/Aplikacja/ojdbc8.jar</systemPath>
+			<version>19.9.0.0</version>
 		</dependency>
 
 
+
 	</dependencies>
+
 
 	<build>
 		<plugins>
