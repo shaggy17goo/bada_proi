@@ -1,6 +1,6 @@
 package bada_proi;
 
-import bada_proi.dao.PostOfficesDAO;
+import bada_proi.dao.PostOfficeDAO;
 import bada_proi.entity.*;
 import bada_proi.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
-import java.util.List;
 
 @Controller
 public class AppController{
     @Autowired
-    private PostOfficesDAO postOfficesDAO;
+    private PostOfficeDAO postOfficeDAO;
 
     /*@RequestMapping("/")
     public String viewHomePage(Model model){
@@ -37,27 +36,27 @@ public class AppController{
     }
     @RequestMapping(value = "/savePostOffice", method = RequestMethod.POST)
     public String savePostOffice(@ModelAttribute("postOffice") PostOffice postOffice){
-        postOfficesDAO.save(postOffice);
+        postOfficeDAO.save(postOffice);
 
         return "redirect:/";
     }
     @RequestMapping("/editPostOfficeForm/{postOfficeId}")
     public ModelAndView showPostOfficeEditForm(@PathVariable(name = "postOfficeId") int id){
         ModelAndView mav = new ModelAndView("editPostOfficeForm");
-        PostOffice postOffice = postOfficesDAO.get(id);
+        PostOffice postOffice = postOfficeDAO.get(id);
         mav.addObject("postOffice",postOffice);
 
         return mav;
     }
     @RequestMapping(value = "/updatePostOffice", method = RequestMethod.POST)
     public String updatePostOffice(@ModelAttribute(name = "postOffice") PostOffice postOffice){
-        postOfficesDAO.update(postOffice);
+        postOfficeDAO.update(postOffice);
 
         return "redirect:/";
     }
     @RequestMapping("/deletePostOffice/{postOfficeId}")
     public String deletePostOffice(@ModelAttribute(name = "postOfficeId") int id){
-        postOfficesDAO.delete(id);
+        postOfficeDAO.delete(id);
 
         return "redirect:/";
     }
