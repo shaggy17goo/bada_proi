@@ -2,14 +2,16 @@ package bada_proi.entity;
 
 import org.springframework.lang.Nullable;
 
+import java.sql.Date;
+
 public class Participant {
     private int participantId;
     private String name;
     private String surname;
-    private String date; //TODO check if date type works
+    private Date birthDate; //TODO check if date type works
     @Nullable
     private String pesel;
-    private Gender gender;
+    private String gender;
     private String phoneNumber;
     @Nullable
     private String email;
@@ -18,11 +20,11 @@ public class Participant {
     public Participant() {
     }
 
-    public Participant(int participantId, String name, String surname, String date, @Nullable String pesel, Gender gender, String phoneNumber, @Nullable String email, int addressId) {
+    public Participant(int participantId, String name, String surname, Date birthDate, @Nullable String pesel, String gender, String phoneNumber, @Nullable String email, int addressId) {
         this.participantId = participantId;
         this.name = name;
         this.surname = surname;
-        this.date = date;
+        this.birthDate = birthDate;
         this.pesel = pesel;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
@@ -54,12 +56,12 @@ public class Participant {
         this.surname = surname;
     }
 
-    public String getDate() {
-        return date;
+    public Date getBirthDate() {
+        return birthDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 
     @Nullable
@@ -71,11 +73,11 @@ public class Participant {
         this.pesel = pesel;
     }
 
-    public Gender getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
@@ -102,5 +104,20 @@ public class Participant {
 
     public void setAddressId(int addressId) {
         this.addressId = addressId;
+    }
+
+    @Override
+    public String toString() {
+        return "Participant{" +
+                "participantId=" + participantId +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", birthDate='" + birthDate + '\'' +
+                ", pesel='" + pesel + '\'' +
+                ", gender=" + gender +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", addressId=" + addressId +
+                '}';
     }
 }
