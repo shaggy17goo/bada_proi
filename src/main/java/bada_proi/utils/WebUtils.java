@@ -30,6 +30,19 @@ public class WebUtils {
         }
         return sb.toString();
     }
+
+    public static String getRoleName(User user){
+        Collection<GrantedAuthority> authorities = user.getAuthorities();
+        String temp = "";
+        if (authorities != null && !authorities.isEmpty()) {
+            for (GrantedAuthority a : authorities) {
+                temp = a.getAuthority();
+                }
+            }
+        return temp;
+
+    }
+
     public static String getLoggedUsername(){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 

@@ -4,7 +4,11 @@ import bada_proi.dao.*;
 import bada_proi.entity.*;
 import bada_proi.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Controller
 public class AppController{
@@ -107,7 +114,7 @@ public class AppController{
     public String saveNewUser(@ModelAttribute("appUser") AppUser appUser){
         appUserDAO.save(appUser);
         AppUser tempUser = appUserDAO.get(appUser.getUsername());
-        userRoleDAO.save(new UserRole(tempUser.getUserId(), 4));
+        userRoleDAO.save(new UserRole(tempUser.getUserId(), 1));//FIXME
 
         return "loginPage";
     }
@@ -116,12 +123,12 @@ public class AppController{
 
         return "menu";
     }
-    @RequestMapping(value = "/addInfoPage", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/addInfoPage", method = RequestMethod.GET)
     public String participantFormPage(Model model) {
         Participant participant = new Participant();
         model.addAttribute("participant",participant);
         return "newParticipantForm";
-    }
+    }*/
     @RequestMapping(value = "/saveNewParticipant", method = RequestMethod.POST)
     public String saveNewParticipant(@ModelAttribute("participant") Participant participant){
 
@@ -130,7 +137,18 @@ public class AppController{
         participant.setAddressId(1);//FIXME
         participant.setUserId(tempUser.getUserId());
         participantDAO.save(participant);
-        
+        userRoleDAO.delete(tempUser.getUserId());
+        userRoleDAO.save(new UserRole(tempUser.getUserId(),appRoleDAO.getRoleId("ROLE_PARTICIPANT").getRoleId()));
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        Collection<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
+        updatedAuthorities.add(new SimpleGrantedAuthority("ROLE_PARTICIPANT")); //add your role here [e.g., new SimpleGrantedAuthority("ROLE_NEW_ROLE")]
+
+        Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
+
+
         return "redirect:/";
     }
 
@@ -151,13 +169,25 @@ public class AppController{
 
         // After user login successfully.
         String userName = principal.getName();
+        User loginUser = (User) ((Authentication) principal).getPrincipal();
 
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        String userInfo = WebUtils.toString(loginUser);
+        String userRole = WebUtils.getRoleName(loginUser);
+        switch (userRole) {
+            case "ROLE_USER":
+                Participant participant = new Participant();
+                model.addAttribute("participant", participant);
+                return "newParticipantForm";
+            case "ROLE_PARTICIPANT":
+                return "userInfoPage";
+            case "ROLE_EMPLOYEE":
+                return "userInfoPage";
+            case "ROLE_ADMIN":
+                return "userInfoPage";
+            default:
+                return "loginPage";
+        }
 
-        String userInfo = WebUtils.toString(loginedUser);
-        model.addAttribute("userInfo", userInfo);
-
-        return "userInfoPage";
     }
 
     @RequestMapping(value = "/userAccountInfo", method = RequestMethod.GET)

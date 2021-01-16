@@ -48,4 +48,9 @@ public class UserRoleDAO {//[DAO] Data Access Object – komponent dostarczając
         String sql = "DELETE FROM APPROLES_APPUSERS WHERE (userId = " + userId + " AND roleId = " + roleId+")";
         jdbcTemplate.update(sql);
     }
+    /** Delete */
+    public void delete(int userId){
+        String sql = "DELETE FROM APPROLES_APPUSERS WHERE userId = " + userId;
+        jdbcTemplate.update(sql);
+    }
 }
