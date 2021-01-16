@@ -126,12 +126,11 @@ public class AppController{
     public String saveNewParticipant(@ModelAttribute("participant") Participant participant){
 
         String username = WebUtils.getLoggedUsername();
-        participant.setAddressId(1);
+        AppUser tempUser = appUserDAO.get(username);
+        participant.setAddressId(1);//FIXME
+        participant.setUserId(tempUser.getUserId());
         participantDAO.save(participant);
-        AppUser tempUser = appUserDAO.get(username);//FIXME
-        appUserDAO.update(tempUser);
-
-
+        
         return "redirect:/";
     }
 
