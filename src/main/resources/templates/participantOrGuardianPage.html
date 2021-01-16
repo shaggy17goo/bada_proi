@@ -6,20 +6,21 @@
 </head>
 <body>
 <!-- Include menu.html -->
-<div th:include="menu"></div>
+<div align="center">
+    <div th:include="menu"></div>
 
-<h2>Do you want to add personal information (Required for registration to courses)</h2>
+    <h2>Do you want to add personal information (Required for registration to courses)</h2>
 
-<a th:href="@{/}">No</a>
+    <a th:href="@{/}">No</a>
 
-| &nbsp; &nbsp;
+    | &nbsp; &nbsp;
 
-<a th:href="@{/participantForm}">Yes, I'm a course participant</a>
+    <a th:href="@{/participantForm}">Yes, I'm a course participant</a>
 
-| &nbsp; &nbsp;
+    | &nbsp; &nbsp;
 
-<a th:href="@{/admin}">Yes, I'm a participant's guardian </a>
-
+    <a th:href="@{/admin}">Yes, I'm a participant's guardian </a>
+</div>
 </body>
 
 </html>

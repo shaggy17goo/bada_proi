@@ -6,6 +6,7 @@
 </head>
 <body>
 <!-- Include menu.html -->
+<div align="center">
 <div th:include="menu"></div>
 
 <h1>Login</h1>
@@ -13,7 +14,7 @@
 <!-- /login?error=true -->
 <div th:if="${#request.getParameter('error') == 'true'}"
      style="color:red;margin:10px 0px;">
-    Login Failed!!!<br />
+    Login Failed!!!<br/>
     Reason :
     <span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
           th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">
@@ -22,29 +23,28 @@
 
 </div>
 
-<h3>Enter user name and password:</h3>
-<form name='f' th:action="@{/j_spring_security_check}" method='POST'>
-    <table>
-        <tr>
-            <td>User:</td>
-            <td><input type='text' name='username' value=''></td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input type='password' name='password' /></td>
-        </tr>
-        <tr>
-            <td>Remember Me?</td>
-            <td><input type="checkbox" name="remember-me" /></td>
-        </tr>
-        <tr>
-            <td><input name="submit" type="submit" value="submit" /></td>
-        </tr>
-    </table>
-</form>
-
-<a href="/register">Register new user</a>
-
+    <h3>Enter username and password:</h3>
+    <form name='f' th:action="@{/j_spring_security_check}" method='POST'>
+        <table border="1" cellspacing="10">
+            <tr>
+                <td>User:</td>
+                <td><input type='text' name='username' value=''></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type='password' name='password'/></td>
+            </tr>
+            <tr>
+                <td>Remember Me?</td>
+                <td><input type="checkbox" name="remember-me"/></td>
+            </tr>
+            <tr>
+                <td><input name="submit" type="submit" value="submit"/></td>
+            </tr>
+        </table>
+    </form>
+    <a href="/register">Register new user</a>
+</div>
 
 </body>
 
