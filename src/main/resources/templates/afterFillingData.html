@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset = "UTF-8">
+    <title>Registration accepted</title>
+</head>
+<body>
+
+<div align="center">
+    <h1>Registration accepted</h1>
+    <br/><br/>
+    <h3>Thank you for filling in missing data, to update your account please log out and log in:</h3>  <a th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
+</div>
+</body>
+</html>

@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -81,7 +82,7 @@ public class AppController{
      * Copied from website
      */
 
-    @RequestMapping(value = { "/", "/welcome","/CulturalCenter-0.0.1-SNAPSHOT" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/", "/welcome"}, method = RequestMethod.GET)
     public String welcomePage(Model model) {
         model.addAttribute("title", "Welcome");
         model.addAttribute("message", "This is welcome page!");
@@ -140,16 +141,7 @@ public class AppController{
         userRoleDAO.delete(tempUser.getUserId());
         userRoleDAO.save(new UserRole(tempUser.getUserId(),appRoleDAO.getRoleId("ROLE_PARTICIPANT").getRoleId()));
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-        Collection<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
-        updatedAuthorities.add(new SimpleGrantedAuthority("ROLE_PARTICIPANT")); //add your role here [e.g., new SimpleGrantedAuthority("ROLE_NEW_ROLE")]
-
-        Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
-        SecurityContextHolder.getContext().setAuthentication(newAuth);
-
-
-        return "redirect:/";
+        return "afterFillingData";
     }
 
     @RequestMapping(value = "/error", method = RequestMethod.GET)
@@ -168,8 +160,9 @@ public class AppController{
     public String userInfo(Model model, Principal principal) {
 
         // After user login successfully.
+        //principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String userName = principal.getName();
-        User loginUser = (User) ((Authentication) principal).getPrincipal();
+        User loginUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         String userInfo = WebUtils.toString(loginUser);
         String userRole = WebUtils.getRoleName(loginUser);
