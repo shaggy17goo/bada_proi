@@ -34,7 +34,7 @@ class AppUserDAOTest {
 
     @Test
     void save() {
-        AppUser appUser = new AppUser(5,"test2","$2a$10$8HS4jDGmmkBiO9m9Vck0xOFxwlVQHKtcsAa.L5RUo5jI2bBrvPwde",0,null,null,null);
+        AppUser appUser = new AppUser(1,"test2","$2a$10$8HS4jDGmmkBiO9m9Vck0xOFxwlVQHKtcsAa.L5RUo5jI2bBrvPwde",0);
         dao.save(appUser);
     }
 
@@ -54,9 +54,6 @@ class AppUserDAOTest {
         appUser.setUsername("user1");
         appUser.setEncryptedPassword("$2a$10$8HS4jDGmmkBiO9m9Vck0xOFxwlVQHKtcsAa.L5RUo5jI2bBrvPwde");
         appUser.setEnabled(1);
-        appUser.setParticipantId(null);
-        appUser.setGuardianId(null);
-        appUser.setEmployeeId(null);
         dao.update(appUser);
     }
 

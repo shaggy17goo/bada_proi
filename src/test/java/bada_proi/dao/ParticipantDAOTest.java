@@ -34,7 +34,7 @@ class ParticipantDAOTest {
 
     @Test
     void save() {
-        Participant participant = new Participant(105,"Paweł", "Gryka", new Date(2000, 2, 2), "1234123412","M","987654321","pawelkox69@wp.pl",7);
+        Participant participant = new Participant(105,"Paweł", "Gryka",new Date(2000, 2, 2), "1234123412","M","987654321","pawelkox69@wp.pl",7);
         dao.save(participant);
 
     }

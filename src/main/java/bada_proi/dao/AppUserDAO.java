@@ -34,8 +34,7 @@ public class AppUserDAO {
     /** Insert */
     public void save(AppUser appUser){
         SimpleJdbcInsert insertActor = new SimpleJdbcInsert(jdbcTemplate);
-        insertActor.withTableName("appUsers").usingColumns("userId","username","encryptedPassword",
-                "enabled","participantId","guardianId","employeeId");
+        insertActor.withTableName("appUsers").usingColumns("userId","username","encryptedPassword", "enabled");
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(appUser);
         insertActor.execute(param);
     }
@@ -53,7 +52,7 @@ public class AppUserDAO {
     /** Update */
     public void update(AppUser appUser){
         String sql = "UPDATE appUsers SET username=:username, encryptedPassword=:encryptedPassword," +
-                "enabled=:enabled, participantId=:participantId, guardianId=:guardianId, employeeId=:employeeId WHERE userId=:userId";
+                "enabled=:enabled, WHERE userId=:userId";
 
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(appUser);
         NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(jdbcTemplate);

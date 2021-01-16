@@ -1,8 +1,10 @@
 package bada_proi.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 
 import java.sql.Date;
+
 
 public class Participant {
     private int participantId;
@@ -17,6 +19,9 @@ public class Participant {
     private String email;
     private int addressId;
 
+    @Nullable
+    private Integer userId;
+
     public Participant() {
     }
 
@@ -30,6 +35,16 @@ public class Participant {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.addressId = addressId;
+        this.userId = null;
+    }
+
+    @Nullable
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(@Nullable Integer userId) {
+        this.userId = userId;
     }
 
     public int getParticipantId() {

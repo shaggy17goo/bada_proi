@@ -1,7 +1,6 @@
 package bada_proi;
 
-import bada_proi.dao.AppUserDAO;
-import bada_proi.dao.PostOfficesDAO;
+import bada_proi.dao.*;
 import bada_proi.entity.*;
 import bada_proi.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +15,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
-import java.util.List;
 
 @Controller
 public class AppController{
     @Autowired
-    private PostOfficesDAO postOfficesDAO;
+    private PostOfficeDAO postOfficeDAO;
     @Autowired
     private AppUserDAO appUserDAO;
+    @Autowired
+    private ParticipantDAO participantDAO;
+    @Autowired
+    private AppRoleDAO appRoleDAO;
+    @Autowired
+    private UserRoleDAO userRoleDAO;
 
     /*@RequestMapping("/")
     public String viewHomePage(Model model){
-        List<PostOffice> postOfficeList = postOfficesDAO.list();
+        List<PostOffice> postOfficeList = postOfficeDAO.list();
         model.addAttribute("postOfficeList",postOfficeList);
         return "index";
     }*/
@@ -40,27 +44,27 @@ public class AppController{
     }
     @RequestMapping(value = "/savePostOffice", method = RequestMethod.POST)
     public String savePostOffice(@ModelAttribute("postOffice") PostOffice postOffice){
-        postOfficesDAO.save(postOffice);
+        postOfficeDAO.save(postOffice);
 
         return "redirect:/";
     }
     @RequestMapping("/editPostOfficeForm/{postOfficeId}")
     public ModelAndView showPostOfficeEditForm(@PathVariable(name = "postOfficeId") int id){
         ModelAndView mav = new ModelAndView("editPostOfficeForm");
-        PostOffice postOffice = postOfficesDAO.get(id);
+        PostOffice postOffice = postOfficeDAO.get(id);
         mav.addObject("postOffice",postOffice);
 
         return mav;
     }
     @RequestMapping(value = "/updatePostOffice", method = RequestMethod.POST)
     public String updatePostOffice(@ModelAttribute(name = "postOffice") PostOffice postOffice){
-        postOfficesDAO.update(postOffice);
+        postOfficeDAO.update(postOffice);
 
         return "redirect:/";
     }
     @RequestMapping("/deletePostOffice/{postOfficeId}")
     public String deletePostOffice(@ModelAttribute(name = "postOfficeId") int id){
-        postOfficesDAO.delete(id);
+        postOfficeDAO.delete(id);
 
         return "redirect:/";
     }
@@ -98,16 +102,37 @@ public class AppController{
         model.addAttribute("appUser",appUser);
         return "newUserFormPage";
     }
+
     @RequestMapping(value = "/saveNewUser", method = RequestMethod.POST)
     public String saveNewUser(@ModelAttribute("appUser") AppUser appUser){
         appUserDAO.save(appUser);
+        AppUser tempUser = appUserDAO.get(appUser.getUsername());
+        userRoleDAO.save(new UserRole(tempUser.getUserId(), 4));
 
-        return "redirect:/";
+        return "loginPage";
     }
     @RequestMapping(value = "/menu", method = RequestMethod.GET)
     public String menuBar(Model model) {
 
         return "menu";
+    }
+    @RequestMapping(value = "/addInfoPage", method = RequestMethod.GET)
+    public String participantFormPage(Model model) {
+        Participant participant = new Participant();
+        model.addAttribute("participant",participant);
+        return "newParticipantForm";
+    }
+    @RequestMapping(value = "/saveNewParticipant", method = RequestMethod.POST)
+    public String saveNewParticipant(@ModelAttribute("participant") Participant participant){
+
+        String username = WebUtils.getLoggedUsername();
+        participant.setAddressId(1);
+        participantDAO.save(participant);
+        AppUser tempUser = appUserDAO.get(username);//FIXME
+        appUserDAO.update(tempUser);
+
+
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/error", method = RequestMethod.GET)

@@ -36,7 +36,7 @@ public class ParticipantDAO {
     /** Insert */
     public void save(Participant participant){
         SimpleJdbcInsert insertActor = new SimpleJdbcInsert(jdbcTemplate);
-        insertActor.withTableName("participants").usingColumns("participantId","name","surname","birthDate","pesel","gender","phoneNumber","email","addressId");
+        insertActor.withTableName("participants").usingColumns("participantId","name","surname","birthDate","pesel","gender","phoneNumber","email","addressId","userId");
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(participant);
         insertActor.execute(param);
     }
@@ -48,7 +48,7 @@ public class ParticipantDAO {
     }
     /** Update */
     public void update(Participant participant){
-        String sql = "UPDATE PARTICIPANTS SET name=:name , surname=:surname , birthDate=:birthDate , pesel=:pesel , gender=:gender , phoneNumber=:phoneNumber , email=:email , addressId=:addressId WHERE participantId=:participantId";
+        String sql = "UPDATE PARTICIPANTS SET name=:name , surname=:surname , birthDate=:birthDate , pesel=:pesel , gender=:gender , phoneNumber=:phoneNumber , email=:email , addressId=:addressId, userId=:userId WHERE participantId=:participantId";
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(participant);
         NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(jdbcTemplate);
         template.update(sql,param);
