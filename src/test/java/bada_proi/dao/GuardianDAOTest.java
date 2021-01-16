@@ -34,32 +34,33 @@ class GuardianDAOTest {
 
     @Test
     void save() {
-        Guardian participant = new Guardian(105,"Paweł", "Gryka", new Date(2000, 2, 2), "1234123412","M","987654321","pawelkox69@wp.pl",7);
-        dao.save(participant);
+        Guardian guardian = new Guardian(105,"Paweł", "Gryka", new Date(2000, 2, 2), "1234123412","M","987654321","pawelkox69@wp.pl",7);
+        dao.save(guardian);
 
     }
 
     @Test
     void get() {
         int id = 1;
-        Guardian participant = dao.get(id);
-        System.out.println(participant);
-        assertNotNull(participant);
+        Guardian guardian = dao.get(id);
+        System.out.println(guardian);
+        assertNotNull(guardian);
     }
 
     @Test
     void update() {
-        Guardian participant = new Guardian();
-        participant.setGuardianId(1);
-        participant.setName("Michał");
-        participant.setSurname("Wawrzyńczak");
-        participant.setBirthDate(new Date(2000, 2,5));
-        participant.setPesel("12111");
-        participant.setGender("M");
-        participant.setPhoneNumber("123456789");
-        participant.setEmail("ultrakox123@o2.pl");
-        participant.setAddressId(2);
-        dao.update(participant);
+        Guardian guardian = new Guardian();
+        guardian.setGuardianId(1);
+        guardian.setName("Michał");
+        guardian.setSurname("Wawrzyńczak");
+        guardian.setBirthDate(new Date(2000, 2,5));
+        guardian.setPesel("12111");
+        guardian.setGender("M");
+        guardian.setPhoneNumber("123456789");
+        guardian.setEmail("ultrakox123@o2.pl");
+        guardian.setAddressId(2);
+        guardian.setUserId(Integer.valueOf(1));
+        dao.update(guardian);
     }
 
     @Test

@@ -36,7 +36,7 @@ public class GuardianDAO {
     /** Insert */
     public void save(Guardian guardian){
         SimpleJdbcInsert insertActor = new SimpleJdbcInsert(jdbcTemplate);
-        insertActor.withTableName("guardians").usingColumns("guardianId","name","surname","birthDate","pesel","gender","phoneNumber","email","addressId");
+        insertActor.withTableName("guardians").usingColumns("guardianId","name","surname","birthDate","pesel","gender","phoneNumber","email","addressId","userId");
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(guardian);
         insertActor.execute(param);
     }
@@ -48,7 +48,7 @@ public class GuardianDAO {
     }
     /** Update */
     public void update(Guardian guardian){
-        String sql = "UPDATE GUARDIANS SET name=:name , surname=:surname , birthDate=:birthDate , pesel=:pesel , gender=:gender , phoneNumber=:phoneNumber , email=:email , addressId=:addressId WHERE guardianId=:guardianId";
+        String sql = "UPDATE GUARDIANS SET name=:name , surname=:surname , birthDate=:birthDate , pesel=:pesel , gender=:gender , phoneNumber=:phoneNumber , email=:email , addressId=:addressId, userId=:userId WHERE guardianId=:guardianId";
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(guardian);
         NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(jdbcTemplate);
         template.update(sql,param);

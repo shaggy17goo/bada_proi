@@ -16,6 +16,8 @@ public class Guardian {
     private String phoneNumber;
     private String email;
     private int addressId;
+    @Nullable
+    private Integer userId;
 
     public Guardian(int guardianId, String name, String surname, Date birthDate, @Nullable String pesel, String gender, String phoneNumber, String email, int addressId) {
         this.guardianId = guardianId;
@@ -27,9 +29,20 @@ public class Guardian {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.addressId = addressId;
+        this.userId = null;
+
     }
 
     public Guardian() {
+    }
+
+    @Nullable
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(@Nullable Integer userId) {
+        this.userId = userId;
     }
 
     public int getGuardianId() {
@@ -117,6 +130,7 @@ public class Guardian {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
                 ", addressId=" + addressId +
+                ", userId=" + userId +
                 '}';
     }
 }

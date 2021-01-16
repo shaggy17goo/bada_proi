@@ -50,7 +50,7 @@ class EmployeeDAOTest {
     @Test
     void update() {
         Employee employee = new Employee();
-        employee.setEmployeeId(1);
+        employee.setEmployeeId(99);
         employee.setType("WOZNY");
         employee.setName("Michał");
         employee.setSurname("Wawrzyńczak");
@@ -63,6 +63,7 @@ class EmployeeDAOTest {
         employee.setAccountNumber("412653424415123513");
         employee.setCulturalCenterId(1);
         employee.setAddressId(2);
+        employee.setUserId(Integer.valueOf(1));
         dao.update(employee);
     }
 

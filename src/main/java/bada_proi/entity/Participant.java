@@ -127,12 +127,13 @@ public class Participant {
                 "participantId=" + participantId +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", birthDate='" + birthDate + '\'' +
+                ", birthDate=" + birthDate +
                 ", pesel='" + pesel + '\'' +
-                ", gender=" + gender +
+                ", gender='" + gender + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
                 ", addressId=" + addressId +
+                ", userId=" + userId +
                 '}';
     }
 }

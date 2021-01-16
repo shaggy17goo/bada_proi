@@ -36,7 +36,7 @@ public class EmployeeDAO {
     /** Insert */
     public void save(Employee employee){
         SimpleJdbcInsert insertActor = new SimpleJdbcInsert(jdbcTemplate);
-        insertActor.withTableName("employees").usingColumns("employeeId","type","name","surname","birthDate","pesel","gender","phoneNumber","email","employmentDate","accountNumber","culturalCenterId","addressId");
+        insertActor.withTableName("employees").usingColumns("employeeId","type","name","surname","birthDate","pesel","gender","phoneNumber","email","employmentDate","accountNumber","culturalCenterId","addressId","userId");
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(employee);
         insertActor.execute(param);
     }
@@ -48,7 +48,7 @@ public class EmployeeDAO {
     }
     /** Update */
     public void update(Employee employee){
-        String sql = "UPDATE EMPLOYEES SET type=:type, name=:name, surname=:surname, birthDate=:birthDate, pesel=:pesel, gender=:gender, phoneNumber=:phoneNumber, email=:email, employmentDate=:employmentDate, accountNumber=:accountNumber, culturalCenterId=:culturalCenterId, addressId=:addressId WHERE employeeId=:employeeId";
+        String sql = "UPDATE EMPLOYEES SET type=:type, name=:name, surname=:surname, birthDate=:birthDate, pesel=:pesel, gender=:gender, phoneNumber=:phoneNumber, email=:email, employmentDate=:employmentDate, accountNumber=:accountNumber, culturalCenterId=:culturalCenterId, addressId=:addressId, userId=:userId WHERE employeeId=:employeeId";
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(employee);
         NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(jdbcTemplate);
         template.update(sql,param);

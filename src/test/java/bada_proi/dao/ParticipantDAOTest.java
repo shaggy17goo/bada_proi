@@ -59,6 +59,7 @@ class ParticipantDAOTest {
         participant.setPhoneNumber("123456789");
         participant.setEmail("ultrakox123@o2.pl");
         participant.setAddressId(2);
+        participant.setUserId(Integer.valueOf(1));
         dao.update(participant);
     }
 

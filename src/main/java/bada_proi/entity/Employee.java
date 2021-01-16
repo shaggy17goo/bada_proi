@@ -19,6 +19,8 @@ public class Employee {
     private String accountNumber;
     private int culturalCenterId;
     private int addressId;
+    @Nullable
+    private Integer userId;
 
     public Employee() {
     }
@@ -37,6 +39,18 @@ public class Employee {
         this.accountNumber = accountNumber;
         this.culturalCenterId = culturalCenterId;
         this.addressId = addressId;
+        this.userId=null;
+
+    }
+
+
+    @Nullable
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(@Nullable Integer userId) {
+        this.userId = userId;
     }
 
     public int getEmployeeId() {
@@ -144,7 +158,6 @@ public class Employee {
         this.addressId = addressId;
     }
 
-
     @Override
     public String toString() {
         return "Employee{" +
@@ -161,6 +174,7 @@ public class Employee {
                 ", accountNumber='" + accountNumber + '\'' +
                 ", culturalCenterId=" + culturalCenterId +
                 ", addressId=" + addressId +
+                ", userId=" + userId +
                 '}';
     }
 }
