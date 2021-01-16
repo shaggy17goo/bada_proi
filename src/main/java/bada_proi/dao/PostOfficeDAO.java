@@ -14,12 +14,12 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class PostOfficesDAO {//[DAO] Data Access Object – komponent dostarczający jednolity interfejs do komunikacji między aplikacją a źródłem danych
+public class PostOfficeDAO {//[DAO] Data Access Object – komponent dostarczający jednolity interfejs do komunikacji między aplikacją a źródłem danych
 
     @Autowired
     private final JdbcTemplate jdbcTemplate;
 
-    public PostOfficesDAO(JdbcTemplate jdbcTemplate) {
+    public PostOfficeDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
