@@ -57,4 +57,12 @@ public class AddressDAO {//[DAO] Data Access Object – komponent dostarczający
         String sql = "DELETE FROM ADDRESSES WHERE addressId = ?";
         jdbcTemplate.update(sql,id);
     }
+
+    public int getNextSeqId() {
+        String sql = "SELECT ADRESSESSEQ8.nextVal FROM DUAL";
+        Integer ID = jdbcTemplate.queryForObject(sql,new Object[]{}, Integer.class);
+        int id = ID.intValue();
+        System.out.println(id);
+        return id;
+    }
 }

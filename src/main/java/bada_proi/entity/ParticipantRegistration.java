@@ -4,28 +4,23 @@ import org.springframework.lang.Nullable;
 
 import java.sql.Date;
 
-
-public class Participant {
-    private int participantId;
+public class ParticipantRegistration {
     private String name;
     private String surname;
-    private Date birthDate; //TODO check if date type works
+    private Date birthDate;
     @Nullable
     private String pesel;
     private String gender;
     private String phoneNumber;
     @Nullable
     private String email;
-    private int addressId;
+    private String city;
+    private String street;
+    private String houseNumber;
+    private String postCode;
+    private String postCity;
 
-    @Nullable
-    private Integer userId;
-
-    public Participant() {
-    }
-
-    public Participant(int participantId, String name, String surname, Date birthDate, @Nullable String pesel, String gender, String phoneNumber, @Nullable String email, int addressId) {
-        this.participantId = participantId;
+    public ParticipantRegistration(String name, String surname, Date birthDate, @Nullable String pesel, String gender, String phoneNumber, @Nullable String email, String city, String street, String houseNumber, String postCode, String postCcity) {
         this.name = name;
         this.surname = surname;
         this.birthDate = birthDate;
@@ -33,25 +28,14 @@ public class Participant {
         this.gender = gender;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.addressId = addressId;
-        this.userId = null;
+        this.city = city;
+        this.street = street;
+        this.houseNumber = houseNumber;
+        this.postCode = postCode;
+        this.postCity = postCcity;
     }
 
-    @Nullable
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(@Nullable Integer userId) {
-        this.userId = userId;
-    }
-
-    public int getParticipantId() {
-        return participantId;
-    }
-
-    public void setParticipantId(int participantId) {
-        this.participantId = participantId;
+    public ParticipantRegistration() {
     }
 
     public String getName() {
@@ -112,27 +96,43 @@ public class Participant {
         this.email = email;
     }
 
-    public int getAddressId() {
-        return addressId;
+    public String getCity() {
+        return city;
     }
 
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    @Override
-    public String toString() {
-        return "Participant{" +
-                "participantId=" + participantId +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", birthDate=" + birthDate +
-                ", pesel='" + pesel + '\'' +
-                ", gender='" + gender + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", email='" + email + '\'' +
-                ", addressId=" + addressId +
-                ", userId=" + userId +
-                '}';
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getHouseNumber() {
+        return houseNumber;
+    }
+
+    public void setHouseNumber(String houseNumber) {
+        this.houseNumber = houseNumber;
+    }
+
+    public String getPostCode() {
+        return postCode;
+    }
+
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
+    }
+
+    public String getPostCity() {
+        return postCity;
+    }
+
+    public void setPostCity(String postCity) {
+        this.postCity = postCity;
     }
 }

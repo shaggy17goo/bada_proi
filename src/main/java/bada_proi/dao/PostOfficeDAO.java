@@ -57,4 +57,12 @@ public class PostOfficeDAO {//[DAO] Data Access Object â€“ komponent dostarczajÄ
         String sql = "DELETE FROM POSTOFFICES WHERE postOfficeId = ?";
         jdbcTemplate.update(sql,id);
     }
+
+    public int getNextSeqId(){
+        String sql = "SELECT POSTOFFICESSEQ11.nextVal FROM DUAL";
+        Integer ID = jdbcTemplate.queryForObject(sql,new Object[]{}, Integer.class);
+        int id = ID.intValue();
+        System.out.println(id);
+        return id;
+    }
 }

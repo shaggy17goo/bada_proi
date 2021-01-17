@@ -47,6 +47,14 @@ class PostOfficeDAOTest {
     }
 
     @Test
+    void getNextSeqId() {
+        int id = dao.getNextSeqId();
+        System.out.println(id);
+        assertNotNull(id);
+    }
+
+
+    @Test
     void update() {
         PostOffice postOffice = new PostOffice();
         postOffice.setPostOfficeId(42);
@@ -54,6 +62,7 @@ class PostOfficeDAOTest {
         postOffice.setCode("00-004");
         dao.update(postOffice);
     }
+
 
     @Test
     void delete() {
