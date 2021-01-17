@@ -124,12 +124,12 @@ public class AppController{
 
         return "menu";
     }
-    /*@RequestMapping(value = "/addInfoPage", method = RequestMethod.GET)
+    @RequestMapping(value = "/addInfoPage", method = RequestMethod.GET)
     public String participantFormPage(Model model) {
         Participant participant = new Participant();
         model.addAttribute("participant",participant);
         return "newParticipantForm";
-    }*/
+    }
     @RequestMapping(value = "/saveNewParticipant", method = RequestMethod.POST)
     public String saveNewParticipant(@ModelAttribute("participant") Participant participant){
 

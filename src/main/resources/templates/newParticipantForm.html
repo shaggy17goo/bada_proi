@@ -12,7 +12,7 @@
     <h1>Enter participant information</h1>
     <!-- Empty lines-->
     <br/><br/>
-    <form action="#" th:action = "@{/saveNewParticipant}" th:object="${participant}" method = "post">
+    <form action="#" th:action="@{/saveNewParticipant}" th:object="${participant}" method="post">
         <table border="1" cellspacing="10">
             <tr>
                 <td>Name:</td>
@@ -34,6 +34,21 @@
                 <td>Sex:</td>
                 <td><input type="text" th:field="*{gender}"></td>
             </tr>
+            <!--<tr>
+                <td>Sex:</td>
+                <td>
+                    <select th:field="*{gender}">
+                        <option th:each="text"
+                                th:value="${M}"
+                                th:text="Male">
+                        </option>
+                        <option th:each="text"
+                                th:value="${K}"
+                                th:text="Female">
+                        </option>
+                    </select>
+                </td>
+            </tr>-->
             <tr>
                 <td>Phone number:</td>
                 <td><input type="text" th:field="*{phoneNumber}"></td>
@@ -47,7 +62,9 @@
                 <td><input type="text" th:field="*{addressId}"></td>
             </tr>
             <tr>
-                <td colspan="2"><button type="submit">Save</button></td>
+                <td colspan="2">
+                    <button type="submit">Save</button>
+                </td>
             </tr>
         </table>
     </form>
