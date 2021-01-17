@@ -36,7 +36,8 @@ public class AppController{
     private AppRoleDAO appRoleDAO;
     @Autowired
     private UserRoleDAO userRoleDAO;
-
+    @Autowired
+    private AddressDAO addressDAO;
     /*@RequestMapping("/")
     public String viewHomePage(Model model){
         List<PostOffice> postOfficeList = postOfficeDAO.list();
@@ -131,16 +132,26 @@ public class AppController{
         return "newParticipantForm";
     }
     @RequestMapping(value = "/saveNewParticipant", method = RequestMethod.POST)
-    public String saveNewParticipant(@ModelAttribute("participant") Participant participant){
+    public String saveNewParticipant(@ModelAttribute("participantRegistration") ParticipantRegistration pr){
+
+        int postOfficeId=postOfficeDAO.getNextSeqId();
+        PostOffice postOffice = new PostOffice(postOfficeId, pr.getPostCode(), pr.getPostCity());
+        postOfficeDAO.save(postOffice);
+
+        int addressId = addressDAO.getNextSeqId();
+        Address address = new Address(addressId,pr.getCity(),pr.getStreet(),pr.getHouseNumber(),postOfficeId+1);
+        addressDAO.save(address);
+
+        Participant participant = new Participant(0, pr.getName(), pr.getSurname(), pr.getBirthDate(),pr.getPesel(),pr.getGender(),pr.getPhoneNumber(), pr.getEmail(),addressId+1);
 
         String username = WebUtils.getLoggedUsername();
         AppUser tempUser = appUserDAO.get(username);
-        participant.setAddressId(1);//FIXME
         participant.setUserId(tempUser.getUserId());
         participantDAO.save(participant);
         userRoleDAO.delete(tempUser.getUserId());
         userRoleDAO.save(new UserRole(tempUser.getUserId(),appRoleDAO.getRoleId("ROLE_PARTICIPANT").getRoleId()));
 
+        System.out.println("hejka");
         return "afterFillingData";
     }
 
@@ -168,8 +179,8 @@ public class AppController{
         String userRole = WebUtils.getRoleName(loginUser);
         switch (userRole) {
             case "ROLE_USER":
-                Participant participant = new Participant();
-                model.addAttribute("participant", participant);
+                ParticipantRegistration pr = new ParticipantRegistration();
+                model.addAttribute("pr", pr);
                 return "newParticipantForm";
             case "ROLE_PARTICIPANT":
                 return "userInfoPage";

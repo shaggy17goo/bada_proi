@@ -12,7 +12,7 @@
     <h1>Enter participant information</h1>
     <!-- Empty lines-->
     <br/><br/>
-    <form action="#" th:action="@{/saveNewParticipant}" th:object="${participant}" method="post">
+    <form action="#" th:action = "@{/saveNewParticipant}" th:object="${pr}" method = "post">
         <table border="1" cellspacing="10">
             <tr>
                 <td>Name:</td>
@@ -58,8 +58,24 @@
                 <td><input type="text" th:field="*{email}"></td>
             </tr>
             <tr>
-                <td>AdressId:</td>
-                <td><input type="text" th:field="*{addressId}"></td>
+                <td>City:</td>
+                <td><input type="text" th:field="*{city}"></td>
+            </tr>
+            <tr>
+                <td>Street:</td>
+                <td><input type="text" th:field="*{street}"></td>
+            </tr>
+            <tr>
+                <td>House Number:</td>
+                <td><input type="text" th:field="*{houseNumber}"></td>
+            </tr>
+            <tr>
+                <td>Post Office Code:</td>
+                <td><input type="text" th:field="*{postCode}"></td>
+            </tr>
+            <tr>
+                <td>Post Office City:</td>
+                <td><input type="text" th:field="*{postCity}"></td>
             </tr>
             <tr>
                 <td colspan="2">

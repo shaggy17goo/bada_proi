@@ -58,6 +58,13 @@ class AddressDAOTest {
     }
 
     @Test
+    void getNextSeqId() {
+        int id = dao.getNextSeqId();
+        System.out.println(id);
+        assertNotNull(id);
+    }
+
+    @Test
     void delete() {
         int id = 102;
         dao.delete(id);
