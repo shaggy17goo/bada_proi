@@ -42,7 +42,7 @@ public class AppController{
         PostOffice postOffice = new PostOffice();
         model.addAttribute("postOffice",postOffice);
 
-        return "newPostOfficeForm";
+        return "forms/newPostOfficeForm";
     }
     @RequestMapping(value = "/savePostOffice", method = RequestMethod.POST)
     public String savePostOffice(@ModelAttribute("postOffice") PostOffice postOffice){
@@ -88,19 +88,19 @@ public class AppController{
 
         String userInfo = WebUtils.toString(loginedUser);
         model.addAttribute("userInfo", userInfo);
-        return "adminPage";
+        return "admin/adminPage";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(Model model) {
 
-        return "loginPage";
+        return "user/loginPage";
     }
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String registerPage(Model model) {
         AppUser appUser = new AppUser();
         model.addAttribute("appUser",appUser);
-        return "newUserFormPage";
+        return "forms/newUserFormPage";
     }
 
     @RequestMapping(value = "/saveNewUser", method = RequestMethod.POST)
@@ -109,7 +109,7 @@ public class AppController{
         AppUser tempUser = appUserDAO.get(appUser.getUsername());
         userRoleDAO.save(new UserRole(tempUser.getUserId(), 1));//FIXME
 
-        return "loginPage";
+        return "user/loginPage";
     }
     @RequestMapping(value = "/menu", method = RequestMethod.GET)
     public String menuBar(Model model) {
@@ -120,7 +120,7 @@ public class AppController{
     public String participantFormPage(Model model) {
         Participant participant = new Participant();
         model.addAttribute("participant",participant);
-        return "newParticipantForm";
+        return "forms/newParticipantForm";
     }
     @RequestMapping(value = "/saveNewParticipant", method = RequestMethod.POST)
     public String saveNewParticipant(@ModelAttribute("participantRegistration") ParticipantRegistration pr){
@@ -143,13 +143,13 @@ public class AppController{
         userRoleDAO.save(new UserRole(tempUser.getUserId(),appRoleDAO.getRoleId("ROLE_PARTICIPANT").getRoleId()));
 
         System.out.println("hejka");
-        return "afterFillingData";
+        return "user/afterFillingData";
     }
 
     @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
     public String logoutSuccessfulPage(Model model) {
         model.addAttribute("title", "Logout");
-        return "logoutSuccessfulPage";
+        return "user/logoutSuccessfulPage";
     }
 
     @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
@@ -168,11 +168,11 @@ public class AppController{
                 model.addAttribute("pr", pr);
                 return "newParticipantForm";
             case "ROLE_PARTICIPANT":
-                return "userInfoPage";
+                return "user/userInfoPage";
             case "ROLE_EMPLOYEE":
-                return "userInfoPage";
+                return "user/userInfoPage";
             case "ROLE_ADMIN":
-                return "userInfoPage";
+                return "user/userInfoPage";
             default:
                 return "loginPage";
         }
@@ -190,7 +190,7 @@ public class AppController{
         String userInfo = WebUtils.toString(loginedUser);
         model.addAttribute("userInfo", userInfo);
 
-        return "userInfoPage";
+        return "user/userInfoPage";
     }
 
     @RequestMapping(value = "/403", method = RequestMethod.GET)

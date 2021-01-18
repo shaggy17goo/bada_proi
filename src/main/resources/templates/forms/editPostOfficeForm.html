@@ -3,8 +3,8 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>New Post Office</title>
-    <link href="culturalCenter.css" rel="stylesheet">
+    <title>Edit Post Office</title>
+    <link href="../culturalCenter.css" rel="stylesheet">
 </head>
 <body>
 <header>
@@ -12,15 +12,13 @@
 </header>
 <div class="pt-5"></div>
     <div align="center">
-        <!-- Page header-->
-        <h1>Enter New Post Office</h1>
-        <!-- Empty lines-->
-        <br/><br/>
-        <form action="#" th:action = "@{/savePostOffice}" th:object="${postOffice}" method = "post">
-            <table border="1" cellspacing="10">
+        <h1>Edit Post Office</h1>
+        <br/>
+        <form action="#" th:action="@{/updatePostOffice}" th:object="${postOffice}" method="post">
+            <table border="0" cellpadding="10">
                 <tr>
-                    <td>Post office ID:</td>
-                    <td><input type="text" th:field="*{postOfficeId}"></td>
+                    <td>Post Office Id</td>
+                    <td><input type="text" th:field="*{postOfficeId}" readonly = "readonly"></td>
                 </tr>
                 <tr>
                     <td>Code:</td>
@@ -36,5 +34,6 @@
             </table>
         </form>
     </div>
+
 </body>
 </html>
