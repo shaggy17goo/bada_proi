@@ -19,7 +19,7 @@ and [submitting pull requests](#pull-requests), but please respect the following
 restrictions:
 
 * Please **do not** use the issue tracker for personal support requests.  Stack
-  Overflow ([`bootstrap-4`](https://stackoverflow.com/questions/tagged/bootstrap-4) tag), [Slack](https://bootstrap-slack.herokuapp.com/) or [IRC](README.md#community) are better places to get help.
+  Overflow ([`bootstrap-4`](https://stackoverflow.com/questions/tagged/bootstrap-4) tag), [Slack](https://bootstrap-slack.herokuapp.com/) or [IRC](../README.md#community) are better places to get help.
 
 * Please **do not** derail or troll issues. Keep the discussion on topic and
   respect the opinions of others.
@@ -199,7 +199,7 @@ included in the project:
     with a clear title and description against the `master` branch.
 
 **IMPORTANT**: By submitting a patch, you agree to allow the project owners to
-license your work under the terms of the [MIT License](LICENSE) (if it
+license your work under the terms of the [MIT License](../LICENSE) (if it
 includes code changes) and under the terms of the
 [Creative Commons Attribution 3.0 Unported License](docs/LICENSE)
 (if it includes documentation changes).
@@ -246,7 +246,7 @@ Run `npm run test` before committing to ensure your changes follow our coding st
 
 ## License
 
-By contributing your code, you agree to license your contribution under the [MIT License](LICENSE).
+By contributing your code, you agree to license your contribution under the [MIT License](../LICENSE).
 By contributing to the documentation, you agree to license your contribution under the [Creative Commons Attribution 3.0 Unported License](docs/LICENSE).
 
 Prior to v3.1.0, Bootstrap's code was released under the Apache License v2.0.

@@ -59,9 +59,9 @@ class AddressDAOTest {
 
     @Test
     void getNextSeqId() {
-        /*int id = dao.getNextSeqId();
+        int id = dao.getNextSeqId();
         System.out.println(id);
-        assertNotNull(id);*/
+        assertNotNull(id);
     }
 
     @Test

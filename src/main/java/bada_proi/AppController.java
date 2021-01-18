@@ -145,28 +145,11 @@ public class AppController{
 
     @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
     public String userInfo(Model model, Principal principal) {
-
         // After user login successfully.
-        //principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String userName = principal.getName();
         User loginUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
         String userInfo = WebUtils.toString(loginUser);
-        String userRole = WebUtils.getRoleName(loginUser);
-        switch (userRole) {
-            case "ROLE_USER":
-                ParticipantRegistration pr = new ParticipantRegistration();
-                model.addAttribute("pr", pr);
-                return "forms/newUserFormPage";
-            case "ROLE_PARTICIPANT":
-                return "user/userInfoPage";
-            case "ROLE_EMPLOYEE":
-                return "user/userInfoPage";
-            case "ROLE_ADMIN":
-                return "user/userInfoPage";
-            default:
-                return "loginPage";
-        }
+        model.addAttribute("userInfo", userInfo);
+        return "user/userInfoPage";
 
     }
     @RequestMapping(value = "/allCourses", method = RequestMethod.GET)
@@ -176,19 +159,6 @@ public class AppController{
         return "default/allCoursesTable";
     }
 
-    /*@RequestMapping(value = "/userAccountInfo", method = RequestMethod.GET)
-    public String userAccountInfo(Model model, Principal principal) {
-
-        // After user login successfully.
-        String userName = principal.getName();
-
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-
-        String userInfo = WebUtils.toString(loginedUser);
-        model.addAttribute("userInfo", userInfo);
-
-        return "user/userInfoPage";
-    }*/
 
     @RequestMapping(value = "/403", method = RequestMethod.GET)
     public String accessDenied(Model model, Principal principal) {
