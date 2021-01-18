@@ -124,18 +124,12 @@ public class AppController{
         participant.setUserId(userId);
         participantDAO.save(participant);
 
-        return "user/afterFillingData";
+        return "user/afterRegistration";
     }
     @RequestMapping(value = "/menu", method = RequestMethod.GET)
     public String menuBar(Model model) {
 
         return "menu";
-    }
-    @RequestMapping(value = "/addInfoPage", method = RequestMethod.GET)
-    public String participantFormPage(Model model) {
-        Participant participant = new Participant();
-        model.addAttribute("participant",participant);
-        return "forms/newParticipantForm";
     }
 
     @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
@@ -158,7 +152,7 @@ public class AppController{
             case "ROLE_USER":
                 ParticipantRegistration pr = new ParticipantRegistration();
                 model.addAttribute("pr", pr);
-                return "newParticipantForm";
+                return "forms/newUserFormPage";
             case "ROLE_PARTICIPANT":
                 return "user/userInfoPage";
             case "ROLE_EMPLOYEE":
