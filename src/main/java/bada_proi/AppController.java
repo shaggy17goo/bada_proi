@@ -3,13 +3,11 @@ package bada_proi;
 import bada_proi.dao.*;
 import bada_proi.entity.*;
 import bada_proi.forms.CourseInfo;
+import bada_proi.forms.EmployeeInfo;
 import bada_proi.forms.ParticipantInfo;
 import bada_proi.forms.ParticipantRegistration;
 import bada_proi.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcOperations;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -44,6 +42,9 @@ public class AppController{
     private CourseDAO courseDAO;
     @Autowired
     private ParticipantInfoDAO participantInfoDAO;
+    @Autowired
+    private EmployeeInfoDAO employeeInfoDAO;
+
 
     @RequestMapping("/newPostOffice")
     public String showNewPostOfficeForm(Model model){
@@ -158,11 +159,13 @@ public class AppController{
             case "ROLE_PARTICIPANT":
                 ParticipantInfo participantInfo = participantInfoDAO.get(userLogin);
                 model.addAttribute("participantInfo", participantInfo);
-                return "user/userInfoPage";
+                return "user/participantInfoPage";
             case "ROLE_EMPLOYEE":
-                return "user/userInfoPage";
+                EmployeeInfo employeeInfo = employeeInfoDAO.get(userLogin);
+                model.addAttribute("employeeInfo", employeeInfo);
+                return "user/employeeInfoPage";
             default:
-                return "user/userInfoPage";
+                return "/";
         }
 
     }
