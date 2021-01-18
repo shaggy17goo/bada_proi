@@ -94,14 +94,14 @@ body {
 }
 
 .jumbotron {
-    padding-top: var(--jumbotron-padding-y);
+    padding-top: 1rem;
     padding-bottom: var(--jumbotron-padding-y);
     margin-bottom: 0;
     background-color: #fff;
 }
 @media (min-width: 768px) {
     .jumbotron {
-        padding-top: calc(var(--jumbotron-padding-y));
+        padding-top: 1rem;
         padding-bottom: calc(var(--jumbotron-padding-y) * 2);
     }
 }
