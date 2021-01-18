@@ -1,5 +1,6 @@
 package bada_proi.dao;
 
+import bada_proi.entity.Address;
 import bada_proi.entity.Participant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;

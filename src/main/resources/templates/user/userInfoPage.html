@@ -1,28 +1,90 @@
-<!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link href="../../static/culturalCenter.css" rel="stylesheet">
     <title>User Info</title>
-    <link href="../culturalCenter.css" rel="stylesheet">
 </head>
+
+
 <body>
-<!-- Include menu.html -->
-<div align="center">
     <header>
         <div th:include="menu"></div>
     </header>
+
     <div class="pt-5"></div>
 
-    <h2>User Info Page</h2>
-    <h3>Welcome : <span th:utext="${#request.userPrincipal.name}"></span></h3>
-    <b>This is protected page!</b>
+    <center>
+        <h1>User Info Page</h1>
 
-    <br/><br/>
+    <table class="table-striped" width = 50%>
 
-    <div th:if="${userInfo != null}" th:utext="${userInfo}"></div>
+        <div th:object="${participantInfo.username}">
+        <tbody>
+        <tr>
+            <td>Username:</td>
+            <td th:text="${participantInfo.username}"></td>
+        </tr>
+        <tr>
+            <td>Name:</td>
+            <td th:text="${participantInfo.name}"></td>
+        </tr>
+        <tr>
+            <td>Surname:</td>
+            <td th:text="${participantInfo.surname}"></td>
+        </tr>
+        <tr>
+            <td>Birth Date:</td>
+            <td th:text="${participantInfo.birthDate}"></td>
+        </tr>
+        <tr>
+            <td>PESEL:</td>
+            <td th:text="${participantInfo.pesel}"></td>
+        </tr>
+        <tr>
+            <td>Gender:</td>
+            <td th:text="${participantInfo.gender}"></td>
+        </tr>
+        <tr>
+            <td>Phone Number:</td>
+            <td th:text="${participantInfo.phoneNumber}"></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td th:text="${participantInfo.email}"></td>
+        </tr>
+        <tr>
+            <td>City:</td>
+            <td th:text="${participantInfo.city}"></td>
+        </tr>
+        <tr>
+            <td>Street:</td>
+            <td th:text="${participantInfo.street}"></td>
+        </tr>
+        <tr>
+            <td>House number:</td>
+            <td th:text="${participantInfo.houseNumber}"></td>
+        </tr>
+        <tr>
+            <td>Post Office code:</td>
+            <td th:text="${participantInfo.code}"></td>
+        </tr>
+        <tr>
+            <td>Post Office City:</td>
+            <td th:text="${participantInfo.postCity}"></td>
+        </tr>
+        </tbody>
+        </div>
+    </table>
+</center>>
 
-    <br/><br/>
-</div>
 </body>
 
 </html>

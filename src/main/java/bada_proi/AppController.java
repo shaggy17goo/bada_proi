@@ -3,6 +3,7 @@ package bada_proi;
 import bada_proi.dao.*;
 import bada_proi.entity.*;
 import bada_proi.forms.CourseInfo;
+import bada_proi.forms.ParticipantInfo;
 import bada_proi.forms.ParticipantRegistration;
 import bada_proi.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,8 @@ public class AppController{
     private CourseRealizationDAO courseRealizationDAO;
     @Autowired
     private CourseDAO courseDAO;
+    @Autowired
+    private ParticipantInfoDAO participantInfoDAO;
 
     @RequestMapping("/newPostOffice")
     public String showNewPostOfficeForm(Model model){
@@ -148,9 +151,19 @@ public class AppController{
     public String userInfo(Model model, Principal principal) {
         // After user login successfully.
         User loginUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String userInfo = WebUtils.toString(loginUser);
-        model.addAttribute("userInfo", userInfo);
-        return "user/userInfoPage";
+        String userLogin = loginUser.getUsername();
+        String userRole = WebUtils.getRoleName(loginUser);
+
+        switch(userRole) {
+            case "ROLE_PARTICIPANT":
+                ParticipantInfo participantInfo = participantInfoDAO.get(userLogin);
+                model.addAttribute("participantInfo", participantInfo);
+                return "user/userInfoPage";
+            case "ROLE_EMPLOYEE":
+                return "user/userInfoPage";
+            default:
+                return "user/userInfoPage";
+        }
 
     }
     @RequestMapping(value = "/allCourses", method = RequestMethod.GET)

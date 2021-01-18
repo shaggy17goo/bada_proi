@@ -30,7 +30,7 @@
 
 
                 <li class="nav-item">
-                    <a class="nav-link" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')}" th:href="@{/participantInfo}">User info</a>
+                    <a class="nav-link" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')}" th:href="@{/userInfo}">User info</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')}" th:href="@{/participantCourses}">My courses</a>
