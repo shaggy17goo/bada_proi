@@ -4,10 +4,7 @@ import bada_proi.dao.*;
 import bada_proi.entity.*;
 import bada_proi.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -19,10 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 @Controller
 public class AppController{
@@ -83,11 +76,9 @@ public class AppController{
      * Copied from website
      */
 
-    @RequestMapping(value = { "/", "/welcome"}, method = RequestMethod.GET)
+    @RequestMapping(value = { "/","/home","/index"}, method = RequestMethod.GET)
     public String welcomePage(Model model) {
-        model.addAttribute("title", "Welcome");
-        model.addAttribute("message", "This is welcome page!");
-        return "welcomePage";
+        return "index";
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
@@ -155,12 +146,6 @@ public class AppController{
         return "afterFillingData";
     }
 
-    @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public String homePage(Model model) {
-
-        return "index";
-    }
-
     @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
     public String logoutSuccessfulPage(Model model) {
         model.addAttribute("title", "Logout");
@@ -224,6 +209,6 @@ public class AppController{
 
         }
 
-        return "403Page";
+        return "errors/403Page";
     }
 }

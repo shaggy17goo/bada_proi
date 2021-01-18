@@ -3,12 +3,15 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>User Info</title>
+    <link href="culturalCenter.css" rel="stylesheet">
 </head>
 <body>
 <!-- Include menu.html -->
 <div align="center">
-    <div th:include="menu"></div>
-
+    <header>
+        <div th:include="menu"></div>
+    </header>
+    <div class="pt-5"></div>
 
     <h2>User Info Page</h2>
     <h3>Welcome : <span th:utext="${#request.userPrincipal.name}"></span></h3>

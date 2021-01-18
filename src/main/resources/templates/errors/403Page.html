@@ -3,12 +3,16 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Access Denied</title>
+    <link href="../culturalCenter.css" rel="stylesheet">
 </head>
 
 <body>
+<div class="pt-5"></div>
 <div align="center">
     <!-- Include menu.html -->
-    <div th:include="menu"></div>
+    <header>
+        <div th:include="menu"></div>
+    </header>
 
     <h3 th:if="${message != null}" th:utext="${message}" style="color: red;"></h3>
 

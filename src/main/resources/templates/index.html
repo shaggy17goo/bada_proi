@@ -10,42 +10,16 @@
     <!-- Bootstrap CSS -->
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
 
-    <link href="carousel.css" rel="stylesheet">
+    <link href="culturalCenter.css" rel="stylesheet">
 </head>
+
+
 <body>
-
 <header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#">Cultural Center</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
-            </ul>
-            <ul class="navbar-nav mr-auto" th:align="right">
-                <li class="nav-item active">
-                    <a class="btn btn-outline-primary" href="#">Sign in</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="btn btn-outline-primary" href="#">Register</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
+    <div th:include="menu"></div>
 </header>
 
+<div class="pt-5"></div>
 <main role="main">
 
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -209,6 +183,33 @@
         <p>&copy; 2017-2018 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
     </footer>
 </main>
+
+<a href="/newPostOffice">Enter new post office</a>
+<br/><br/>
+<!-- Table -->
+<!--<table border="1" cellpadding="10" align="center">
+    <thead>
+    <tr>
+        <th>Post office ID</th>
+        <th>Code</th>
+        <th>City</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each = "postOffice : ${postOfficeList}">
+        <td th:text = "${postOffice.postOfficeId}">Post office ID</td>
+        <td th:text = "${postOffice.code}">Code</td>
+        <td th:text = "${postOffice.city}">City</td>
+        <td>
+            <a th:href="@{'/editPostOfficeForm/' + ${postOffice.postOfficeId}}">Edit</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <a th:href="@{'/deletePostOffice/' + ${postOffice.postOfficeId}}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</div>-->
 
 
 <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
