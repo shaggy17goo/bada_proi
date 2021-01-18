@@ -5,6 +5,8 @@ import org.springframework.lang.Nullable;
 import java.sql.Date;
 
 public class ParticipantRegistration {
+    private String login;
+    private String password;
     private String name;
     private String surname;
     private Date birthDate;
@@ -20,7 +22,9 @@ public class ParticipantRegistration {
     private String postCode;
     private String postCity;
 
-    public ParticipantRegistration(String name, String surname, Date birthDate, @Nullable String pesel, String gender, String phoneNumber, @Nullable String email, String city, String street, String houseNumber, String postCode, String postCcity) {
+    public ParticipantRegistration(String login, String password, String name, String surname, Date birthDate, @Nullable String pesel, String gender, String phoneNumber, @Nullable String email, String city, String street, String houseNumber, String postCode, String postCity) {
+        this.login = login;
+        this.password = password;
         this.name = name;
         this.surname = surname;
         this.birthDate = birthDate;
@@ -32,7 +36,7 @@ public class ParticipantRegistration {
         this.street = street;
         this.houseNumber = houseNumber;
         this.postCode = postCode;
-        this.postCity = postCcity;
+        this.postCity = postCity;
     }
 
     public ParticipantRegistration() {
@@ -134,5 +138,21 @@ public class ParticipantRegistration {
 
     public void setPostCity(String postCity) {
         this.postCity = postCity;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

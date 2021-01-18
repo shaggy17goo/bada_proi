@@ -98,18 +98,33 @@ public class AppController{
     }
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String registerPage(Model model) {
-        AppUser appUser = new AppUser();
-        model.addAttribute("appUser",appUser);
+        ParticipantRegistration participantRegistration = new ParticipantRegistration();
+        model.addAttribute("pr",participantRegistration);
         return "forms/newUserFormPage";
     }
 
     @RequestMapping(value = "/saveNewUser", method = RequestMethod.POST)
-    public String saveNewUser(@ModelAttribute("appUser") AppUser appUser){
-        appUserDAO.save(appUser);
-        AppUser tempUser = appUserDAO.get(appUser.getUsername());
-        userRoleDAO.save(new UserRole(tempUser.getUserId(), 1));//FIXME
+    public String saveNewUser(@ModelAttribute("appUser") ParticipantRegistration pr){
 
-        return "user/loginPage";
+
+        int userId = appUserDAO.getNextSeqId()+1;
+        AppUser user = new AppUser(pr.getLogin(),pr.getPassword());
+        appUserDAO.save(user);
+        userRoleDAO.save(new UserRole(userId, appRoleDAO.getRoleId("ROLE_PARTICIPANT").getRoleId()));
+
+        int postOfficeId=postOfficeDAO.getNextSeqId()+1;
+        PostOffice postOffice = new PostOffice(0, pr.getPostCode(), pr.getPostCity());
+        postOfficeDAO.save(postOffice);
+
+        int addressId = addressDAO.getNextSeqId()+1;
+        Address address = new Address(0,pr.getCity(),pr.getStreet(),pr.getHouseNumber(),postOfficeId);
+        addressDAO.save(address);
+
+        Participant participant = new Participant(0, pr.getName(), pr.getSurname(), pr.getBirthDate(),pr.getPesel(),pr.getGender(),pr.getPhoneNumber(), pr.getEmail(),addressId);
+        participant.setUserId(userId);
+        participantDAO.save(participant);
+
+        return "user/afterFillingData";
     }
     @RequestMapping(value = "/menu", method = RequestMethod.GET)
     public String menuBar(Model model) {
@@ -121,29 +136,6 @@ public class AppController{
         Participant participant = new Participant();
         model.addAttribute("participant",participant);
         return "forms/newParticipantForm";
-    }
-    @RequestMapping(value = "/saveNewParticipant", method = RequestMethod.POST)
-    public String saveNewParticipant(@ModelAttribute("participantRegistration") ParticipantRegistration pr){
-
-        int postOfficeId=postOfficeDAO.getNextSeqId();
-        PostOffice postOffice = new PostOffice(postOfficeId, pr.getPostCode(), pr.getPostCity());
-        postOfficeDAO.save(postOffice);
-
-        int addressId = addressDAO.getNextSeqId();
-        Address address = new Address(addressId,pr.getCity(),pr.getStreet(),pr.getHouseNumber(),postOfficeId+1);
-        addressDAO.save(address);
-
-        Participant participant = new Participant(0, pr.getName(), pr.getSurname(), pr.getBirthDate(),pr.getPesel(),pr.getGender(),pr.getPhoneNumber(), pr.getEmail(),addressId+1);
-
-        String username = WebUtils.getLoggedUsername();
-        AppUser tempUser = appUserDAO.get(username);
-        participant.setUserId(tempUser.getUserId());
-        participantDAO.save(participant);
-        userRoleDAO.delete(tempUser.getUserId());
-        userRoleDAO.save(new UserRole(tempUser.getUserId(),appRoleDAO.getRoleId("ROLE_PARTICIPANT").getRoleId()));
-
-        System.out.println("hejka");
-        return "user/afterFillingData";
     }
 
     @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)

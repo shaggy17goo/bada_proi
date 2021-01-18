@@ -63,4 +63,12 @@ public class AppUserDAO {
         String sql = "DELETE FROM appUsers WHERE userId = ?";
         jdbcTemplate.update(sql,id);
     }
+
+    public int getNextSeqId() {
+        String sql = "SELECT USERSSEQ12.nextVal FROM DUAL";
+        Integer ID = jdbcTemplate.queryForObject(sql,new Object[]{}, Integer.class);
+        int id = ID.intValue();
+        System.out.println(id);
+        return id;
+    }
 }
