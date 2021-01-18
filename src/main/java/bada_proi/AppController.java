@@ -50,14 +50,15 @@ public class AppController{
         return "forms/newPostOfficeForm";
     }
     @RequestMapping(value = "/savePostOffice", method = RequestMethod.POST)
-    public String savePostOffice(@ModelAttribute("postOffice") PostOffice postOffice){
+    public String savePostOffice(@ModelAttribute("postOffice") PostOffice postOffice) {
         postOfficeDAO.save(postOffice);
 
         return "redirect:/";
     }
+
     @RequestMapping("/editPostOfficeForm/{postOfficeId}")
     public ModelAndView showPostOfficeEditForm(@PathVariable(name = "postOfficeId") int id){
-        ModelAndView mav = new ModelAndView("editPostOfficeForm");
+        ModelAndView mav = new ModelAndView("form/editPostOfficeForm");
         PostOffice postOffice = postOfficeDAO.get(id);
         mav.addObject("postOffice",postOffice);
 
@@ -158,6 +159,23 @@ public class AppController{
         model.addAttribute("courseList",courseList);
         return "default/allCoursesTable";
     }
+
+    @RequestMapping("/courseRalization/{courseId}")
+    public String showCourseRealizationPage(Model model, @PathVariable(name = "courseId") int id){
+        List<CourseInfo> courseInfoList = courseDAO.getCourseInfoList(id);
+        model.addAttribute("courseInfoList",courseInfoList);
+
+        return "default/courseRealizationTable";
+    }
+
+    /*@RequestMapping("/courseRalization/{courseId}")
+    public String showCourseRealizationPage(@PathVariable(name = "courseId") int id){
+        ModelAndView mav = new ModelAndView("default/allCoursesTable");
+        List<CourseInfo> courseInfoList = courseDAO.getCourseInfoList(id);
+        mav.addObject("courseInfoList",courseInfoList);
+
+        return mav;
+    }*/
 
 
     @RequestMapping(value = "/403", method = RequestMethod.GET)

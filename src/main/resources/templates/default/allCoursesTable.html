@@ -29,7 +29,7 @@
                     <p class="card-text" th:text="${course.description}"> Description</div>
                 </p>
                 <div class="d-flex justify-content-between align-items-center">
-                    <button type="button" class="btn btn-outline-primary">View available dates</button>
+                    <a class="btn btn-outline-primary" th:href="@{'/courseRalization/' + ${course.courseId}}">View available dates</a>
                 </div>
             </div>
         </div>
