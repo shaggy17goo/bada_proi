@@ -2,8 +2,13 @@ package bada_proi;
 
 import bada_proi.dao.*;
 import bada_proi.entity.*;
+import bada_proi.forms.CourseInfo;
+import bada_proi.forms.ParticipantRegistration;
 import bada_proi.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class AppController{
@@ -31,12 +37,11 @@ public class AppController{
     private UserRoleDAO userRoleDAO;
     @Autowired
     private AddressDAO addressDAO;
-    /*@RequestMapping("/")
-    public String viewHomePage(Model model){
-        List<PostOffice> postOfficeList = postOfficeDAO.list();
-        model.addAttribute("postOfficeList",postOfficeList);
-        return "index";
-    }*/
+    @Autowired
+    private CourseRealizationDAO courseRealizationDAO;
+    @Autowired
+    private CourseDAO courseDAO;
+
     @RequestMapping("/newPostOffice")
     public String showNewPostOfficeForm(Model model){
         PostOffice postOffice = new PostOffice();
@@ -164,8 +169,14 @@ public class AppController{
         }
 
     }
+    @RequestMapping(value = "/allCourses", method = RequestMethod.GET)
+    public String viewAllCourses(Model model){
+        List<Course> courseList =  courseDAO.list();
+        model.addAttribute("courseList",courseList);
+        return "default/allCoursesTable";
+    }
 
-    @RequestMapping(value = "/userAccountInfo", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/userAccountInfo", method = RequestMethod.GET)
     public String userAccountInfo(Model model, Principal principal) {
 
         // After user login successfully.
@@ -177,7 +188,7 @@ public class AppController{
         model.addAttribute("userInfo", userInfo);
 
         return "user/userInfoPage";
-    }
+    }*/
 
     @RequestMapping(value = "/403", method = RequestMethod.GET)
     public String accessDenied(Model model, Principal principal) {

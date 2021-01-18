@@ -57,4 +57,5 @@ public class CourseRealizationDAO {//[DAO] Data Access Object – komponent dost
         String sql = "DELETE FROM COURSESREALIZATIONS WHERE realizationId = ?";
         jdbcTemplate.update(sql,id);
     }
+
 }

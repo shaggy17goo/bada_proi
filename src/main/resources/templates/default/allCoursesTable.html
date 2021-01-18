@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link href="culturalCenter.css" rel="stylesheet">
+    <title>All Courses</title>
+</head>
+<body>
+<header>
+    <div th:include="menu"></div>
+</header>
+<div class="pt-5"></div>
+
+<table border="1" cellpadding="10" align="center">
+    <thead>
+    <tr>
+        <th>Course name</th>
+        <th>Course description</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each = "course : ${courseList}">
+        <td th:text = "${course.name}">Name</td>
+        <td th:text = "${course.description}">Description</td>
+        <td>
+            <a>Edit</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <a>Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-package bada_proi.entity;
+package bada_proi.forms;
 
 import org.springframework.lang.Nullable;
 
@@ -21,6 +21,7 @@ public class ParticipantRegistration {
     private String houseNumber;
     private String postCode;
     private String postCity;
+
 
     public ParticipantRegistration(String login, String password, String name, String surname, Date birthDate, @Nullable String pesel, String gender, String phoneNumber, @Nullable String email, String city, String street, String houseNumber, String postCode, String postCity) {
         this.login = login;
