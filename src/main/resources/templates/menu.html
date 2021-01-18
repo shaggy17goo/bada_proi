@@ -1,29 +1,65 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-     style="border: 1px solid #ccc;padding:5px;margin-bottom:20px;">
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+
+    <title>Menu</title>
+
+    <style>
+        .jumbotron {
+            background-color: #2E1D88;
+            color: white;
+        }
+
+        /* Adds borders for tabs */
+        .tab-content {
+            border-left: 10px solid #ddd;
+            border-right: 10px solid #ddd;
+            border-bottom: 10px solid #ddd;
+            padding: 20px;
+        }
+
+        .nav-tabs {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
 <div align="center">
-    <a th:href="@{/}">Home</a>
 
-    | &nbsp;
+    <div class="container">
+        <div class="jumbotron">
+            <h2 align="left"> Cultural center</h2>
+            <p align="right">
+                <a th:href="@{/home}" class="btn btn-info" role="button">Home</a>
 
-    <a th:href="@{/userInfo}">User Info</a>
+                <a th:href="@{/userInfo}" class="btn btn-info" role="button">User Info</a>
 
-    | &nbsp;
+                <a th:href="@{/admin}" class="btn btn-info" role="button">Admin</a>
 
-    <a th:href="@{/admin}">Admin</a>
+                <a th:if="${#request.userPrincipal != null}" th:href="@{/logout}" class="btn btn-info" role="button">Logout</a>
 
+                <a th:if="${#request.userPrincipal == null}" th:href="@{/login}" class="btn btn-info" role="button">Log in</a>
 
-    <a th:if="${#request.userPrincipal != null}"> | &nbsp;</a>
-    <a th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
-
-
-    <a th:if="${#request.userPrincipal == null}"> | &nbsp;</a>
-    <a th:if="${#request.userPrincipal == null}" th:href="@{/login}">Log in</a>
-
-
-    <a th:if="${#request.userPrincipal == null}"> | &nbsp;</a>
-    <a th:if="${#request.userPrincipal == null}" th:href="@{/register}">Register</a>
-    | &nbsp;
+                <a th:if="${#request.userPrincipal == null}" th:href="@{/register}" class="btn btn-info" role="button">Register</a>
+            </p>
+        </div>
+    </div>
 </div>
 
+
+<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+
+
+
+</body>
 </html>

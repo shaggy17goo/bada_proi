@@ -155,10 +155,10 @@ public class AppController{
         return "afterFillingData";
     }
 
-    @RequestMapping(value = "/error", method = RequestMethod.GET)
-    public String errorPage(Model model) {
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    public String homePage(Model model) {
 
-        return "welcomePage";
+        return "index";
     }
 
     @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
