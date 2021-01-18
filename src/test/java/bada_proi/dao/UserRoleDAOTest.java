@@ -34,24 +34,24 @@ class UserRoleDAOTest {
 
     @Test
     void save() {
-        UserRole userRole = new UserRole(1, 4);
-        dao.save(userRole);
+/*        UserRole userRole = new UserRole(1, 4);
+        dao.save(userRole);*/
 
     }
 
     @Test
     void get() {
-        int userId = 1;
+/*        int userId = 1;
         int roleId = 4;
         UserRole userRole = dao.get(userId,roleId);
         System.out.println(userRole);
-        assertNotNull(userRole);
+        assertNotNull(userRole);*/
     }
 
     @Test
     void delete() {
-        int userId = 1;
+/*        int userId = 1;
         int roleId = 4;
-        dao.delete(userId,roleId);
+        dao.delete(userId,roleId);*/
     }
 }
