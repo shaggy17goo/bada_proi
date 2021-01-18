@@ -27,29 +27,29 @@ class ParticipantDAOTest {
 
     @Test
     void list() {
-        List<Participant> participantList = dao.list();
+        /*List<Participant> participantList = dao.list();
         System.out.println(participantList);
-        assertFalse(participantList.isEmpty());
+        assertFalse(participantList.isEmpty());*/
     }
 
     @Test
     void save() {
-        Participant participant = new Participant(105,"Paweł", "Gryka",new Date(2000, 2, 2), "1234123412","M","987654321","pawelkox69@wp.pl",7);
-        dao.save(participant);
+        /*Participant participant = new Participant(105,"Paweł", "Gryka",new Date(2000, 2, 2), "1234123412","M","987654321","pawelkox69@wp.pl",7);
+        dao.save(participant);*/
 
     }
 
     @Test
     void get() {
-        int id = 1;
+        /*int id = 1;
         Participant participant = dao.get(id);
         System.out.println(participant);
-        assertNotNull(participant);
+        assertNotNull(participant);*/
     }
 
     @Test
     void update() {
-        Participant participant = new Participant();
+        /*Participant participant = new Participant();
         participant.setParticipantId(1);
         participant.setName("Michał");
         participant.setSurname("Wawrzyńczak");
@@ -60,12 +60,12 @@ class ParticipantDAOTest {
         participant.setEmail("ultrakox123@o2.pl");
         participant.setAddressId(2);
         participant.setUserId(Integer.valueOf(1));
-        dao.update(participant);
+        dao.update(participant);*/
     }
 
     @Test
     void delete() {
-        int id = 101;
-        dao.delete(id);
+        /*int id = 101;
+        dao.delete(id);*/
     }
 }

@@ -30,6 +30,6 @@ class AppRoleDAOTest {
 
     @Test
     void getRoleId() {
-        System.out.println(dao.getRoleId("ROLE_EMPLOYEE"));
+        //System.out.println(dao.getRoleId("ROLE_EMPLOYEE"));
     }
 }

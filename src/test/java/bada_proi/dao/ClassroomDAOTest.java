@@ -26,40 +26,40 @@ class ClassroomDAOTest {
 
     @Test
     void list() {
-        List<Classroom> classroomList = dao.list();
+        /*List<Classroom> classroomList = dao.list();
         System.out.println(classroomList);
-        assertFalse(classroomList.isEmpty());
+        assertFalse(classroomList.isEmpty());*/
     }
 
     @Test
     void save() {
-        Classroom classroom = new Classroom(105, 31, "Test", "EDUKACYJNA", 1);
-        dao.save(classroom);
+        /*Classroom classroom = new Classroom(105, 31, "Test", "EDUKACYJNA", 1);
+        dao.save(classroom);*/
 
     }
 
     @Test
     void get() {
-        int id = 7;
+        /*int id = 7;
         Classroom classroom = dao.get(id);
         System.out.println(classroom);
-        assertNotNull(classroom);
+        assertNotNull(classroom);*/
     }
 
     @Test
     void update() {
-        Classroom classroom = new Classroom();
+        /*Classroom classroom = new Classroom();
         classroom.setClassroomId(2);
         classroom.setMaxCapacity(8);
         classroom.setDescription("ehhhhhh");
         classroom.setType("EDUKACYJNA");
         classroom.setCulturalCenterId(1);
-        dao.update(classroom);
+        dao.update(classroom);*/
     }
 
     @Test
     void delete() {
-        int id = 102;
-        dao.delete(id);
+        /*int id = 102;
+        dao.delete(id);*/
     }
 }

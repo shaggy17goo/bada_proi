@@ -27,29 +27,29 @@ class EmployeeDAOTest {
 
     @Test
     void list() {
-        List<Employee> employeeList = dao.list();
+        /*List<Employee> employeeList = dao.list();
         System.out.println(employeeList);
-        assertFalse(employeeList.isEmpty());
+        assertFalse(employeeList.isEmpty());*/
     }
 
     @Test
     void save() {
-        Employee employee = new Employee(105,"WOZNY", "Paweł", "Gryka", new Date(2000, 2, 2), "1234123412","M","987654321","pawelkox69@wp.pl", new Date(2000, 2, 2), "31241421341231231221",1, 7);
-        dao.save(employee);
+       /* Employee employee = new Employee(105,"WOZNY", "Paweł", "Gryka", new Date(2000, 2, 2), "1234123412","M","987654321","pawelkox69@wp.pl", new Date(2000, 2, 2), "31241421341231231221",1, 7);
+        dao.save(employee);*/
 
     }
 
     @Test
     void get() {
-        int id = 1;
+        /*int id = 1;
         Employee employee = dao.get(id);
         System.out.println(employee);
-        assertNotNull(employee);
+        assertNotNull(employee);*/
     }
 
     @Test
     void update() {
-        Employee employee = new Employee();
+        /*Employee employee = new Employee();
         employee.setEmployeeId(99);
         employee.setType("WOZNY");
         employee.setName("Michał");
@@ -64,12 +64,12 @@ class EmployeeDAOTest {
         employee.setCulturalCenterId(1);
         employee.setAddressId(2);
         employee.setUserId(Integer.valueOf(1));
-        dao.update(employee);
+        dao.update(employee);*/
     }
 
     @Test
     void delete() {
-        int id = 101;
-        dao.delete(id);
+        /*int id = 101;
+        dao.delete(id);*/
     }
 }
