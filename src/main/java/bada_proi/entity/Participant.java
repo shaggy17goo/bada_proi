@@ -37,6 +37,7 @@ public class Participant {
         this.userId = null;
     }
 
+
     @Nullable
     public Integer getUserId() {
         return userId;

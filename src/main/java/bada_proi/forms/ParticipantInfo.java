@@ -7,7 +7,10 @@ import java.sql.Date;
 public class ParticipantInfo {
 
     private int participantId;
-    private int userId;
+
+    @Nullable
+    private Integer userId;
+    @Nullable
     private String username;
     private String name;
     private String surname;
@@ -54,19 +57,22 @@ public class ParticipantInfo {
         this.participantId = participantId;
     }
 
-    public int getUserId() {
+
+    @Nullable
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(@Nullable Integer userId) {
         this.userId = userId;
     }
 
+    @Nullable
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(@Nullable String username) {
         this.username = username;
     }
 

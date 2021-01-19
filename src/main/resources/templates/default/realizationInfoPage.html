@@ -17,7 +17,6 @@
     <div th:include="menu"></div>
 </header>
 <div class="mt-5" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} ">
-    <h2> Courses you are already signed up for: </h2>
     <table class="table" >
         <thead class="thead-dark">
         <tr>
@@ -27,57 +26,77 @@
             <th scope="col">Start date</th>
             <th scope="col">Finish date</th>
             <th scope="col">Price</th>
-            <th scope="col">Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:object="${realizationInfo}">
             <td th:text = "${realizationInfo.courseName}">Name</td>
-            <td th:text = "${realizationInfo.} " >Max Participants</td>
-            <td th:text = "${classroomId}">Classroom #</td>
-            <td th:text = "${course.startDate}">Start date</td>
-            <td th:text = "${course.finishDate}">Finish date</td>
-            <td th:text = "${course.price} + '€'">Price</td>
-            <td>
-                <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} " th:href="@{'/signOutOfCourse/allCourses/' + ${course.realizationId}}">Sign out</a>
-            </td>
+            <td th:text = "${realizationInfo.maxParticipants} " >Max Participants</td>
+            <td th:text = "${realizationInfo.classroomId}">Classroom #</td>
+            <td th:text = "${realizationInfo.startDate}">Start date</td>
+            <td th:text = "${realizationInfo.finishDate}">Finish date</td>
+            <td th:text = "${realizationInfo.price} + '€'">Price</td>
         </tr>
         </tbody>
     </table>
 </div>
-<div class="mt-5">
-    <h2> All courses: </h2>
-    <table class="table" >
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col">Course name</th>
-            <th scope="col">Max Participants</th>
-            <th scope="col">Classroom #</th>
-            <th scope="col">Start date</th>
-            <th scope="col">Finish date</th>
-            <th scope="col">Price</th>
-            <th scope="col">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="course : ${courseInfoList}">
-            <td th:text = "${course.courseName}">Name</td>
-            <td th:text = "${course.maxParticipants} " >Max Participants</td>
-            <td th:text = "${course.classroomId}">Classroom #</td>
-            <td th:text = "${course.startDate}">Start date</td>
-            <td th:text = "${course.finishDate}">Finish date</td>
-            <td th:text = "${course.price} + '€'">Price</td>
-            <td>
-                <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} " th:href="@{'/signUpForCourse/'+ ${course.realizationId}}">Sign up</a>
-                <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} " th:href="@{'/realizationInfo/' + ${course.realizationId}}">More Info</a>
-                <a class="btn btn-outline-primary" th:if="${#request.userPrincipal == null}" th:href="@{/login}">Log in to sign up</a>
 
-                <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_ADMIN')}" th:href="@{/login}">Edit</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+
+<div class="row" align="center">
+    <div class="col-4">
+        <h2>Instructors:</h2>
+        <div>
+            <table class="table-striped" width = 50%>
+                <tbody>
+                <tr th:each="instructor : ${instructors}">
+                    <td th:text = "${instructor}" > Instructor: </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-4">
+        <h2>Description:</h2>
+        <div>
+            <table class="table-striped" width = 50%>
+                <tbody>
+                <tr th:object="${realizationInfo}">
+                    <td th:text = "${realizationInfo.courseDescription}">Description</td>
+                </tr>
+                <tr th:object="${realizationInfo}">
+                    <td th:text = "${realizationInfo.realizationDescription}">Description</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-4">
+        <h2>Participants:</h2>
+        <div th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} ">
+            <table class="table-striped" width = 50%>
+                <tbody>
+                <tr th:each="participant : ${participantsInfo}">
+                    <td th:text = "${participant.name} + ' ' + ${participant.surname}" > Participant: </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div th:if="${#request.isUserInRole('ROLE_EMPLOYEE')} ">
+            <table class="table-striped" width = 50%>
+                <tbody>
+                <tr th:each="participant : ${participantsInfo}">
+                    <td th:text = "${participant.name} + ' ' + ${participant.surname} + ' ' + ${participant.phoneNumber}" > Participant: </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>
+
 <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>

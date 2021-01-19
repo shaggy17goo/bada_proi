@@ -72,6 +72,7 @@
             <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} " th:href="@{'/signUpForCourse/'+ ${course.realizationId}}">Sign up</a>
             <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} " th:href="@{'/realizationInfo/' + ${course.realizationId}}">More Info</a>
             <a class="btn btn-outline-primary" th:if="${#request.userPrincipal == null}" th:href="@{/login}">Log in to sign up</a>
+            <a class="btn btn-outline-primary" th:if="${#request.userPrincipal == null} " th:href="@{'/realizationInfo/' + ${course.realizationId}}">More Info</a>
 
             <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_ADMIN')}" th:href="@{/login}">Edit</a>
         </td>

@@ -214,7 +214,7 @@ public class AppController {
 
     @RequestMapping("/realizationInfo/{courseId}")
     public String showRealizationInfoPage(Model model, @PathVariable(name = "courseId") int id) {
-        List<CourseInfo> realizationsList = courseRealizationDAO.getRealizationListByCourseId(id);
+        List<CourseInfo> realizationsList = courseDAO.getCourseInfoListFromRealizationId(id);
         List<String> instructors= new ArrayList<>();
         for (CourseInfo realization:realizationsList) {
             instructors.add(realization.getEmployeeName()+' '+realization.getSurname());

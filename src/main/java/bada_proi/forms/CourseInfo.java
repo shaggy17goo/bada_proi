@@ -5,6 +5,7 @@ import java.sql.Date;
 public class CourseInfo {
     //CLASSROOM
     private int classroomId;
+    private String type;
     //REALIZATION
     private String price;
     private Date startDate;
@@ -14,15 +15,17 @@ public class CourseInfo {
     private int courseId;
     private String courseName;
     private int maxParticipants;
-    private String description;
+    private String courseDescription;
     //EMPLOYEE
     private String employeeName;
     private String surname;
     private String email;
+    private String realizationDescription;
+
 
     public CourseInfo() {
     }
-    public CourseInfo(int classroomId, String price, Date startDate, Date finishDate, int realizationId, int courseId, String courseName, int maxParticipants, String description, String employeeName, String surname, String email) {
+    public CourseInfo(int classroomId, String price, Date startDate, Date finishDate, int realizationId, int courseId, String courseName, int maxParticipants, String courseDescription, String employeeName, String surname, String email) {
         this.classroomId = classroomId;
         this.price = price;
         this.startDate = startDate;
@@ -31,10 +34,27 @@ public class CourseInfo {
         this.courseId = courseId;
         this.courseName = courseName;
         this.maxParticipants = maxParticipants;
-        this.description = description;
+        this.courseDescription = courseDescription;
         this.employeeName = employeeName;
         this.surname = surname;
         this.email = email;
+    }
+
+
+    public String getRealizationDescription() {
+        return realizationDescription;
+    }
+
+    public void setRealizationDescription(String realizationDescription) {
+        this.realizationDescription = realizationDescription;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public int getClassroomId() {
@@ -85,12 +105,12 @@ public class CourseInfo {
         this.maxParticipants = maxParticipants;
     }
 
-    public String getDescription() {
-        return description;
+    public String getCourseDescription() {
+        return courseDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCourseDescription(String courseDescription) {
+        this.courseDescription = courseDescription;
     }
 
     public String getEmployeeName() {
