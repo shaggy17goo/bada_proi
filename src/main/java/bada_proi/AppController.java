@@ -263,6 +263,9 @@ public class AppController {
             model.addAttribute("activeCoursesList", activeCoursesList);
             model.addAttribute("courseInfoList", anotherCoursesList);
         }
+        else{
+            model.addAttribute("courseInfoList", realizationsList);
+        }
 
 
         return "default/courseRealizationTable";
@@ -281,17 +284,25 @@ public class AppController {
             for (ParticipantRealization temp : participantCourses) {
                 yourCourseInfoList.add(courseDAO.getCourseInfoListFromRealizationId(temp.getRealizationId()).get(0));
             }
-        } else if (userRole.equals("ROLE_EMMPLOYEE")) {
+        } else if (userRole.equals("ROLE_EMPLOYEE")) {
             userId = employeeInfoDAO.get(userLogin).getEmployeeId();
             List<EmployeeRealization> employeeCourses = employeeRealizationDAO.employeeCourses(userId);
 
             for (EmployeeRealization temp : employeeCourses) {
-                yourCourseInfoList.add((CourseInfo) courseDAO.getCourseInfoListFromRealizationId(temp.getRealizationId()));
+                yourCourseInfoList.add(courseDAO.getCourseInfoListFromRealizationId(temp.getRealizationId()).get(0));
             }
         }
         model.addAttribute("yourCourseInfoList", yourCourseInfoList);
         return "default/yourCoursesPage";
     }
+    @RequestMapping("/listOfParticipants/{courseId}")
+    public String showListOfCourseParticipants(Model model, @PathVariable(name = "courseId") int id) {
+        List<ParticipantInfo> participantInfoList = courseRealizationDAO.getParticipantsInfoByCourseRealization(id);
+        model.addAttribute("participantInfoList", participantInfoList);
+        return "";
+    }
+
+
 
     /*@RequestMapping("/courseRalization/{courseId}")
     public String showCourseRealizationPage(@PathVariable(name = "courseId") int id){

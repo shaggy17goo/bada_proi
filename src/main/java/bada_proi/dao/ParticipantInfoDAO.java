@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 @Transactional
 public class ParticipantInfoDAO {
@@ -32,4 +34,6 @@ public class ParticipantInfoDAO {
                 "WHERE APPUSERS.USERNAME = '" + username+"'";
         return jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(ParticipantInfo.class));
     }
+
+
 }
