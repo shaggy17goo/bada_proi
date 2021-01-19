@@ -40,9 +40,9 @@ class CourseDAOTest {
 
     @Test
     void get() {
-        int id = 150;
+        /*int id = 150;
         Course course = dao.get(id);
-        System.out.println(course);
+        System.out.println(course);*/
         //assertNotNull(course);
     }
 

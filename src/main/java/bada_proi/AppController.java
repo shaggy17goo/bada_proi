@@ -194,16 +194,22 @@ public class AppController {
         String username = loginUser.getUsername();
         ParticipantInfo participantInfo = participantInfoDAO.get(username);
         participantRealizationDAO.save(new ParticipantRealization(participantInfo.getParticipantId(),id));
-        return viewYourCourses(model);
+        int courseId = courseDAO.getCourseInfoListFromRealizationId(id).get(0).getCourseId();
+        return showCourseRealizationPage(model,courseId);
     }
 
-    @RequestMapping("/signOutOfCourse/{courseRealizationId}")
-    public String signOutOfCourse(Model model, @PathVariable(name = "courseRealizationId") int id) {
+    @RequestMapping("/signOutOfCourse/{page}/{courseRealizationId}")
+    public String signOutOfCourse(Model model, @PathVariable(name = "page") String page, @PathVariable(name = "courseRealizationId") int id) {
         User loginUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = loginUser.getUsername();
         ParticipantInfo participantInfo = participantInfoDAO.get(username);
         participantRealizationDAO.delete(participantInfo.getParticipantId(),id);
-        return viewYourCourses(model);
+        if(page.equals("yourCourses")) // yourCourses  allCourses
+            return viewYourCourses(model);
+        else{
+            int courseId = courseDAO.getCourseInfoListFromRealizationId(id).get(0).getCourseId();
+            return showCourseRealizationPage(model,courseId);
+        }
     }
 
     @RequestMapping("/realizationInfo/{courseId}")

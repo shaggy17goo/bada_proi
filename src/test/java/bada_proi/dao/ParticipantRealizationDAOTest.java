@@ -10,6 +10,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 class ParticipantRealizationDAOTest {
 
     private ParticipantRealizationDAO dao;
@@ -34,7 +35,7 @@ class ParticipantRealizationDAOTest {
 
     @Test
     void save() {
-        /*ParticipantRealization participantRealization = new ParticipantRealization(1, 1);
+        /*ParticipantRealization participantRealization = new ParticipantRealization(2, 22);
         dao.save(participantRealization);*/
 
     }

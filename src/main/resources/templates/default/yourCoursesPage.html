@@ -40,7 +40,7 @@
             <td th:text = "${course.finishDate}">Finish date</td>
             <td th:if="${#request.isUserInRole('ROLE_PARTICIPANT')}" th:text = "${course.price} + '€'">Price</td>
             <td>
-                <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} " th:href="@{'/signOutOfCourse/' + ${course.realizationId}}">Sign out</a>
+                <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} " th:href="@{'/signOutOfCourse/yourCourses/' + ${course.realizationId}}">Sign out</a>
 
                 <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_EMPLOYEE')}" th:href="@{/login}">See list</a>
             </td>
