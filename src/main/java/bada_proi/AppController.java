@@ -185,6 +185,25 @@ public class AppController {
         model.addAttribute("courseList", courseList);
         return "default/allCoursesTable";
     }
+    @RequestMapping("/signUpForCourse/{courseRealizationId}")
+    public String signUpForCourse(Model model, @PathVariable(name = "courseRealizationId") int id) {
+        User loginUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = loginUser.getUsername();
+        ParticipantInfo participantInfo = participantInfoDAO.get(username);
+        CourseInfo courseInfo = courseDAO.getCourseInfoListFromRealizationId(id).get(0);
+        participantRealizationDAO.save(new ParticipantRealization(participantInfo.getParticipantId(),id));
+        return showCourseRealizationPage(model, courseInfo.getCourseId());
+    }
+    @RequestMapping("/signOutOfCourse/{courseRealizationId}")
+    public String signOutOfCourse(Model model, @PathVariable(name = "courseRealizationId") int id) {
+        User loginUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = loginUser.getUsername();
+        ParticipantInfo participantInfo = participantInfoDAO.get(username);
+        CourseInfo courseInfo = courseDAO.getCourseInfoListFromRealizationId(id).get(0);
+        participantRealizationDAO.delete(participantInfo.getParticipantId(),id);
+        return viewYourCourses(model);
+    }
+
 
     @RequestMapping("/courseRalization/{courseId}")
     public String showCourseRealizationPage(Model model, @PathVariable(name = "courseId") int id) {
@@ -203,9 +222,9 @@ public class AppController {
         if (userRole.equals("ROLE_PARTICIPANT")) {
             userId = participantInfoDAO.get(userLogin).getParticipantId();
             List<ParticipantRealization> participantCourses = participantRealizationDAO.participantCourses(userId);
-
+            List<CourseInfo> courseInfoListTemp = courseDAO.getCourseInfoList(id);
             for(ParticipantRealization tempReal : participantCourses){
-                for(CourseInfo tempCourse : courseInfoList){
+                for(CourseInfo tempCourse : courseInfoListTemp){
                     if(tempReal.getRealizationId() == tempCourse.getRealizationId()){
                         activeCoursesList.add(tempCourse);
                         courseInfoList.remove(tempCourse);
@@ -231,14 +250,14 @@ public class AppController {
             userId = participantInfoDAO.get(userLogin).getParticipantId();
             List<ParticipantRealization> participantCourses = participantRealizationDAO.participantCourses(userId);
             for (ParticipantRealization temp : participantCourses) {
-                yourCourseInfoList.add((CourseInfo) courseDAO.getCourseInfoListForUser(temp.getRealizationId()));
+                yourCourseInfoList.add(courseDAO.getCourseInfoListFromRealizationId(temp.getRealizationId()).get(0));
             }
         } else if (userRole.equals("ROLE_EMMPLOYEE")) {
             userId = employeeInfoDAO.get(userLogin).getEmployeeId();
             List<EmployeeRealization> employeeCourses = employeeRealizationDAO.employeeCourses(userId);
 
             for (EmployeeRealization temp : employeeCourses) {
-                yourCourseInfoList.add((CourseInfo) courseDAO.getCourseInfoListForUser(temp.getRealizationId()));
+                yourCourseInfoList.add((CourseInfo) courseDAO.getCourseInfoListFromRealizationId(temp.getRealizationId()));
             }
         }
         model.addAttribute("yourCourseInfoList", yourCourseInfoList);

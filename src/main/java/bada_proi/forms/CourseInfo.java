@@ -11,6 +11,7 @@ public class CourseInfo {
     private Date finishDate;
     private int realizationId;
     //COURSE
+    private int courseId;
     private String courseName;
     private int maxParticipants;
     private String description;
@@ -21,13 +22,13 @@ public class CourseInfo {
 
     public CourseInfo() {
     }
-
-    public CourseInfo(int classroomId, String price, Date startDate, Date finishDate, int realizationId, String courseName, int maxParticipants, String description, String employeeName, String surname, String email) {
+    public CourseInfo(int classroomId, String price, Date startDate, Date finishDate, int realizationId, int courseId, String courseName, int maxParticipants, String description, String employeeName, String surname, String email) {
         this.classroomId = classroomId;
         this.price = price;
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.realizationId = realizationId;
+        this.courseId = courseId;
         this.courseName = courseName;
         this.maxParticipants = maxParticipants;
         this.description = description;
@@ -122,5 +123,12 @@ public class CourseInfo {
 
     public void setRealizationId(int realizationId) {
         this.realizationId = realizationId;
+    }
+    public int getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
     }
 }

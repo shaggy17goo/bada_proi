@@ -72,7 +72,7 @@ public class CourseDAO {//[DAO] Data Access Object – komponent dostarczający 
     }
 
     public List<CourseInfo> getCourseInfoList(int id) {
-        String sql = "SELECT CLASSROOMS.classroomid, COURSESREALIZATIONS.price, COURSESREALIZATIONS.startdate, COURSESREALIZATIONS.finishdate, " +
+        String sql = "SELECT COURSES.COURSEID, CLASSROOMS.classroomid, COURSESREALIZATIONS.price, COURSESREALIZATIONS.startdate, COURSESREALIZATIONS.finishdate, " +
                 "COURSES.name AS coursename, COURSES.maxparticipants, COURSES.description AS courseDescription, " +
                 "COURSESREALIZATIONS.description AS realizationDescription, EMPLOYEES.name AS employeeName, EMPLOYEES.surname, EMPLOYEES.email, COURSESREALIZATIONS.REALIZATIONID " +
                 "FROM COURSESREALIZATIONS LEFT JOIN COURSES ON COURSESREALIZATIONS.COURSEID = COURSES.COURSEID " +
@@ -83,8 +83,8 @@ public class CourseDAO {//[DAO] Data Access Object – komponent dostarczający 
         return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(CourseInfo.class));
     }
 
-    public List<CourseInfo> getCourseInfoListForUser(int id) {
-        String sql = "SELECT CLASSROOMS.classroomid, COURSESREALIZATIONS.price, COURSESREALIZATIONS.startdate, COURSESREALIZATIONS.finishdate, " +
+    public List<CourseInfo> getCourseInfoListFromRealizationId(int id) {
+        String sql = "SELECT COURSES.COURSEID, CLASSROOMS.classroomid, COURSESREALIZATIONS.price, COURSESREALIZATIONS.startdate, COURSESREALIZATIONS.finishdate, " +
                 "COURSES.name AS coursename, COURSES.maxparticipants, COURSES.description AS courseDescription, " +
                 "COURSESREALIZATIONS.description AS realizationDescription, EMPLOYEES.name AS employeeName, EMPLOYEES.surname, EMPLOYEES.email, COURSESREALIZATIONS.REALIZATIONID " +
                 "FROM COURSESREALIZATIONS LEFT JOIN COURSES ON COURSESREALIZATIONS.COURSEID = COURSES.COURSEID " +

@@ -39,8 +39,7 @@
             <td th:text = "${course.finishDate}">Finish date</td>
             <td th:text = "${course.price} + '€'">Price</td>
             <td>
-                <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} " th:href="@{/signUpForCourse}">Sign out</a>
-
+                <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} " th:href="@{'/signOutOfCourse/' + ${course.realizationId}}">Sign out</a>
             </td>
         </tr>
         </tbody>
@@ -69,7 +68,7 @@
         <td th:text = "${course.finishDate}">Finish date</td>
         <td th:text = "${course.price} + '€'">Price</td>
         <td>
-            <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} " th:href="@{/signUpForCourse}">Sign up</a>
+            <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} " th:href="@{'/signUpForCourse/'+ ${course.realizationId}}">Sign up</a>
 
             <a class="btn btn-outline-primary" th:if="${#request.userPrincipal == null}" th:href="@{/login}">Log in to sign up</a>
 
