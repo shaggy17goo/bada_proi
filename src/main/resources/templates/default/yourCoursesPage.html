@@ -42,8 +42,7 @@
             <td>
                 <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} " th:href="@{'/signOutOfCourse/yourCourses/' + ${course.realizationId}}">Sign out</a>
 
-                <button type="button" class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_EMPLOYEE')}" data-toggle="modal" data-target="#myModal">See list</button>
-                <!--<a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_EMPLOYEE')}" th:href="@{'/listOfParticipants/' + ${course.realizationId}}">See list</a>-->
+                <a class="btn btn-outline-primary" th:href="@{'/realizationInfo/' + ${course.realizationId}}">More Info</a>
             </td>
         </tr>
         </tbody>

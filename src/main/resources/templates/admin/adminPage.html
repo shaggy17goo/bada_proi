@@ -13,15 +13,11 @@
         <div th:include="menu"></div>
     </header>
 
-    <h2>Admin Page</h2>
-    <h3>Welcome :
-        <span th:utext="${#request.userPrincipal.name}"></span>
-    </h3>
-    <b>This is protected page!</b>
+    <h1>Admin Page</h1>
 
-    <br/><br/>
+    <h3>Employees list:</h3>
 
-    <div th:if="${userInfo != null}" th:utext="${userInfo}"></div>
+
 </div>
 
 </body>

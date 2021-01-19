@@ -16,7 +16,8 @@
 <header>
     <div th:include="menu"></div>
 </header>
-<div class="mt-5" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} ">
+
+<div class="mt-5">
     <table class="table" >
         <thead class="thead-dark">
         <tr>
@@ -72,8 +73,8 @@
         </div>
     </div>
 
-    <div class="col-4">
-        <h2>Participants:</h2>
+    <div class="col-4"  >
+        <h2 th:if="${#request.userPrincipal != null}">Participants:</h2>
         <div th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} ">
             <table class="table-striped" width = 50%>
                 <tbody>
