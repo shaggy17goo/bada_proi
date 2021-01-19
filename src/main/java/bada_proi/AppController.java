@@ -220,31 +220,29 @@ public class AppController {
         return "default/courseRealizationTable";
     }
 
-    @RequestMapping(value = "/activeCourses", method = RequestMethod.GET)
-    public String viewActiveCourses(Model model) {
+    @RequestMapping(value = "/yourCourses", method = RequestMethod.GET)
+    public String viewYourCourses(Model model) {
         User loginUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String userLogin = loginUser.getUsername();
         String userRole = WebUtils.getRoleName(loginUser);
-        List<CourseInfo> activeCourseInfoList = new ArrayList<>();
+        List<CourseInfo> yourCourseInfoList = new ArrayList<>();
         int userId = -1;
         if (userRole.equals("ROLE_PARTICIPANT")) {
             userId = participantInfoDAO.get(userLogin).getParticipantId();
             List<ParticipantRealization> participantCourses = participantRealizationDAO.participantCourses(userId);
             for (ParticipantRealization temp : participantCourses) {
-                activeCourseInfoList.add((CourseInfo) courseDAO.getCourseInfoListForUser(temp.getRealizationId()));
+                yourCourseInfoList.add((CourseInfo) courseDAO.getCourseInfoListForUser(temp.getRealizationId()));
             }
-            model.addAttribute("activeCourseInfoList", activeCourseInfoList);
         } else if (userRole.equals("ROLE_EMMPLOYEE")) {
             userId = employeeInfoDAO.get(userLogin).getEmployeeId();
             List<EmployeeRealization> employeeCourses = employeeRealizationDAO.employeeCourses(userId);
 
             for (EmployeeRealization temp : employeeCourses) {
-                activeCourseInfoList.add((CourseInfo) courseDAO.getCourseInfoListForUser(temp.getRealizationId()));
+                yourCourseInfoList.add((CourseInfo) courseDAO.getCourseInfoListForUser(temp.getRealizationId()));
             }
-            model.addAttribute("activeCourseInfoList", activeCourseInfoList);
         }
-        model.addAttribute("activeCourseInfoList", activeCourseInfoList);
-        return "default/activeCoursesPage";
+        model.addAttribute("yourCourseInfoList", yourCourseInfoList);
+        return "default/yourCoursesPage";
     }
     /*@RequestMapping("/courseRalization/{courseId}")
     public String showCourseRealizationPage(@PathVariable(name = "courseId") int id){

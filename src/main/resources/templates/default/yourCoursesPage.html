@@ -17,7 +17,8 @@
     <div th:include="menu"></div>
 </header>
 <div class="mt-5">
-    <h3>Your active courses:</h3>
+    <h3 th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} ">You are signed up for following courses:</h3>
+    <h3 th:if="${#request.isUserInRole('ROLE_EMPLOYEE')} ">You teach following courses:</h3>
     <table class="table" >
         <thead class="thead-dark">
         <tr>
@@ -31,7 +32,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="course : ${activeCourseInfoList}">
+        <tr th:each="course : ${yourCourseInfoList}">
             <td th:text = "${course.courseName}">Name</td>
             <td th:text = "${course.employeeName} + ' ' + ${course.surname} " >Instructor</td>
             <td th:text = "${course.classroomId}">Classroom #</td>
