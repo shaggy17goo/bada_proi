@@ -22,6 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
 public class AppController {
@@ -185,56 +187,77 @@ public class AppController {
         model.addAttribute("courseList", courseList);
         return "default/allCoursesTable";
     }
+
     @RequestMapping("/signUpForCourse/{courseRealizationId}")
     public String signUpForCourse(Model model, @PathVariable(name = "courseRealizationId") int id) {
         User loginUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = loginUser.getUsername();
         ParticipantInfo participantInfo = participantInfoDAO.get(username);
-        CourseInfo courseInfo = courseDAO.getCourseInfoListFromRealizationId(id).get(0);
         participantRealizationDAO.save(new ParticipantRealization(participantInfo.getParticipantId(),id));
-        return showCourseRealizationPage(model, courseInfo.getCourseId());
+        return viewYourCourses(model);
     }
+
     @RequestMapping("/signOutOfCourse/{courseRealizationId}")
     public String signOutOfCourse(Model model, @PathVariable(name = "courseRealizationId") int id) {
         User loginUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = loginUser.getUsername();
         ParticipantInfo participantInfo = participantInfoDAO.get(username);
-        CourseInfo courseInfo = courseDAO.getCourseInfoListFromRealizationId(id).get(0);
         participantRealizationDAO.delete(participantInfo.getParticipantId(),id);
         return viewYourCourses(model);
+    }
+
+    @RequestMapping("/realizationInfo/{courseId}")
+    public String showRealizationInfoPage(Model model, @PathVariable(name = "courseId") int id) {
+        List<CourseInfo> realizationsList = courseRealizationDAO.getRealizationListByCourseId(id);
+        List<String> instructors= new ArrayList<>();
+        for (CourseInfo realization:realizationsList) {
+            instructors.add(realization.getEmployeeName()+' '+realization.getSurname());
+        }
+        List<ParticipantInfo> participantsInfo = courseRealizationDAO.getParticipantsInfoByCourseRealization(id);
+
+        model.addAttribute("realizationInfo", realizationsList.get(0));
+        model.addAttribute("instructors", instructors);
+        model.addAttribute("participantsInfo", participantsInfo);
+
+        return "/default/realizationInfoPage";
     }
 
 
     @RequestMapping("/courseRalization/{courseId}")
     public String showCourseRealizationPage(Model model, @PathVariable(name = "courseId") int id) {
-        List<CourseInfo> courseInfoList = courseDAO.getCourseInfoList(id);
-        List<CourseInfo> activeCoursesList = new ArrayList<>();
+        List<CourseInfo> realizationsList = courseRealizationDAO.getRealizationListByCourseId(id);
         if(!(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof User)){
-            model.addAttribute("activeCoursesList", activeCoursesList);
-            model.addAttribute("courseInfoList", courseInfoList);
-
+            model.addAttribute("courseInfoList", realizationsList);
             return "default/courseRealizationTable";
         }
+
+
         User loginUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String userLogin = loginUser.getUsername();
+        String userUsername = loginUser.getUsername();
         String userRole = WebUtils.getRoleName(loginUser);
         int userId = -1;
         if (userRole.equals("ROLE_PARTICIPANT")) {
-            userId = participantInfoDAO.get(userLogin).getParticipantId();
+            userId = participantInfoDAO.get(userUsername).getParticipantId();
             List<ParticipantRealization> participantCourses = participantRealizationDAO.participantCourses(userId);
-            List<CourseInfo> courseInfoListTemp = courseDAO.getCourseInfoList(id);
-            for(ParticipantRealization tempReal : participantCourses){
-                for(CourseInfo tempCourse : courseInfoListTemp){
-                    if(tempReal.getRealizationId() == tempCourse.getRealizationId()){
-                        activeCoursesList.add(tempCourse);
-                        courseInfoList.remove(tempCourse);
-                    }
-                }
+
+            List<Integer> participantCoursesId = new ArrayList<>();
+            for (ParticipantRealization participantCourse:participantCourses) {
+                participantCoursesId.add(participantCourse.getRealizationId());
             }
 
+            List<CourseInfo> activeCoursesList = realizationsList
+                    .stream()
+                    .filter(real -> participantCoursesId.contains(real.getRealizationId()))
+                    .collect(Collectors.toList());
+            List<CourseInfo> anotherCoursesList = realizationsList
+                    .stream()
+                    .filter(real -> !participantCoursesId.contains(real.getRealizationId()))
+                    .collect(Collectors.toList());
+
+            model.addAttribute("activeCoursesList", activeCoursesList);
+            model.addAttribute("courseInfoList", anotherCoursesList);
         }
-        model.addAttribute("activeCoursesList", activeCoursesList);
-        model.addAttribute("courseInfoList", courseInfoList);
+
 
         return "default/courseRealizationTable";
     }
@@ -263,6 +286,7 @@ public class AppController {
         model.addAttribute("yourCourseInfoList", yourCourseInfoList);
         return "default/yourCoursesPage";
     }
+
     /*@RequestMapping("/courseRalization/{courseId}")
     public String showCourseRealizationPage(@PathVariable(name = "courseId") int id){
         ModelAndView mav = new ModelAndView("default/allCoursesTable");

@@ -1,6 +1,9 @@
 package bada_proi.dao;
 
 import bada_proi.entity.CourseRealization;
+import bada_proi.entity.Participant;
+import bada_proi.forms.CourseInfo;
+import bada_proi.forms.ParticipantInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -57,5 +60,30 @@ public class CourseRealizationDAO {//[DAO] Data Access Object – komponent dost
         String sql = "DELETE FROM COURSESREALIZATIONS WHERE realizationId = ?";
         jdbcTemplate.update(sql,id);
     }
+
+    public List<CourseInfo> getRealizationListByCourseId (int courseId){
+        String sql = "SELECT COURSESREALIZATIONS.realizationid, CLASSROOMS.classroomid, COURSESREALIZATIONS.price, COURSESREALIZATIONS.startdate, COURSESREALIZATIONS.finishdate, " +
+                "        COURSES.name AS coursename, COURSES.maxparticipants, COURSES.description AS courseDescription, " +
+                "        COURSESREALIZATIONS.description AS realizationDescription " +
+                "FROM COURSESREALIZATIONS LEFT JOIN COURSES ON COURSESREALIZATIONS.COURSEID = COURSES.COURSEID " +
+                "        LEFT JOIN CLASSROOMS ON(COURSESREALIZATIONS.CLASSROOMID=CLASSROOMS.CLASSROOMID) " +
+                "WHERE COURSES.COURSEID = " + courseId;
+        return jdbcTemplate.query(sql,BeanPropertyRowMapper.newInstance(CourseInfo.class));
+    }
+
+    public List<ParticipantInfo> getParticipantsInfoByCourseRealization(int courseRealizationId){
+        String sql = "SELECT PARTICIPANTS.PARTICIPANTID, APPUSERS.USERID, APPUSERS.USERNAME, PARTICIPANTS.NAME, " +
+                "                    PARTICIPANTS.SURNAME, PARTICIPANTS.BIRTHDATE, PARTICIPANTS.PESEL, PARTICIPANTS.GENDER, " +
+                "                    PARTICIPANTS.PHONENUMBER, PARTICIPANTS.EMAIL, ADDRESSES.CITY, ADDRESSES.STREET, " +
+                "                    ADDRESSES.HOUSENUMBER, POSTOFFICES.CODE, POSTOFFICES.CITY AS POSTCITY " +
+                "                FROM PARTICIPANTS LEFT JOIN APPUSERS ON (PARTICIPANTS.USERID = APPUSERS.USERID) " +
+                "                    JOIN ADDRESSES ON (PARTICIPANTS.ADDRESSID = ADDRESSES.ADDRESSID) " +
+                "                    JOIN POSTOFFICES ON (ADDRESSES.POSTOFFICEID = POSTOFFICES.POSTOFFICEID) " +
+                "                    JOIN PARTICIPANTS_REALIZATIONS ON (PARTICIPANTS.PARTICIPANTID = PARTICIPANTS_REALIZATIONS.PARTICIPANTID) " +
+                "                    JOIN COURSESREALIZATIONS ON (PARTICIPANTS_REALIZATIONS.REALIZATIONID = COURSESREALIZATIONS.REALIZATIONID) " +
+                "                WHERE COURSESREALIZATIONS.REALIZATIONID =" + courseRealizationId;
+        return jdbcTemplate.query(sql,BeanPropertyRowMapper.newInstance(ParticipantInfo.class));
+    }
+
 
 }

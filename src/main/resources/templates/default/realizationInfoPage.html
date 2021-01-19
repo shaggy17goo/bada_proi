@@ -31,16 +31,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="course : ${activeCoursesList}">
-            <td th:text = "${course.courseName}">Name</td>
-            <td th:text = "${course.maxParticipants} " >Max Participants</td>
-            <td th:text = "${course.classroomId}">Classroom #</td>
+        <tr th:object="${realizationInfo}">
+            <td th:text = "${realizationInfo.courseName}">Name</td>
+            <td th:text = "${realizationInfo.} " >Max Participants</td>
+            <td th:text = "${classroomId}">Classroom #</td>
             <td th:text = "${course.startDate}">Start date</td>
             <td th:text = "${course.finishDate}">Finish date</td>
             <td th:text = "${course.price} + '€'">Price</td>
             <td>
                 <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} " th:href="@{'/signOutOfCourse/' + ${course.realizationId}}">Sign out</a>
-                <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} " th:href="@{'/realizationInfo/' + ${course.realizationId}}">More Info</a>
             </td>
         </tr>
         </tbody>
@@ -48,36 +47,36 @@
 </div>
 <div class="mt-5">
     <h2> All courses: </h2>
-<table class="table" >
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">Course name</th>
-        <th scope="col">Max Participants</th>
-        <th scope="col">Classroom #</th>
-        <th scope="col">Start date</th>
-        <th scope="col">Finish date</th>
-        <th scope="col">Price</th>
-        <th scope="col">Actions</th>
-    </tr>
-    </thead>
-    <tbody>
+    <table class="table" >
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Course name</th>
+            <th scope="col">Max Participants</th>
+            <th scope="col">Classroom #</th>
+            <th scope="col">Start date</th>
+            <th scope="col">Finish date</th>
+            <th scope="col">Price</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
         <tr th:each="course : ${courseInfoList}">
-        <td th:text = "${course.courseName}">Name</td>
-        <td th:text = "${course.maxParticipants} " >Max Participants</td>
-        <td th:text = "${course.classroomId}">Classroom #</td>
-        <td th:text = "${course.startDate}">Start date</td>
-        <td th:text = "${course.finishDate}">Finish date</td>
-        <td th:text = "${course.price} + '€'">Price</td>
-        <td>
-            <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} " th:href="@{'/signUpForCourse/'+ ${course.realizationId}}">Sign up</a>
-            <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} " th:href="@{'/realizationInfo/' + ${course.realizationId}}">More Info</a>
-            <a class="btn btn-outline-primary" th:if="${#request.userPrincipal == null}" th:href="@{/login}">Log in to sign up</a>
+            <td th:text = "${course.courseName}">Name</td>
+            <td th:text = "${course.maxParticipants} " >Max Participants</td>
+            <td th:text = "${course.classroomId}">Classroom #</td>
+            <td th:text = "${course.startDate}">Start date</td>
+            <td th:text = "${course.finishDate}">Finish date</td>
+            <td th:text = "${course.price} + '€'">Price</td>
+            <td>
+                <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} " th:href="@{'/signUpForCourse/'+ ${course.realizationId}}">Sign up</a>
+                <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} " th:href="@{'/realizationInfo/' + ${course.realizationId}}">More Info</a>
+                <a class="btn btn-outline-primary" th:if="${#request.userPrincipal == null}" th:href="@{/login}">Log in to sign up</a>
 
-            <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_ADMIN')}" th:href="@{/login}">Edit</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+                <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_ADMIN')}" th:href="@{/login}">Edit</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
