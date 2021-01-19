@@ -83,10 +83,12 @@
 			<artifactId>bootstrap</artifactId>
 			<version>4.0.0-2</version>
 		</dependency>
-
-
-
-
+		<!-- https://mvnrepository.com/artifact/com.oracle/orai18n -->
+		<dependency>
+			<groupId>cn.easyproject</groupId>
+			<artifactId>orai18n</artifactId>
+			<version>12.1.0.2.0</version>
+		</dependency>
 
 	</dependencies>
 
