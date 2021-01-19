@@ -1,6 +1,7 @@
 package bada_proi.dao;
 
 import bada_proi.entity.Dates;
+import bada_proi.entity.Salary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -56,5 +57,10 @@ public class DatesDAO {//[DAO] Data Access Object – komponent dostarczający j
     public void delete(int id){
         String sql = "DELETE FROM DATES WHERE dateId = ?";
         jdbcTemplate.update(sql,id);
+    }
+
+    public List<Dates> getDatesByRealizationId (int realizationId){
+        String sql = "SELECT * FROM DATES WHERE REALIZATIONID = " + realizationId;
+        return jdbcTemplate.query(sql,BeanPropertyRowMapper.newInstance(Dates.class));
     }
 }

@@ -1,6 +1,7 @@
 package bada_proi.dao;
 
 import bada_proi.entity.Salary;
+import bada_proi.forms.CourseInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -57,4 +58,11 @@ public class SalaryDAO {//[DAO] Data Access Object – komponent dostarczający 
         String sql = "DELETE FROM SALARIES WHERE salaryId = ?";
         jdbcTemplate.update(sql,id);
     }
+
+    public List<Salary> getSalariesByEmployeeId (int employeeId){
+        String sql = "SELECT * FROM SALARIES WHERE EMPLOYEEID = " + employeeId;
+        return jdbcTemplate.query(sql,BeanPropertyRowMapper.newInstance(Salary.class));
+    }
+
+
 }

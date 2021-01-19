@@ -74,6 +74,27 @@
     </div>
 
     <div class="col-4"  >
+        <h2>Dates:</h2>
+        <table class="table-striped" width = 50% align="center">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Begin</th>
+                <th scope="col">End</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each=" date : ${dates}">
+                <td th:text = "${#dates.format(date.getStartDate(),'dd-MM-yyyy HH:mm')}"></td>
+                <td th:text = "${#dates.format(date.getFinishDate(),'dd-MM-yyyy HH:mm')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-4"  >
+    </div>
+
+    <div class="col-4"  >
         <h2 th:if="${#request.userPrincipal != null}">Participants:</h2>
         <div th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} ">
             <table class="table-striped" width = 50%>
@@ -95,8 +116,10 @@
             </table>
         </div>
     </div>
-
 </div>
+
+
+
 
 <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>

@@ -51,6 +51,10 @@ public class AppController {
     private ParticipantRealizationDAO participantRealizationDAO;
     @Autowired
     private EmployeeRealizationDAO employeeRealizationDAO;
+    @Autowired
+    private SalaryDAO salaryDAO;
+    @Autowired
+    private DatesDAO datesDAO;
 
     @RequestMapping("/newPostOffice")
     public String showNewPostOfficeForm(Model model) {
@@ -168,8 +172,12 @@ public class AppController {
                 model.addAttribute("participantInfo", participantInfo);
                 return "user/participantInfoPage";
             case "ROLE_EMPLOYEE":
+
                 EmployeeInfo employeeInfo = employeeInfoDAO.get(userLogin);
+                List<Salary> salaries = salaryDAO.getSalariesByEmployeeId(employeeInfo.getEmployeeId());
+
                 model.addAttribute("employeeInfo", employeeInfo);
+                model.addAttribute("salaries", salaries);
                 return "user/employeeInfoPage";
             default:
                 return "/";
@@ -211,13 +219,17 @@ public class AppController {
     @RequestMapping("/realizationInfo/{courseId}")
     public String showRealizationInfoPage(Model model, @PathVariable(name = "courseId") int id) {
         List<CourseInfo> realizationsList = courseDAO.getCourseInfoListFromRealizationId(id);
+        List<ParticipantInfo> participantsInfo = courseRealizationDAO.getParticipantsInfoByCourseRealization(id);
+        List<Dates> dates = datesDAO.getDatesByRealizationId(id);
+
         List<String> instructors= new ArrayList<>();
         for (CourseInfo realization:realizationsList) {
             instructors.add(realization.getEmployeeName()+' '+realization.getSurname());
         }
-        List<ParticipantInfo> participantsInfo = courseRealizationDAO.getParticipantsInfoByCourseRealization(id);
+
 
         model.addAttribute("realizationInfo", realizationsList.get(0));
+        model.addAttribute("dates", dates);
         model.addAttribute("instructors", instructors);
         model.addAttribute("participantsInfo", participantsInfo);
 
