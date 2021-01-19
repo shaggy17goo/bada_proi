@@ -74,11 +74,23 @@ public class CourseDAO {//[DAO] Data Access Object – komponent dostarczający 
     public List<CourseInfo> getCourseInfoList(int id) {
         String sql = "SELECT CLASSROOMS.classroomid, COURSESREALIZATIONS.price, COURSESREALIZATIONS.startdate, COURSESREALIZATIONS.finishdate, " +
                 "COURSES.name AS coursename, COURSES.maxparticipants, COURSES.description AS courseDescription, " +
-                "COURSESREALIZATIONS.description AS realizationDescription, EMPLOYEES.name AS employeeName, EMPLOYEES.surname, EMPLOYEES.email " +
+                "COURSESREALIZATIONS.description AS realizationDescription, EMPLOYEES.name AS employeeName, EMPLOYEES.surname, EMPLOYEES.email, COURSESREALIZATIONS.REALIZATIONID " +
                 "FROM COURSESREALIZATIONS LEFT JOIN COURSES ON COURSESREALIZATIONS.COURSEID = COURSES.COURSEID " +
                 "LEFT JOIN CLASSROOMS ON(COURSESREALIZATIONS.CLASSROOMID=CLASSROOMS.CLASSROOMID) " +
                 "LEFT JOIN EMPLOYEES_REALIZATIONS ON (EMPLOYEES_REALIZATIONS.REALIZATIONID = COURSESREALIZATIONS.REALIZATIONID) " +
                 "LEFT JOIN EMPLOYEES ON (EMPLOYEES.EMPLOYEEID = EMPLOYEES_REALIZATIONS.EMPLOYEEID) WHERE COURSES.COURSEID = " + id;
+
+        return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(CourseInfo.class));
+    }
+
+    public List<CourseInfo> getCourseInfoListForUser(int id) {
+        String sql = "SELECT CLASSROOMS.classroomid, COURSESREALIZATIONS.price, COURSESREALIZATIONS.startdate, COURSESREALIZATIONS.finishdate, " +
+                "COURSES.name AS coursename, COURSES.maxparticipants, COURSES.description AS courseDescription, " +
+                "COURSESREALIZATIONS.description AS realizationDescription, EMPLOYEES.name AS employeeName, EMPLOYEES.surname, EMPLOYEES.email, COURSESREALIZATIONS.REALIZATIONID " +
+                "FROM COURSESREALIZATIONS LEFT JOIN COURSES ON COURSESREALIZATIONS.COURSEID = COURSES.COURSEID " +
+                "LEFT JOIN CLASSROOMS ON(COURSESREALIZATIONS.CLASSROOMID=CLASSROOMS.CLASSROOMID) " +
+                "LEFT JOIN EMPLOYEES_REALIZATIONS ON (EMPLOYEES_REALIZATIONS.REALIZATIONID = COURSESREALIZATIONS.REALIZATIONID) " +
+                "LEFT JOIN EMPLOYEES ON (EMPLOYEES.EMPLOYEEID = EMPLOYEES_REALIZATIONS.EMPLOYEEID) WHERE COURSESREALIZATIONS.REALIZATIONID = " + id;
 
         return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(CourseInfo.class));
     }

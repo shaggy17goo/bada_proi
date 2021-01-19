@@ -1,7 +1,5 @@
 package bada_proi.forms;
 
-import org.springframework.lang.Nullable;
-
 import java.sql.Date;
 
 public class CourseInfo {
@@ -11,6 +9,7 @@ public class CourseInfo {
     private String price;
     private Date startDate;
     private Date finishDate;
+    private int realizationId;
     //COURSE
     private String courseName;
     private int maxParticipants;
@@ -23,11 +22,12 @@ public class CourseInfo {
     public CourseInfo() {
     }
 
-    public CourseInfo(int classroomId, String price, Date startDate, Date finishDate, String courseName, int maxParticipants, String description, String employeeName, String surname, String email) {
+    public CourseInfo(int classroomId, String price, Date startDate, Date finishDate, int realizationId, String courseName, int maxParticipants, String description, String employeeName, String surname, String email) {
         this.classroomId = classroomId;
         this.price = price;
         this.startDate = startDate;
         this.finishDate = finishDate;
+        this.realizationId = realizationId;
         this.courseName = courseName;
         this.maxParticipants = maxParticipants;
         this.description = description;
@@ -114,5 +114,13 @@ public class CourseInfo {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getRealizationId() {
+        return realizationId;
+    }
+
+    public void setRealizationId(int realizationId) {
+        this.realizationId = realizationId;
     }
 }

@@ -1,6 +1,8 @@
 package bada_proi.dao;
 
 import bada_proi.entity.Employee;
+import bada_proi.entity.EmployeeRealization;
+import bada_proi.entity.ParticipantRealization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -58,4 +60,6 @@ public class EmployeeDAO {
         String sql = "DELETE FROM EMPLOYEES WHERE employeeId = ?";
         jdbcTemplate.update(sql,id);
     }
+
+
 }

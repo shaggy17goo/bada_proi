@@ -48,4 +48,10 @@ public class ParticipantRealizationDAO {//[DAO] Data Access Object – komponent
         String sql = "DELETE FROM PARTICIPANTS_REALIZATIONS WHERE (participantId = " + participantId + " AND realizationId = " + realizationId+")";
         jdbcTemplate.update(sql);
     }
+
+    public List<ParticipantRealization> participantCourses(int participantId){
+        String sql = "SELECT * FROM PARTICIPANTS_REALIZATIONS WHERE PARTICIPANTID = " + participantId;
+        return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(ParticipantRealization.class));
+
+    }
 }

@@ -59,4 +59,8 @@ public class ParticipantDAO {
         String sql = "DELETE FROM PARTICIPANTS WHERE participantId = ?";
         jdbcTemplate.update(sql,id);
     }
+    //TODO
+    /*public List<Integer> getActiveCourses(int participantId){
+        return new List<Integer>(){Integer.valueOf(0)};
+    }*/
 }

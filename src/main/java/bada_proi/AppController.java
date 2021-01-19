@@ -20,10 +20,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class AppController{
+public class AppController {
     @Autowired
     private PostOfficeDAO postOfficeDAO;
     @Autowired
@@ -44,15 +45,19 @@ public class AppController{
     private ParticipantInfoDAO participantInfoDAO;
     @Autowired
     private EmployeeInfoDAO employeeInfoDAO;
-
+    @Autowired
+    private ParticipantRealizationDAO participantRealizationDAO;
+    @Autowired
+    private EmployeeRealizationDAO employeeRealizationDAO;
 
     @RequestMapping("/newPostOffice")
-    public String showNewPostOfficeForm(Model model){
+    public String showNewPostOfficeForm(Model model) {
         PostOffice postOffice = new PostOffice();
-        model.addAttribute("postOffice",postOffice);
+        model.addAttribute("postOffice", postOffice);
 
         return "forms/newPostOfficeForm";
     }
+
     @RequestMapping(value = "/savePostOffice", method = RequestMethod.POST)
     public String savePostOffice(@ModelAttribute("postOffice") PostOffice postOffice) {
         postOfficeDAO.save(postOffice);
@@ -61,21 +66,23 @@ public class AppController{
     }
 
     @RequestMapping("/editPostOfficeForm/{postOfficeId}")
-    public ModelAndView showPostOfficeEditForm(@PathVariable(name = "postOfficeId") int id){
+    public ModelAndView showPostOfficeEditForm(@PathVariable(name = "postOfficeId") int id) {
         ModelAndView mav = new ModelAndView("form/editPostOfficeForm");
         PostOffice postOffice = postOfficeDAO.get(id);
-        mav.addObject("postOffice",postOffice);
+        mav.addObject("postOffice", postOffice);
 
         return mav;
     }
+
     @RequestMapping(value = "/updatePostOffice", method = RequestMethod.POST)
-    public String updatePostOffice(@ModelAttribute(name = "postOffice") PostOffice postOffice){
+    public String updatePostOffice(@ModelAttribute(name = "postOffice") PostOffice postOffice) {
         postOfficeDAO.update(postOffice);
 
         return "redirect:/";
     }
+
     @RequestMapping("/deletePostOffice/{postOfficeId}")
-    public String deletePostOffice(@ModelAttribute(name = "postOfficeId") int id){
+    public String deletePostOffice(@ModelAttribute(name = "postOfficeId") int id) {
         postOfficeDAO.delete(id);
 
         return "redirect:/";
@@ -86,7 +93,7 @@ public class AppController{
      * Copied from website
      */
 
-    @RequestMapping(value = { "/","/home","/index"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/home", "/index"}, method = RequestMethod.GET)
     public String welcomePage(Model model) {
         return "index";
     }
@@ -106,36 +113,38 @@ public class AppController{
 
         return "user/loginPage";
     }
+
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String registerPage(Model model) {
         ParticipantRegistration participantRegistration = new ParticipantRegistration();
-        model.addAttribute("pr",participantRegistration);
+        model.addAttribute("pr", participantRegistration);
         return "forms/newUserFormPage";
     }
 
     @RequestMapping(value = "/saveNewUser", method = RequestMethod.POST)
-    public String saveNewUser(@ModelAttribute("appUser") ParticipantRegistration pr){
+    public String saveNewUser(@ModelAttribute("appUser") ParticipantRegistration pr) {
 
 
-        int userId = appUserDAO.getNextSeqId()+1;
-        AppUser user = new AppUser(pr.getLogin(),pr.getPassword());
+        int userId = appUserDAO.getNextSeqId() + 1;
+        AppUser user = new AppUser(pr.getLogin(), pr.getPassword());
         appUserDAO.save(user);
         userRoleDAO.save(new UserRole(userId, appRoleDAO.getRoleId("ROLE_PARTICIPANT").getRoleId()));
 
-        int postOfficeId=postOfficeDAO.getNextSeqId()+1;
+        int postOfficeId = postOfficeDAO.getNextSeqId() + 1;
         PostOffice postOffice = new PostOffice(0, pr.getPostCode(), pr.getPostCity());
         postOfficeDAO.save(postOffice);
 
-        int addressId = addressDAO.getNextSeqId()+1;
-        Address address = new Address(0,pr.getCity(),pr.getStreet(),pr.getHouseNumber(),postOfficeId);
+        int addressId = addressDAO.getNextSeqId() + 1;
+        Address address = new Address(0, pr.getCity(), pr.getStreet(), pr.getHouseNumber(), postOfficeId);
         addressDAO.save(address);
 
-        Participant participant = new Participant(0, pr.getName(), pr.getSurname(), pr.getBirthDate(),pr.getPesel(),pr.getGender(),pr.getPhoneNumber(), pr.getEmail(),addressId);
+        Participant participant = new Participant(0, pr.getName(), pr.getSurname(), pr.getBirthDate(), pr.getPesel(), pr.getGender(), pr.getPhoneNumber(), pr.getEmail(), addressId);
         participant.setUserId(userId);
         participantDAO.save(participant);
 
         return "user/afterRegistration";
     }
+
     @RequestMapping(value = "/menu", method = RequestMethod.GET)
     public String menuBar(Model model) {
 
@@ -149,13 +158,13 @@ public class AppController{
     }
 
     @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
-    public String userInfo(Model model, Principal principal) {
+    public String userInfo(Model model) {
         // After user login successfully.
         User loginUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String userLogin = loginUser.getUsername();
         String userRole = WebUtils.getRoleName(loginUser);
 
-        switch(userRole) {
+        switch (userRole) {
             case "ROLE_PARTICIPANT":
                 ParticipantInfo participantInfo = participantInfoDAO.get(userLogin);
                 model.addAttribute("participantInfo", participantInfo);
@@ -169,21 +178,74 @@ public class AppController{
         }
 
     }
+
     @RequestMapping(value = "/allCourses", method = RequestMethod.GET)
-    public String viewAllCourses(Model model){
-        List<Course> courseList =  courseDAO.list();
-        model.addAttribute("courseList",courseList);
+    public String viewAllCourses(Model model) {
+        List<Course> courseList = courseDAO.list();
+        model.addAttribute("courseList", courseList);
         return "default/allCoursesTable";
     }
 
     @RequestMapping("/courseRalization/{courseId}")
-    public String showCourseRealizationPage(Model model, @PathVariable(name = "courseId") int id){
+    public String showCourseRealizationPage(Model model, @PathVariable(name = "courseId") int id) {
         List<CourseInfo> courseInfoList = courseDAO.getCourseInfoList(id);
-        model.addAttribute("courseInfoList",courseInfoList);
+        List<CourseInfo> activeCoursesList = new ArrayList<>();
+        if(!(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof User)){
+            model.addAttribute("activeCoursesList", activeCoursesList);
+            model.addAttribute("courseInfoList", courseInfoList);
+
+            return "default/courseRealizationTable";
+        }
+        User loginUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userLogin = loginUser.getUsername();
+        String userRole = WebUtils.getRoleName(loginUser);
+        int userId = -1;
+        if (userRole.equals("ROLE_PARTICIPANT")) {
+            userId = participantInfoDAO.get(userLogin).getParticipantId();
+            List<ParticipantRealization> participantCourses = participantRealizationDAO.participantCourses(userId);
+
+            for(ParticipantRealization tempReal : participantCourses){
+                for(CourseInfo tempCourse : courseInfoList){
+                    if(tempReal.getRealizationId() == tempCourse.getRealizationId()){
+                        activeCoursesList.add(tempCourse);
+                        courseInfoList.remove(tempCourse);
+                    }
+                }
+            }
+
+        }
+        model.addAttribute("activeCoursesList", activeCoursesList);
+        model.addAttribute("courseInfoList", courseInfoList);
 
         return "default/courseRealizationTable";
     }
 
+    @RequestMapping(value = "/activeCourses", method = RequestMethod.GET)
+    public String viewActiveCourses(Model model) {
+        User loginUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userLogin = loginUser.getUsername();
+        String userRole = WebUtils.getRoleName(loginUser);
+        List<CourseInfo> activeCourseInfoList = new ArrayList<>();
+        int userId = -1;
+        if (userRole.equals("ROLE_PARTICIPANT")) {
+            userId = participantInfoDAO.get(userLogin).getParticipantId();
+            List<ParticipantRealization> participantCourses = participantRealizationDAO.participantCourses(userId);
+            for (ParticipantRealization temp : participantCourses) {
+                activeCourseInfoList.add((CourseInfo) courseDAO.getCourseInfoListForUser(temp.getRealizationId()));
+            }
+            model.addAttribute("activeCourseInfoList", activeCourseInfoList);
+        } else if (userRole.equals("ROLE_EMMPLOYEE")) {
+            userId = employeeInfoDAO.get(userLogin).getEmployeeId();
+            List<EmployeeRealization> employeeCourses = employeeRealizationDAO.employeeCourses(userId);
+
+            for (EmployeeRealization temp : employeeCourses) {
+                activeCourseInfoList.add((CourseInfo) courseDAO.getCourseInfoListForUser(temp.getRealizationId()));
+            }
+            model.addAttribute("activeCourseInfoList", activeCourseInfoList);
+        }
+        model.addAttribute("activeCourseInfoList", activeCourseInfoList);
+        return "default/activeCoursesPage";
+    }
     /*@RequestMapping("/courseRalization/{courseId}")
     public String showCourseRealizationPage(@PathVariable(name = "courseId") int id){
         ModelAndView mav = new ModelAndView("default/allCoursesTable");
@@ -212,4 +274,6 @@ public class AppController{
 
         return "errors/403Page";
     }
+
+
 }
