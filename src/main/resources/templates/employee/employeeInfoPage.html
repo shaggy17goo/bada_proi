@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link href="../../static/culturalCenter.css" rel="stylesheet">
+    <title>User Info</title>
+</head>
+
+
+<body>
+    <header>
+        <div th:include="menu"></div>
+    </header>
+
+    <div class="pt-5"></div>
+
+    <center>
+        <h1>Employee Info Page</h1>
+
+        <h2>Personal Data</h2>
+        <table class="table-striped" width = 50%>
+            <div th:object="${employeeInfo}">
+                <tbody>
+                <tr>
+                    <td>Username:</td>
+                    <td th:text="${employeeInfo.username}"></td>
+                </tr>
+                <tr>
+                    <td>Name:</td>
+                    <td th:text="${employeeInfo.name}"></td>
+                </tr>
+                <tr>
+                    <td>Surname:</td>
+                    <td th:text="${employeeInfo.surname}"></td>
+                </tr>
+                <tr>
+                    <td>Type:</td>
+                    <td th:text="${employeeInfo.type}"></td>
+                </tr>
+                <tr>
+                    <td>Birth Date:</td>
+                    <td th:text="${employeeInfo.birthDate}"></td>
+                </tr>
+                <tr>
+                    <td>PESEL:</td>
+                    <td th:text="${employeeInfo.pesel}"></td>
+                </tr>
+                <tr>
+                    <td>Gender:</td>
+                    <td th:text="${employeeInfo.gender}"></td>
+                </tr>
+                <tr>
+                    <td>Phone Number:</td>
+                    <td th:text="${employeeInfo.phoneNumber}"></td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td th:text="${employeeInfo.email}"></td>
+                </tr>
+                <tr>
+                    <td>Employment Date:</td>
+                    <td th:text="${employeeInfo.employmentDate}"></td>
+                </tr>
+                <tr>
+                    <td>Account Number:</td>
+                    <td th:text="${employeeInfo.accountNumber}"></td>
+                </tr>
+                <tr>
+                    <td>City:</td>
+                    <td th:text="${employeeInfo.city}"></td>
+                </tr>
+                <tr>
+                    <td>Street:</td>
+                    <td th:text="${employeeInfo.street}"></td>
+                </tr>
+                <tr>
+                    <td>House number:</td>
+                    <td th:text="${employeeInfo.houseNumber}"></td>
+                </tr>
+                <tr>
+                    <td>Post Office code:</td>
+                    <td th:text="${employeeInfo.code}"></td>
+                </tr>
+                <tr>
+                    <td>Post Office City:</td>
+                    <td th:text="${employeeInfo.postCity}"></td>
+                </tr>
+                </tbody>
+            </div>
+        </table>
+
+        <div class="pt-3"></div>
+
+        <h2>Payments</h2>
+        <table class="table-striped" width = 50%>
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Date Of Payment</th>
+                <th scope="col">Standard Amount</th>
+                <th scope="col">Extra Amount</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="salary : ${salaries}">
+                <td th:text = "${salary.dateOfPayment}">Date</td>
+                <td th:text = "${salary.standardAmount} + '€'" >Standard amount</td>
+                <td th:text = "${salary.extraAmount}+ '€'">Extra amount</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </center>>
+
+
+
+</body>
+
+</html>

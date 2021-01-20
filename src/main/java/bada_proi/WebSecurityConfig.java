@@ -44,14 +44,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         // The pages does not require login
-        http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
+        http.authorizeRequests().antMatchers("/","/home","/index", "/login", "/logout","/register","/saveNewUser","/menu","/logoutSuccessful","/allCourses","/realizationInfo","/courseRalization","/403","/error").permitAll();
 
         // /userInfo page requires login as ROLE_USER or ROLE_ADMIN.
         // If no login, it will redirect to /login page.
-        http.authorizeRequests().antMatchers("/userInfo").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN','ROLE_EMPLOYEE')");
-
+        http.authorizeRequests().antMatchers("/userInfo","/yourCourses","/listOfParticipants").access("hasAnyRole('ROLE_PARTICIPANT', 'ROLE_ADMIN','ROLE_EMPLOYEE')");
+        http.authorizeRequests().antMatchers("/signUpForCourse","/signOutOfCourse","/editUserInfo","/updateUserInfo").access("hasRole('ROLE_PARTICIPANT')");
         // For ADMIN only.
-        http.authorizeRequests().antMatchers("/admin").access("hasRole('ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/admin", "/adminPage","/addEmployee","/saveNewEmployee", "/fireEmployee","/payEmployee","/addEmployee","/saveNewEmployee").access("hasRole('ROLE_ADMIN')");
 
         // When the user has logged in as XX.
         // But access a page that requires role YY,
@@ -63,11 +63,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // Submit URL of login page.
                 .loginProcessingUrl("/j_spring_security_check") // Submit URL
                 .loginPage("/login")//
-                .defaultSuccessUrl("/userAccountInfo")//
+                .defaultSuccessUrl("/")//
                 .failureUrl("/login?error=true")//
                 .usernameParameter("username")//
                 .passwordParameter("password")
                 // Config for Logout Page
+                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful")
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful");
 
     }

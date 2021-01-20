@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link href="../../static/culturalCenter.css" rel="stylesheet">
+    <title>Course realizations</title>
+</head>
+<body>
+<header>
+    <div th:include="menu"></div>
+</header>
+
+<div class="mt-5">
+    <table class="table" >
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Course name</th>
+            <th scope="col">Max Participants</th>
+            <th scope="col">Classroom #</th>
+            <th scope="col">Start date</th>
+            <th scope="col">Finish date</th>
+            <th scope="col">Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:object="${realizationInfo}">
+            <td th:text = "${realizationInfo.courseName}">Name</td>
+            <td th:text = "${realizationInfo.maxParticipants} " >Max Participants</td>
+            <td th:text = "${realizationInfo.classroomId}">Classroom #</td>
+            <td th:text = "${realizationInfo.startDate}">Start date</td>
+            <td th:text = "${realizationInfo.finishDate}">Finish date</td>
+            <td th:text = "${realizationInfo.price} + '€'">Price</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div class="row" align="center">
+    <div class="col-4">
+        <h2>Instructors:</h2>
+        <div>
+            <table class="table-striped" width = 50%>
+                <tbody>
+                <tr th:each="instructor : ${instructors}">
+                    <td th:text = "${instructor}" > Instructor: </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-4">
+        <h2>Description:</h2>
+        <div>
+            <table class="table-striped" width = 50%>
+                <tbody>
+                <tr th:object="${realizationInfo}">
+                    <td th:text = "${realizationInfo.courseDescription}">Description</td>
+                </tr>
+                <tr th:object="${realizationInfo}">
+                    <td th:text = "${realizationInfo.realizationDescription}">Description</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-4"  >
+        <h2>Dates:</h2>
+        <table class="table-striped" width = 50% align="center">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Begin</th>
+                <th scope="col">End</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each=" date : ${dates}">
+                <td th:text = "${#dates.format(date.getStartDate(),'dd-MM-yyyy HH:mm')}"></td>
+                <td th:text = "${#dates.format(date.getFinishDate(),'dd-MM-yyyy HH:mm')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-4"  >
+    </div>
+
+    <div class="col-4"  >
+        <h2 th:if="${#request.userPrincipal != null}">Participants:</h2>
+        <div th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} ">
+            <table class="table-striped" width = 50%>
+                <tbody>
+                <tr th:each="participant : ${participantsInfo}">
+                    <td th:text = "${participant.name} + ' ' + ${participant.surname}" > Participant: </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div th:if="${#request.isUserInRole('ROLE_EMPLOYEE')} || ${#request.isUserInRole('ROLE_ADMIN')} ">
+            <table class="table-striped" width = 50%>
+                <tbody>
+                <tr th:each="participant : ${participantsInfo}">
+                    <td th:text = "${participant.name} + ' ' + ${participant.surname} + ' ' + ${participant.phoneNumber}" > Participant: </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+
+</div>
+</body>
+</html>

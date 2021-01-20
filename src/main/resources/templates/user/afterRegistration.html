@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset = "UTF-8">
+    <title>Registration accepted</title>
+    <link href="../culturalCenter.css" rel="stylesheet">
+</head>
+<body>
+<header>
+    <div th:include="menu"></div>
+</header>
+<div class="pt-5"></div>
+
+<div align="center">
+    <h1>Registration accepted</h1>
+    <br/><br/>
+    <h3>Thank you for filling the registration form, now you can log in:</h3>  <a th:href="@{/login}">Login</a>
+</div>
+</body>
+</html>

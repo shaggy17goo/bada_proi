@@ -3,7 +3,9 @@ package bada_proi.utils;
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public class WebUtils {
 
@@ -27,6 +29,28 @@ public class WebUtils {
             sb.append(")");
         }
         return sb.toString();
+    }
+
+    public static String getRoleName(User user){
+        Collection<GrantedAuthority> authorities = user.getAuthorities();
+        String temp = "";
+        if (authorities != null && !authorities.isEmpty()) {
+            for (GrantedAuthority a : authorities) {
+                temp = a.getAuthority();
+                }
+            }
+        return temp;
+
+    }
+
+    public static String getLoggedUsername(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            return ((UserDetails)principal). getUsername();
+        } else {
+            return principal.toString();
+        }
     }
 
 }

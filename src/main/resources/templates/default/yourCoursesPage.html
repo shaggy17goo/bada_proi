@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link href="../../static/culturalCenter.css" rel="stylesheet">
+    <title>Active Courses</title>
+</head>
+<body>
+<header>
+    <div th:include="menu"></div>
+</header>
+<div class="mt-5">
+    <h3 th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} ">You are signed up for following courses:</h3>
+    <h3 th:if="${#request.isUserInRole('ROLE_EMPLOYEE')} ">You teach following courses:</h3>
+    <table class="table" >
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Course name</th>
+            <th scope="col">Instructor</th>
+            <th scope="col">Classroom #</th>
+            <th scope="col">Start date</th>
+            <th scope="col">Finish date</th>
+            <th th:if="${#request.isUserInRole('ROLE_PARTICIPANT')}" scope="col">Price</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="course : ${yourCourseInfoList}">
+            <td th:text = "${course.courseName}">Name</td>
+            <td th:text = "${course.employeeName} + ' ' + ${course.surname} " >Instructor</td>
+            <td th:text = "${course.classroomId}">Classroom #</td>
+            <td th:text = "${course.startDate}">Start date</td>
+            <td th:text = "${course.finishDate}">Finish date</td>
+            <td th:if="${#request.isUserInRole('ROLE_PARTICIPANT')}" th:text = "${course.price} + '€'">Price</td>
+            <td>
+                <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} " th:href="@{'/signOutOfCourse/yourCourses/' + ${course.realizationId}}">Sign out</a>
+
+                <a class="btn btn-outline-primary" th:href="@{'/realizationInfo/' + ${course.realizationId}}">More Info</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- Trigger the modal with a button -->
+
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+
+</div>
+</body>
+</html>
