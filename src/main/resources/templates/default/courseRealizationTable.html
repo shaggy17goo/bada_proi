@@ -39,8 +39,8 @@
             <td th:text = "${course.finishDate}">Finish date</td>
             <td th:text = "${course.price} + '€'">Price</td>
             <td>
-                <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} " th:href="@{'/signOutOfCourse/allCourses/' + ${course.realizationId}}">Sign out</a>
-                <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} " th:href="@{'/realizationInfo/' + ${course.realizationId}}">More Info</a>
+                <a class="btn btn-outline-primary" th:href="@{'/signOutOfCourse/allCourses/' + ${course.realizationId}}">Sign out</a>
+                <a class="btn btn-outline-primary" th:href="@{'/realizationInfo/' + ${course.realizationId}}">More Info</a>
             </td>
         </tr>
         </tbody>
@@ -73,7 +73,7 @@
             <a class="btn btn-outline-primary" th:href="@{'/realizationInfo/' + ${course.realizationId}}">More Info</a>
             <a class="btn btn-outline-primary" th:if="${#request.userPrincipal == null}" th:href="@{/login}">Log in to sign up</a>
 
-            <a class="btn btn-outline-primary" th:if="${#request.isUserInRole('ROLE_ADMIN')}" th:href="@{/login}">Edit</a>
+        </td>
         </td>
     </tr>
     </tbody>

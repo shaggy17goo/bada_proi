@@ -58,53 +58,12 @@ public class AppController {
     @Autowired
     private EmployeeDAO employeeDAO;
 
-    @RequestMapping("/newPostOffice")
-    public String showNewPostOfficeForm(Model model) {
-        PostOffice postOffice = new PostOffice();
-        model.addAttribute("postOffice", postOffice);
-
-        return "forms/newPostOfficeForm";
-    }
-
-    @RequestMapping(value = "/savePostOffice", method = RequestMethod.POST)
-    public String savePostOffice(@ModelAttribute("postOffice") PostOffice postOffice) {
-        postOfficeDAO.save(postOffice);
-
-        return "redirect:/";
-    }
-
-    @RequestMapping("/editPostOfficeForm/{postOfficeId}")
-    public ModelAndView showPostOfficeEditForm(@PathVariable(name = "postOfficeId") int id) {
-        ModelAndView mav = new ModelAndView("form/editPostOfficeForm");
-        PostOffice postOffice = postOfficeDAO.get(id);
-        mav.addObject("postOffice", postOffice);
-
-        return mav;
-    }
-
-    @RequestMapping(value = "/updatePostOffice", method = RequestMethod.POST)
-    public String updatePostOffice(@ModelAttribute(name = "postOffice") PostOffice postOffice) {
-        postOfficeDAO.update(postOffice);
-
-        return "redirect:/";
-    }
-
-    @RequestMapping("/deletePostOffice/{postOfficeId}")
-    public String deletePostOffice(@ModelAttribute(name = "postOfficeId") int id) {
-        postOfficeDAO.delete(id);
-
-        return "redirect:/";
-    }
-
-
-    /*
-     * Copied from website
-     */
 
     @RequestMapping(value = {"/", "/home", "/index"}, method = RequestMethod.GET)
     public String welcomePage(Model model) {
         return "index";
     }
+
     @RequestMapping(value = "/fireEmployee/{employeeId}", method = RequestMethod.GET)
     public String fireEmployee(Model model, @PathVariable(name = "employeeId") int employeeId) {
         Employee employee = employeeDAO.get(employeeId);
@@ -217,7 +176,7 @@ public class AppController {
                 model.addAttribute("salaries", salaries);
                 return "employee/employeeInfoPage";
             default:
-                return "/";
+                return "redirect:/";
         }
 
     }
@@ -274,6 +233,8 @@ public class AppController {
     }
 
 
+
+
     @RequestMapping("/courseRalization/{courseId}")
     public String showCourseRealizationPage(Model model, @PathVariable(name = "courseId") int id) {
         List<CourseInfo> realizationsList = courseRealizationDAO.getRealizationListByCourseId(id);
@@ -287,6 +248,10 @@ public class AppController {
         String userUsername = loginUser.getUsername();
         String userRole = WebUtils.getRoleName(loginUser);
         int userId = -1;
+        if (userRole.equals("ROLE_ADMIN")) {
+            EmployeeRealization employeeRealization = new EmployeeRealization();
+            model.addAttribute("employeeRealization",employeeRealization);
+        }
         if (userRole.equals("ROLE_PARTICIPANT")) {
             userId = participantInfoDAO.get(userUsername).getParticipantId();
             List<ParticipantRealization> participantCourses = participantRealizationDAO.participantCourses(userId);
@@ -430,7 +395,7 @@ public class AppController {
     }*/
 
 
-    @RequestMapping(value = "/403", method = RequestMethod.GET)
+    @RequestMapping(value = {"/403","/error"}, method = RequestMethod.GET)
     public String accessDenied(Model model, Principal principal) {
 
         if (principal != null) {
