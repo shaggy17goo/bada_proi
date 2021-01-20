@@ -104,6 +104,29 @@ public class AppController {
     public String welcomePage(Model model) {
         return "index";
     }
+    @RequestMapping(value = "/fireEmployee/{employeeId}", method = RequestMethod.GET)
+    public String fireEmployee(Model model, @PathVariable(name = "employeeId") int employeeId) {
+        Employee employee = employeeDAO.get(employeeId);
+        Address address = addressDAO.get(employee.getAddressId());
+        List<EmployeeRealization> employeeRealizationList = employeeRealizationDAO.employeeCourses(employeeId);
+        for(EmployeeRealization emRe : employeeRealizationList){
+            employeeRealizationDAO.delete(employeeId,emRe.getRealizationId());
+        }
+        List<Salary> salaryList = salaryDAO.getSalariesByEmployeeId(employeeId);
+        for(Salary salary : salaryList){
+            salaryDAO.delete(salary.getSalaryId());
+        }
+        employeeDAO.delete(employeeId);
+        addressDAO.delete(employee.getAddressId());
+        postOfficeDAO.delete(address.getPostOfficeId());
+
+        if(employee.getUserId() != null){
+            userRoleDAO.delete(employee.getUserId());
+            appUserDAO.delete(employee.getUserId());
+        }
+
+        return adminPage(model);
+    }
 
     @RequestMapping(value = {"/admin", "adminPage"}, method = RequestMethod.GET)
     public String adminPage(Model model) {

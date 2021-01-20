@@ -33,19 +33,16 @@
                     <a class="nav-link" th:if="${#request.isUserInRole('ROLE_PARTICIPANT')}" th:href="@{/userInfo}">User info</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" th:if="${#request.isUserInRole('ROLE_EMPLOYEE')}" th:href="@{/userInfo}">Employee info</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" th:if="${#request.isUserInRole('ROLE_PARTICIPANT') || #request.isUserInRole('ROLE_EMPLOYEE')}" th:href="@{/yourCourses}">My courses</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"  th:href="@{/allCourses}">All courses</a>
                 </li>
-
-
                 <li class="nav-item">
-                    <a class="nav-link" th:if="${#request.isUserInRole('ROLE_EMPLOYEE')}" th:href="@{/userInfo}">Employee info</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link disabled" th:if="${#request.isUserInRole('ROLE_ADMIN')}" th:href="@{/admin}">Admin page</a>
+                    <a class="nav-link" th:if="${#request.isUserInRole('ROLE_ADMIN')}" th:href="@{/admin}">Admin page</a>
                 </li>
 
 
