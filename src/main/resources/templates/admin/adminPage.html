@@ -1,25 +1,60 @@
-<!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Admin page</title>
-    <link href="../culturalCenter.css" rel="stylesheet">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link href="../../static/culturalCenter.css" rel="stylesheet">
+    <title>Course realizations</title>
 </head>
 <body>
-<!-- Include menu.html -->
-<div class="pt-5"></div>
-<div align="center">
-    <header>
-        <div th:include="menu"></div>
-    </header>
-
-    <h1>Admin Page</h1>
-
-    <h3>Employees list:</h3>
-
-
+<header>
+    <div th:include="menu"></div>
+</header>
+<div class="mt-5">
+    <h2> This is Admin page: </h2>
+    <h2> Employees: </h2>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Employee ID</th>
+            <th scope="col">Username</th>
+            <th scope="col">Name</th>
+            <th scope="col">Surname</th>
+            <th scope="col">PESEL</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Email</th>
+            <th scope="col">Type</th>
+            <th scope="col">Employment date</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="employeeInfo : ${employeeInfoList}">
+            <td th:text = "${employeeInfo.employeeId}">Employee ID</td>
+            <td th:text = "${employeeInfo.username} " >Username</td>
+            <td th:text = "${employeeInfo.name}">Name</td>
+            <td th:text = "${employeeInfo.surname}">Surname</td>
+            <td th:text = "${employeeInfo.pesel}">PESEL</td>
+            <td th:text = "${employeeInfo.phoneNumber}">Phone Number</td>
+            <td th:text = "${employeeInfo.email}">Email</td>
+            <td th:text = "${employeeInfo.type}">Type</td>
+            <td th:text = "${employeeInfo.employmentDate}">Employment date</td>
+            <td th:text = "KADSDALS">Actions</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
-</body>
+<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
 
+</div>
+</body>
 </html>

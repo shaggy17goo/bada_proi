@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New User</title>
+    <link href="../culturalCenter.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+</head>
+<body>
+<header>
+    <div th:include="menu"></div>
+</header>
+<div class="pt-5"></div>
+
+<!-- Page header-->
+<h1 th:align="center">Add new employee</h1>
+<!-- Empty lines-->
+<br/>
+<div class="container">
+    <form class="form-horizontal" role="form" action="#" th:action="@{/saveNewEmployee}" th:object="${employeeInfo}"
+          method="post">
+        <h2>Employee data</h2>
+        <div class="form-group pl-3">
+            <label for="username" class="col-sm-5 control-label">Username</label>
+            <div class="col-sm-11">
+                <input type="text" id="username" th:field="*{username}" placeholder="Username" class="form-control"
+                       autofocus>
+            </div>
+        </div>
+        <div class="form-group pl-3">
+            <label for="password" class="col-sm-5 control-label">Passoword</label>
+            <div class="col-sm-11">
+                <input type="password" id="password" th:field="*{password}" placeholder="Password" class="form-control"
+                       autofocus>
+            </div>
+        </div>
+
+        <div class="form-group pl-3">
+            <label for="type" class="col-sm-5 control-label">Employee Type</label>
+            <div class="col-sm-11">
+                <select class="form-control" id="type" th:field="*{type}">
+                    <option th:value="'PROWADZACY'">PROWADZACY</option>
+                    <option th:value="'KSIEGOWY'">KSIEGOWY</option>
+                    <option th:value="'WOZNY'">WOZNY</option>
+                    <option th:value="'INNY'">INNY</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group pl-3">
+            <label for="firstName" class="col-sm-5 control-label">First name</label>
+            <div class="col-sm-11">
+                <input type="text" id="firstName" th:field="*{name}" placeholder="Name" class="form-control">
+            </div>
+        </div>
+        <div class="form-group pl-3">
+            <label for="surname" class="col-sm-5 control-label">Surname</label>
+            <div class="col-sm-11">
+                <input type="text" id="surname" th:field="*{surname}" placeholder="Surname" class="form-control">
+            </div>
+        </div>
+        <div class="form-group pl-3">
+            <label for="birthDate" class="col-sm-5 control-label">Date of Birth</label>
+            <div class="col-sm-11">
+                <input type="date" id="birthDate" th:field="*{birthDate}" class="form-control">
+            </div>
+        </div>
+        <div class="form-group pl-3">
+            <label for="pesel" class="col-sm-5 control-label">PESEL</label>
+            <div class="col-sm-11">
+                <input type="text" id="pesel" th:field="*{pesel}" placeholder="PESEL" class="form-control">
+            </div>
+        </div>
+        <div class="form-group pl-3">
+            <label for="phoneNumber" class="col-sm-5 control-label">Phone number</label>
+            <div class="col-sm-11">
+                <input type="text" id="phoneNumber" th:field="*{phoneNumber}" placeholder="Phone number"
+                       class="form-control">
+            </div>
+        </div>
+        <div class="form-group pl-3">
+            <label for="email" class="col-sm-5 control-label">Email</label>
+            <div class="col-sm-11">
+                <input type="email" id="email" th:field="*{email}" placeholder="Email" class="form-control">
+            </div>
+        </div>
+        <div class="form-group pl-3">
+            <label for="employmentDate" class="col-sm-5 control-label">Employment Date</label>
+            <div class="col-sm-11">
+                <input type="date" id="employmentDate" th:field="*{employmentDate}" placeholder="Employment Date" class="form-control">
+            </div>
+        </div>
+        <div class="form-group pl-3">
+            <label for="accountNumber" class="col-sm-5 control-label">Account Number</label>
+            <div class="col-sm-11">
+                <input type="text" id="accountNumber" th:field="*{accountNumber}" placeholder="Account Number" class="form-control">
+            </div>
+        </div>
+        <div class="form-group pl-3">
+            <label for="city" class="col-sm-5 control-label">City</label>
+            <div class="col-sm-11">
+                <input type="text" id="city" th:field="*{city}" placeholder="City" class="form-control">
+            </div>
+        </div>
+        <div class="form-group pl-3">
+            <label for="street" class="col-sm-5 control-label">Street</label>
+            <div class="col-sm-11">
+                <input type="text" id="street" th:field="*{street}" placeholder="Street" class="form-control">
+            </div>
+        </div>
+        <div class="form-group pl-3">
+            <label for="houseNumber" class="col-sm-5 control-label">House number</label>
+            <div class="col-sm-11">
+                <input type="text" id="houseNumber" th:field="*{houseNumber}" placeholder="House number"
+                       class="form-control">
+            </div>
+        </div>
+        <div class="form-group pl-3">
+            <label for="code" class="col-sm-5 control-label">Postcode</label>
+            <div class="col-sm-11">
+                <input type="text" id="code" th:field="*{code}" placeholder="Post code" class="form-control">
+            </div>
+        </div>
+        <div class="form-group pl-3">
+            <label for="postCity" class="col-sm-5 control-label">Post Office City</label>
+            <div class="col-sm-11">
+                <input type="text" id="postCity" th:field="*{postCity}" placeholder="Post office city" class="form-control">
+            </div>
+        </div>
+        <div class="form-group pl-3">
+            <label class="control-label col-sm-5">Gender</label>
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <label class="radio-inline">
+                            <input type="radio" id="maleRadio" th:field="*{gender}" value="M">Male
+                        </label>
+                    </div>
+                    <div class="col-sm-5">
+                        <label class="radio-inline">
+                            <input type="radio" id="femaleRadio" th:field="*{gender}" value="K">Female
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- /.form-group pl-3 -->
+        <button type="submit" class="btn btn-primary btn-block">Create Employment Account</button>
+    </form> <!-- /form -->
+</div>
+</body>
+</html>

@@ -54,6 +54,8 @@ public class AppController {
     private SalaryDAO salaryDAO;
     @Autowired
     private DatesDAO datesDAO;
+    @Autowired
+    private EmployeeDAO employeeDAO;
 
     @RequestMapping("/newPostOffice")
     public String showNewPostOfficeForm(Model model) {
@@ -103,9 +105,10 @@ public class AppController {
         return "index";
     }
 
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    @RequestMapping(value = {"/admin", "adminPage"}, method = RequestMethod.GET)
     public String adminPage(Model model) {
-        //List<EmployeeInfo> employeeInfoList = employeeInfoDAO.list();
+        List<EmployeeInfo> employeeInfoList = employeeInfoDAO.list();
+        model.addAttribute("employeeInfoList", employeeInfoList);
         return "admin/adminPage";
     }
 
@@ -124,7 +127,6 @@ public class AppController {
 
     @RequestMapping(value = "/saveNewUser", method = RequestMethod.POST)
     public String saveNewUser(@ModelAttribute("appUser") ParticipantRegistration pr) {
-
 
         int userId = appUserDAO.getNextSeqId() + 1;
         AppUser user = new AppUser(pr.getLogin(), pr.getPassword());
@@ -346,6 +348,39 @@ public class AppController {
 
 
 
+
+
+    @RequestMapping(value = "/addEmployee", method = RequestMethod.GET)
+    public String addEmployee(Model model) {
+        EmployeeInfo employeeInfo = new EmployeeInfo();
+        model.addAttribute("employeeInfo", employeeInfo);
+        return "/forms/newEmployeeFormPage";
+    }
+
+    @RequestMapping(value = "/saveNewEmployee", method = RequestMethod.POST)
+    public String saveNewUser(Model model, @ModelAttribute("newEmployee") EmployeeInfo employeeInfo) {
+
+        int userId = appUserDAO.getNextSeqId() + 1;
+        AppUser user = new AppUser(employeeInfo.getUsername(), employeeInfo.getPassword());
+        appUserDAO.save(user);
+        userRoleDAO.save(new UserRole(userId, appRoleDAO.getRoleId("ROLE_EMPLOYEE").getRoleId()));
+
+        int postOfficeId = postOfficeDAO.getNextSeqId() + 1;
+        PostOffice postOffice = new PostOffice(0, employeeInfo.getCode(), employeeInfo.getPostCity());
+        postOfficeDAO.save(postOffice);
+
+        int addressId = addressDAO.getNextSeqId() + 1;
+        Address address = new Address(0, employeeInfo.getCity(), employeeInfo.getStreet(), employeeInfo.getHouseNumber(), postOfficeId);
+        addressDAO.save(address);
+
+        Employee employee = new Employee(0, employeeInfo.getType(), employeeInfo.getName(), employeeInfo.getSurname(), employeeInfo.getBirthDate(),
+                employeeInfo.getPesel(), employeeInfo.getGender(), employeeInfo.getPhoneNumber(), employeeInfo.getEmail(), employeeInfo.getEmploymentDate(),
+                employeeInfo.getAccountNumber(), 1, addressId);
+        employee.setUserId(userId);
+        employeeDAO.save(employee);
+
+        return adminPage(model);
+    }
 
 
 

@@ -6,8 +6,11 @@ import java.sql.Date;
 
 public class EmployeeInfo {
     private int employeeId;
-    private int userId;
+    @Nullable
+    private Integer userId;
+    @Nullable
     private String username;
+    private String password;
     private String type;
     private String name;
     private String surname;
@@ -26,10 +29,11 @@ public class EmployeeInfo {
     private String code;
     private String postCity;
 
-    public EmployeeInfo(int employeeId, int userId, String username, String type, String name, String surname, Date birthDate, @Nullable String pesel, String gender, String phoneNumber, @Nullable String email, Date employmentDate, String accountNumber, String city, String street, String houseNumber, String code, String postCity) {
+    public EmployeeInfo(int employeeId, @Nullable Integer userId, @Nullable String username, String password, String type, String name, String surname, Date birthDate, @Nullable String pesel, String gender, String phoneNumber, @Nullable String email, Date employmentDate, String accountNumber, String city, String street, String houseNumber, String code, String postCity) {
         this.employeeId = employeeId;
         this.userId = userId;
         this.username = username;
+        this.password = password;
         this.type = type;
         this.name = name;
         this.surname = surname;
@@ -58,20 +62,30 @@ public class EmployeeInfo {
         this.employeeId = employeeId;
     }
 
-    public int getUserId() {
+    @Nullable
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(@Nullable Integer userId) {
         this.userId = userId;
     }
 
+    @Nullable
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(@Nullable String username) {
         this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getType() {
