@@ -63,6 +63,12 @@ public class SalaryDAO {//[DAO] Data Access Object – komponent dostarczający 
         String sql = "SELECT * FROM SALARIES WHERE EMPLOYEEID = " + employeeId;
         return jdbcTemplate.query(sql,BeanPropertyRowMapper.newInstance(Salary.class));
     }
+    public int getNextSeqId() {
+        String sql = "SELECT SALARIESSEQ3.nextVal FROM DUAL";
+        Integer ID = jdbcTemplate.queryForObject(sql,new Object[]{}, Integer.class);
+        int id = ID.intValue();
+        return id;
+    }
 
 
 }

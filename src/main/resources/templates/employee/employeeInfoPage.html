@@ -98,7 +98,7 @@
 
         <div class="pt-3"></div>
 
-        <h2>Salaries</h2>
+        <h2>Payments</h2>
         <table class="table-striped" width = 50%>
             <thead class="thead-dark">
             <tr>
@@ -109,9 +109,9 @@
             </thead>
             <tbody>
             <tr th:each="salary : ${salaries}">
-                <td th:text = "${salary.dateOfPayment}">Name</td>
-                <td th:text = "${salary.standardAmount} " >Max Participants</td>
-                <td th:text = "${salary.extraAmount}">Classroom #</td>
+                <td th:text = "${salary.dateOfPayment}">Date</td>
+                <td th:text = "${salary.standardAmount} + '€'" >Standard amount</td>
+                <td th:text = "${salary.extraAmount}+ '€'">Extra amount</td>
             </tr>
             </tbody>
         </table>

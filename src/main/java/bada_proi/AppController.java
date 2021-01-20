@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -128,10 +129,22 @@ public class AppController {
         return adminPage(model);
     }
 
+    @RequestMapping(value = "/payEmployee", method = RequestMethod.POST)
+    public String payEmployee(Model model, @ModelAttribute("salary") Salary salary) {
+        salary.setDateOfPayment(new Date(System.currentTimeMillis()));
+        int salaryId = salaryDAO.getNextSeqId() + 1;
+        salary.setSalaryId(salaryId);
+        salaryDAO.save(salary);
+        return adminPage(model);
+    }
+
+
     @RequestMapping(value = {"/admin", "adminPage"}, method = RequestMethod.GET)
     public String adminPage(Model model) {
         List<EmployeeInfo> employeeInfoList = employeeInfoDAO.list();
         model.addAttribute("employeeInfoList", employeeInfoList);
+        Salary salary = new Salary();
+        model.addAttribute("salary", salary);
         return "admin/adminPage";
     }
 

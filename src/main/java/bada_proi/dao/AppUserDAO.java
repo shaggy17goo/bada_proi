@@ -68,7 +68,6 @@ public class AppUserDAO {
         String sql = "SELECT USERSSEQ12.nextVal FROM DUAL";
         Integer ID = jdbcTemplate.queryForObject(sql,new Object[]{}, Integer.class);
         int id = ID.intValue();
-        System.out.println(id);
         return id;
     }
 
