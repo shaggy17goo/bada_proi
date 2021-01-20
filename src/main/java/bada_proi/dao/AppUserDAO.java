@@ -52,7 +52,7 @@ public class AppUserDAO {
     /** Update */
     public void update(AppUser appUser){
         String sql = "UPDATE appUsers SET username=:username, encryptedPassword=:encryptedPassword," +
-                "enabled=:enabled, WHERE userId=:userId";
+                "enabled=:enabled WHERE userId=:userId";
 
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(appUser);
         NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(jdbcTemplate);

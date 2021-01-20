@@ -35,5 +35,4 @@ public class ParticipantInfoDAO {
         return jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(ParticipantInfo.class));
     }
 
-
 }

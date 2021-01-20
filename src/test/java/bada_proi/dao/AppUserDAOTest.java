@@ -49,12 +49,12 @@ class AppUserDAOTest {
 
     @Test
     void update() {
-        /*AppUser appUser = new AppUser();
+        AppUser appUser = new AppUser();
         appUser.setUserId(1);
         appUser.setUsername("user1");
         appUser.setEncryptedPassword("$2a$10$8HS4jDGmmkBiO9m9Vck0xOFxwlVQHKtcsAa.L5RUo5jI2bBrvPwde");
         appUser.setEnabled(1);
-        dao.update(appUser);*/
+        dao.update(appUser);
     }
 
     @Test

@@ -23,7 +23,6 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Controller
 public class AppController {
@@ -170,7 +169,7 @@ public class AppController {
             case "ROLE_PARTICIPANT":
                 ParticipantInfo participantInfo = participantInfoDAO.get(userLogin);
                 model.addAttribute("participantInfo", participantInfo);
-                return "user/participantInfoPage";
+                return "participant/participantInfoPage";
             case "ROLE_EMPLOYEE":
 
                 EmployeeInfo employeeInfo = employeeInfoDAO.get(userLogin);
@@ -178,7 +177,7 @@ public class AppController {
 
                 model.addAttribute("employeeInfo", employeeInfo);
                 model.addAttribute("salaries", salaries);
-                return "user/employeeInfoPage";
+                return "employee/employeeInfoPage";
             default:
                 return "/";
         }
@@ -197,9 +196,9 @@ public class AppController {
         User loginUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = loginUser.getUsername();
         ParticipantInfo participantInfo = participantInfoDAO.get(username);
-        participantRealizationDAO.save(new ParticipantRealization(participantInfo.getParticipantId(),id));
+        participantRealizationDAO.save(new ParticipantRealization(participantInfo.getParticipantId(), id));
         int courseId = courseDAO.getCourseInfoListFromRealizationId(id).get(0).getCourseId();
-        return showCourseRealizationPage(model,courseId);
+        return showCourseRealizationPage(model, courseId);
     }
 
     @RequestMapping("/signOutOfCourse/{page}/{courseRealizationId}")
@@ -207,12 +206,12 @@ public class AppController {
         User loginUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = loginUser.getUsername();
         ParticipantInfo participantInfo = participantInfoDAO.get(username);
-        participantRealizationDAO.delete(participantInfo.getParticipantId(),id);
-        if(page.equals("yourCourses")) // yourCourses  allCourses
+        participantRealizationDAO.delete(participantInfo.getParticipantId(), id);
+        if (page.equals("yourCourses")) // yourCourses  allCourses
             return viewYourCourses(model);
-        else{
+        else {
             int courseId = courseDAO.getCourseInfoListFromRealizationId(id).get(0).getCourseId();
-            return showCourseRealizationPage(model,courseId);
+            return showCourseRealizationPage(model, courseId);
         }
     }
 
@@ -222,9 +221,9 @@ public class AppController {
         List<ParticipantInfo> participantsInfo = courseRealizationDAO.getParticipantsInfoByCourseRealization(id);
         List<Dates> dates = datesDAO.getDatesByRealizationId(id);
 
-        List<String> instructors= new ArrayList<>();
-        for (CourseInfo realization:realizationsList) {
-            instructors.add(realization.getEmployeeName()+' '+realization.getSurname());
+        List<String> instructors = new ArrayList<>();
+        for (CourseInfo realization : realizationsList) {
+            instructors.add(realization.getEmployeeName() + ' ' + realization.getSurname());
         }
 
 
@@ -240,7 +239,7 @@ public class AppController {
     @RequestMapping("/courseRalization/{courseId}")
     public String showCourseRealizationPage(Model model, @PathVariable(name = "courseId") int id) {
         List<CourseInfo> realizationsList = courseRealizationDAO.getRealizationListByCourseId(id);
-        if(!(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof User)){
+        if (!(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof User)) {
             model.addAttribute("courseInfoList", realizationsList);
             return "default/courseRealizationTable";
         }
@@ -255,7 +254,7 @@ public class AppController {
             List<ParticipantRealization> participantCourses = participantRealizationDAO.participantCourses(userId);
 
             List<Integer> participantCoursesId = new ArrayList<>();
-            for (ParticipantRealization participantCourse:participantCourses) {
+            for (ParticipantRealization participantCourse : participantCourses) {
                 participantCoursesId.add(participantCourse.getRealizationId());
             }
 
@@ -270,8 +269,7 @@ public class AppController {
 
             model.addAttribute("activeCoursesList", activeCoursesList);
             model.addAttribute("courseInfoList", anotherCoursesList);
-        }
-        else{
+        } else {
             model.addAttribute("courseInfoList", realizationsList);
         }
 
@@ -303,12 +301,51 @@ public class AppController {
         model.addAttribute("yourCourseInfoList", yourCourseInfoList);
         return "default/yourCoursesPage";
     }
+
     @RequestMapping("/listOfParticipants/{courseId}")
     public String showListOfCourseParticipants(Model model, @PathVariable(name = "courseId") int id) {
         List<ParticipantInfo> participantInfoList = courseRealizationDAO.getParticipantsInfoByCourseRealization(id);
         model.addAttribute("participantInfoList", participantInfoList);
         return "";
     }
+
+    @RequestMapping(value = "/editUserInfo", method = RequestMethod.GET)
+    public String editUserInfo(Model model) {
+        User loginUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = loginUser.getUsername();
+        AppUser appUser = appUserDAO.get(username);
+        ParticipantInfo pI = participantInfoDAO.get(username);
+        ParticipantRegistration pr = new ParticipantRegistration(username, appUser.getPassword(), pI.getName(), pI.getSurname(), pI.getBirthDate(), pI.getPesel(), pI.getGender(), pI.getPhoneNumber(), pI.getEmail(), pI.getCity(), pI.getStreet(), pI.getHouseNumber(), pI.getCode(), pI.getPostCity());
+        model.addAttribute("pr", pr);
+        return "forms/changeUserDataFormPage";
+    }
+
+    @RequestMapping(value = "/updateUserInfo", method = RequestMethod.POST)
+    public String updateUserInfo(Model model, @ModelAttribute("pr") ParticipantRegistration pr) {
+        User loginUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = loginUser.getUsername();
+        ParticipantInfo participantInfo = participantInfoDAO.get(username);
+        AppUser appUser = appUserDAO.get(username);
+        appUser.setPassword(pr.getPassword());
+        appUser.setUsername(pr.getLogin());
+        Participant participant = participantDAO.get(participantInfo.getParticipantId());
+        Address address = addressDAO.get(participant.getAddressId());
+        PostOffice postOffice = postOfficeDAO.get(address.getPostOfficeId());
+        postOffice = new PostOffice(postOffice.getPostOfficeId(), pr.getPostCode(), pr.getPostCity());
+        address = new Address(address.getAddressId(), pr.getCity(), pr.getStreet(), pr.getHouseNumber(), postOffice.getPostOfficeId());
+        participant = new Participant(participant.getParticipantId(), pr.getName(), pr.getSurname(), pr.getBirthDate(), pr.getPesel(), pr.getGender(), pr.getPhoneNumber(), pr.getEmail(), address.getAddressId());
+        participant.setUserId(appUser.getUserId());
+        postOfficeDAO.update(postOffice);
+        addressDAO.update(address);
+        participantDAO.update(participant);
+        appUserDAO.update(appUser);
+
+        return userInfo(model);
+    }
+
+
+
+
 
 
 
