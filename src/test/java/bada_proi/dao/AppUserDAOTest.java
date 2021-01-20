@@ -27,9 +27,9 @@ class AppUserDAOTest {
 
     @Test
     void list() {
-        /*List<AppUser> appUserList = dao.list();
+        List<AppUser> appUserList = dao.list();
         System.out.println(appUserList);
-        assertFalse(appUserList.isEmpty());*/
+        assertFalse(appUserList.isEmpty());
     }
 
     @Test
@@ -49,12 +49,12 @@ class AppUserDAOTest {
 
     @Test
     void update() {
-        AppUser appUser = new AppUser();
+      /*  AppUser appUser = new AppUser();
         appUser.setUserId(1);
-        appUser.setUsername("user1");
-        appUser.setEncryptedPassword("$2a$10$8HS4jDGmmkBiO9m9Vck0xOFxwlVQHKtcsAa.L5RUo5jI2bBrvPwde");
+        appUser.setUsername("admin");
+        appUser.setEncryptedPassword("$2a$10$urLse621bEyry2/X.eFIo.jRt45VYPvG8BPhbdqnWwdG0CBUtp1cK");
         appUser.setEnabled(1);
-        dao.update(appUser);
+        dao.update(appUser);*/
     }
 
     @Test
