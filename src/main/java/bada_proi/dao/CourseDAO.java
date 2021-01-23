@@ -39,7 +39,7 @@ public class CourseDAO {//[DAO] Data Access Object – komponent dostarczający 
      */
     public void save(Course course) {
         SimpleJdbcInsert insertActor = new SimpleJdbcInsert(jdbcTemplate);
-        insertActor.withTableName("courses").usingColumns("courseId", "name", "maxParticipants", "description", "culturalCenterId");
+        insertActor.withTableName("courses").usingColumns("courseId", "name", "maxParticipants", "description", "photoURL", "culturalCenterId");
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(course);
         insertActor.execute(param);
     }
