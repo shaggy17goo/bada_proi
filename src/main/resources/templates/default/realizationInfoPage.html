@@ -9,7 +9,7 @@
 
     <!-- Bootstrap CSS -->
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
-    <link href="static/culturalCenter.css" rel="stylesheet">
+    <link href="../../static/culturalCenter.css" rel="stylesheet">
     <title>Course realizations</title>
 </head>
 <body>
@@ -73,7 +73,7 @@
         </div>
     </div>
 
-    <div class="col-4"  >
+    <div class="col-4"  th:if="${#request.userPrincipal != null}">
         <h2>Dates:</h2>
         <table class="table-striped" width = 50% align="center">
             <thead class="thead-dark">
