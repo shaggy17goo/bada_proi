@@ -5,13 +5,15 @@ public class Course {
     private String name;
     private int maxParticipants;
     private String description;
+    private String photoURL;
     private int culturalCenterId;
 
-    public Course(int courseId, String name, int maxParticipants, String description, int culturalCenterId) {
+    public Course(int courseId, String name, int maxParticipants, String description, String photoURL, int culturalCenterId) {
         this.courseId = courseId;
         this.name = name;
         this.maxParticipants = maxParticipants;
         this.description = description;
+        this.photoURL = photoURL;
         this.culturalCenterId = culturalCenterId;
     }
 
@@ -50,6 +52,14 @@ public class Course {
         this.description = description;
     }
 
+    public String getPhotoURL() {
+        return photoURL;
+    }
+
+    public void setPhotoURL(String photoURL) {
+        this.photoURL = photoURL;
+    }
+
     public int getCulturalCenterId() {
         return culturalCenterId;
     }
@@ -66,6 +76,7 @@ public class Course {
                 ", name='" + name + '\'' +
                 ", maxParticipants=" + maxParticipants +
                 ", description='" + description + '\'' +
+                ", photoURL='" + photoURL + '\'' +
                 ", culturalCenterId=" + culturalCenterId +
                 '}';
     }

@@ -229,7 +229,7 @@ public class AppController {
         model.addAttribute("instructors", instructors);
         model.addAttribute("participantsInfo", participantsInfo);
 
-        return "/default/realizationInfoPage";
+        return "default/realizationInfoPage";
     }
 
 
@@ -355,7 +355,7 @@ public class AppController {
     public String addEmployee(Model model) {
         EmployeeInfo employeeInfo = new EmployeeInfo();
         model.addAttribute("employeeInfo", employeeInfo);
-        return "/forms/newEmployeeFormPage";
+        return "forms/newEmployeeFormPage";
     }
 
     @RequestMapping(value = "/saveNewEmployee", method = RequestMethod.POST)
