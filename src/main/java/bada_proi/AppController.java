@@ -77,8 +77,8 @@ public class AppController {
             salaryDAO.delete(salary.getSalaryId());
         }
         employeeDAO.delete(employeeId);
-        addressDAO.delete(employee.getAddressId());
-        postOfficeDAO.delete(address.getPostOfficeId());
+       // addressDAO.delete(employee.getAddressId());
+        //postOfficeDAO.delete(address.getPostOfficeId());
 
         if(employee.getUserId() != null){
             userRoleDAO.delete(employee.getUserId());
