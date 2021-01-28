@@ -38,8 +38,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         appUserDAO = new AppUserDAO(new JdbcTemplate(dataSource));
         appRoleDAO = new AppRoleDAO(new JdbcTemplate(dataSource));
-
-        AppUser appUser = this.appUserDAO.get(userName);
+        AppUser appUser;
+        try {
+            appUser = this.appUserDAO.get(userName);
+        }
+        catch (Exception e){
+            appUser = null;
+        }
 
         if (appUser == null) {
             System.out.println("User not found! " + userName);
