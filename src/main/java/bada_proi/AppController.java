@@ -411,6 +411,11 @@ public class AppController implements ErrorController {
 
         return "errors/SQLerror";
     }
+    @ExceptionHandler({org.springframework.validation.BindException.class})
+    public String formError() {
+
+        return "errors/formError";
+    }
 
     @RequestMapping("/error")
     public String handleError() {
