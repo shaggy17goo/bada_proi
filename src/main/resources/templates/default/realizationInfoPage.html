@@ -11,7 +11,6 @@
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
     <link href="../../static/culturalCenter.css" rel="stylesheet">
     <title>Course realizations</title>
-
 </head>
 <body>
 <header>
@@ -44,96 +43,82 @@
 </div>
 
 
-<div class="container-sm">
-    <div class="card-deck mb-3 text-center">
-        <div class="card mb-4 box-shadow">
-            <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Instructors:</h4>
-            </div>
-            <div class="card-body">
-                <ul class="list-unstyled mt-3 mb-4">
-                    <table class="table-striped" width = 100%>
-                        <tbody>
-                        <tr th:each="instructor : ${instructors}">
-                            <td th:text = "${instructor}" > Instructor: </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </ul>
-            </div>
+<div class="row" align="center">
+    <div class="col-4">
+        <h2>Instructors:</h2>
+        <div>
+            <table class="table-striped" width = 50%>
+                <tbody>
+                <tr th:each="instructor : ${instructors}">
+                    <td th:text = "${instructor}" > Instructor: </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="card mb-4 box-shadow">
-            <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Description:</h4>
-            </div>
-            <div class="card-body">
-                <ul class="list-unstyled mt-3 mb-4">
-                    <table class="table-striped" width = 100%>
-                        <tbody>
-                        <tr th:object="${realizationInfo}">
-                            <td th:text = "${realizationInfo.courseDescription}">Description</td>
-                        </tr>
-                        <tr th:object="${realizationInfo}">
-                            <td th:text = "${realizationInfo.realizationDescription}">Description</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </ul>
-            </div>
-        </div>
-        <div class="card mb-4 box-shadow" th:if="${#request.userPrincipal != null}">
-            <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Dates:</h4>
-            </div>
-            <div class="card-body">
-                <ul class="list-unstyled mt-3 mb-4">
-                    <table class="table-striped" width = 100% align="center">
-                        <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">Begin</th>
-                            <th scope="col">End</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each=" date : ${dates}">
-                            <td th:text = "${#dates.format(date.getStartDate(),'dd-MM-yyyy HH:mm')}"></td>
-                            <td th:text = "${#dates.format(date.getFinishDate(),'dd-MM-yyyy HH:mm')}"></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </ul>
-            </div>
-        </div>
-        <div class="card mb-4 box-shadow" th:if="${#request.isUserInRole('ROLE_ADMIN') || #request.isUserInRole('ROLE_EMPLOYEE')}">
-            <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Participants:</h4>
-            </div>
-            <div class="card-body">
-                <ul class="list-unstyled mt-3 mb-4">
-                    <div th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} ">
-                        <table class="table-striped" width = 100%>
-                            <tbody>
-                            <tr th:each="participant : ${participantsInfo}">
-                                <td th:text = "${participant.name} + ' ' + ${participant.surname}" > Participant: </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+    </div>
 
-                    <div th:if="${#request.isUserInRole('ROLE_ADMIN') || #request.isUserInRole('ROLE_EMPLOYEE')}">
-                        <table class="table-striped" width = 100%>
-                            <tbody>
-                            <tr th:each="participant : ${participantsInfo}">
-                                <td th:text = "${participant.name} + ' ' + ${participant.surname} + ' ' + ${participant.phoneNumber}" > Participant: </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </ul>
-            </div>
+    <div class="col-4">
+        <h2>Description:</h2>
+        <div>
+            <table class="table-striped" width = 50%>
+                <tbody>
+                <tr th:object="${realizationInfo}">
+                    <td th:text = "${realizationInfo.courseDescription}">Description</td>
+                </tr>
+                <tr th:object="${realizationInfo}">
+                    <td th:text = "${realizationInfo.realizationDescription}">Description</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-4"  th:if="${#request.userPrincipal != null}">
+        <h2>Dates:</h2>
+        <table class="table-striped" width = 50% align="center">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Begin</th>
+                <th scope="col">End</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each=" date : ${dates}">
+                <td th:text = "${#dates.format(date.getStartDate(),'dd-MM-yyyy HH:mm')}"></td>
+                <td th:text = "${#dates.format(date.getFinishDate(),'dd-MM-yyyy HH:mm')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-4"  >
+    </div>
+
+    <div class="col-4"  >
+        <h2 th:if="${#request.userPrincipal != null}">Participants:</h2>
+        <div th:if="${#request.isUserInRole('ROLE_PARTICIPANT')} ">
+            <table class="table-striped" width = 50%>
+                <tbody>
+                <tr th:each="participant : ${participantsInfo}">
+                    <td th:text = "${participant.name} + ' ' + ${participant.surname}" > Participant: </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div th:if="${#request.isUserInRole('ROLE_ADMIN') || #request.isUserInRole('ROLE_EMPLOYEE')}">
+            <table class="table-striped" width = 50%>
+                <tbody>
+                <tr th:each="participant : ${participantsInfo}">
+                    <td th:text = "${participant.name} + ' ' + ${participant.surname} + ' ' + ${participant.phoneNumber}" > Participant: </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
+
 
 
 <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
