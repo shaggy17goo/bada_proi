@@ -69,18 +69,18 @@ public class AppController implements ErrorController {
         Employee employee = employeeDAO.get(employeeId);
         Address address = addressDAO.get(employee.getAddressId());
         List<EmployeeRealization> employeeRealizationList = employeeRealizationDAO.employeeCourses(employeeId);
-        for(EmployeeRealization emRe : employeeRealizationList){
-            employeeRealizationDAO.delete(employeeId,emRe.getRealizationId());
+        for (EmployeeRealization emRe : employeeRealizationList) {
+            employeeRealizationDAO.delete(employeeId, emRe.getRealizationId());
         }
         List<Salary> salaryList = salaryDAO.getSalariesByEmployeeId(employeeId);
-        for(Salary salary : salaryList){
+        for (Salary salary : salaryList) {
             salaryDAO.delete(salary.getSalaryId());
         }
         employeeDAO.delete(employeeId);
-       // addressDAO.delete(employee.getAddressId());
+        // addressDAO.delete(employee.getAddressId());
         //postOfficeDAO.delete(address.getPostOfficeId());
 
-        if(employee.getUserId() != null){
+        if (employee.getUserId() != null) {
             userRoleDAO.delete(employee.getUserId());
             appUserDAO.delete(employee.getUserId());
         }
@@ -122,17 +122,19 @@ public class AppController implements ErrorController {
 
     @RequestMapping(value = "/saveNewUser", method = RequestMethod.POST)
     public String saveNewUser(@ModelAttribute("appUser") ParticipantRegistration pr) {
-
         int userId = appUserDAO.getNextSeqId() + 1;
+        int postOfficeId = postOfficeDAO.getNextSeqId() + 1;
+        int addressId = addressDAO.getNextSeqId() + 1;
+
         AppUser user = new AppUser(pr.getLogin(), pr.getPassword());
         appUserDAO.save(user);
-        userRoleDAO.save(new UserRole(userId, appRoleDAO.getRoleId("ROLE_PARTICIPANT").getRoleId()));
+        userRoleDAO.save(new UserRole(0, appRoleDAO.getRoleId("ROLE_PARTICIPANT").getRoleId()));
 
-        int postOfficeId = postOfficeDAO.getNextSeqId() + 1;
+
         PostOffice postOffice = new PostOffice(0, pr.getPostCode(), pr.getPostCity());
         postOfficeDAO.save(postOffice);
 
-        int addressId = addressDAO.getNextSeqId() + 1;
+
         Address address = new Address(0, pr.getCity(), pr.getStreet(), pr.getHouseNumber(), postOfficeId);
         addressDAO.save(address);
 
@@ -233,8 +235,6 @@ public class AppController implements ErrorController {
     }
 
 
-
-
     @RequestMapping("/courseRalization/{courseId}")
     public String showCourseRealizationPage(Model model, @PathVariable(name = "courseId") int id) {
         List<CourseInfo> realizationsList = courseRealizationDAO.getRealizationListByCourseId(id);
@@ -250,7 +250,7 @@ public class AppController implements ErrorController {
         int userId = -1;
         if (userRole.equals("ROLE_ADMIN")) {
             EmployeeRealization employeeRealization = new EmployeeRealization();
-            model.addAttribute("employeeRealization",employeeRealization);
+            model.addAttribute("employeeRealization", employeeRealization);
         }
         if (userRole.equals("ROLE_PARTICIPANT")) {
             userId = participantInfoDAO.get(userUsername).getParticipantId();
@@ -347,10 +347,6 @@ public class AppController implements ErrorController {
     }
 
 
-
-
-
-
     @RequestMapping(value = "/addEmployee", method = RequestMethod.GET)
     public String addEmployee(Model model) {
         EmployeeInfo employeeInfo = new EmployeeInfo();
@@ -383,7 +379,7 @@ public class AppController implements ErrorController {
         return adminPage(model);
     }
 
-    @RequestMapping(value ="/403", method = RequestMethod.GET)
+    @RequestMapping(value = "/403", method = RequestMethod.GET)
     public String accessDenied(Model model, Principal principal) {
 
         if (principal != null) {
@@ -406,11 +402,19 @@ public class AppController implements ErrorController {
     public String genericError() {
         return "errors/404error";
     }
-    @ExceptionHandler({DataAccessException.class, SQLException.class, org.springframework.core.convert.ConversionFailedException.class})
-    public String databaseError() {
+
+    @ExceptionHandler({SQLException.class, org.springframework.core.convert.ConversionFailedException.class})
+    public String sqlError() {
 
         return "errors/SQLerror";
     }
+
+    @ExceptionHandler({DataAccessException.class, java.sql.SQLRecoverableException.class, org.springframework.dao.DataAccessException.class})
+    public String databaseError() {
+
+        return "errors/databaseError";
+    }
+
     @ExceptionHandler({org.springframework.validation.BindException.class})
     public String formError() {
 
