@@ -68,7 +68,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")//
                 .passwordParameter("password")
                 // Config for Logout Page
-                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful")
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful");
 
     }

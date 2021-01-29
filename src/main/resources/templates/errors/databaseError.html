@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link href="../../static/culturalCenter.css" rel="stylesheet">
+    <style>
+        body {
+            background: #dedede;
+        }
+        .page-wrap {
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<header>
+    <div th:include="menu"></div>
+</header>
+<div class="page-wrap d-flex flex-row align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center">
+                <span class="display-1 d-block">Database error</span>
+                <div class="mb-4 lead">Could not access the database - Elka's server refused connection</div>
+                <a href="/" class="btn btn-link">Back to Home</a>
+            </div>
+        </div>
+    </div>
+</div>
